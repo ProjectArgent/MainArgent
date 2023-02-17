@@ -10,7 +10,7 @@ namespace Argent::Component::Renderer
 	{
 		data = std::make_unique<Data::Sprite::ArSpriteData>();
 		material = std::make_unique<Material::ArMaterial>(L"Resource/Sample256.png");
-		Dx12::ArRenderingPipeline::CreateGraphicsPipeline<Dx12::Sprite::ArDefaultGraphicsPipeline>(&graphicsPipeline, "Resource/Shader/SpriteVertex.cso", "Resource/Shader/SpritePixel.cso");
+		Dx12::ArRenderingPipeline::CreateGraphicsPipeline<Dx12::Sprite::ArDefaultGraphicsPipeline>(&renderingPipeline, "Resource/Shader/SpriteVertex.cso", "Resource/Shader/SpritePixel.cso");
 	}
 
 	ArSpriteRenderer::~ArSpriteRenderer()

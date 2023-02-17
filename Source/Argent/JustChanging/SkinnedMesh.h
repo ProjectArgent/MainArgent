@@ -6,9 +6,18 @@
 #include <vector>
 #include <string>
 #include <fbxsdk.h>
+#include <memory>
 
 #include <unordered_map>
-#include "../GameObject/Component/Renderer/Renderer.h"
+#include "../GameObject/Component/Renderer/ArRenderer.h"
+
+namespace Argent
+{
+	namespace Shader
+	{
+		class ArShader;
+	}
+}
 
 struct SkinnedScene
 {
@@ -99,7 +108,8 @@ struct Animation
 };
 
 class SkinnedMesh:
-	public Renderer
+	public Argent::Component::Renderer::ArRenderer
+	
 {
 	static constexpr int MaxBoneInfluences{ 4 };
 	struct Vertex
@@ -204,7 +214,7 @@ public:
 		const DirectX::XMFLOAT4X4& world, const DirectX::XMFLOAT4& color,
 		const Animation::Keyframe* keyframe);
 
-	void Render() override;
+	void Render();
 
 	void FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& meshes);
 	void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, Material>& materials);

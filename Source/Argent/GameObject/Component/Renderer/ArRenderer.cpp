@@ -24,8 +24,7 @@ namespace Argent::Component::Renderer
 {
 	ArRenderer::ArRenderer(const std::string& name):
 		ArComponent(name)
-		//,	pipelineState(nullptr)
-		//,	rootSignature(nullptr)
+	,	material(nullptr)
 	{}
 
 	ArRenderer::~ArRenderer()
@@ -36,7 +35,7 @@ namespace Argent::Component::Renderer
 
 	void ArRenderer::Render(ID3D12GraphicsCommandList* cmdList) const
 	{
-		graphicsPipeline->SetOnCommand(cmdList);
+		renderingPipeline->SetOnCommand(cmdList);
 	}
 
 }

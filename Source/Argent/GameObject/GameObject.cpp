@@ -3,7 +3,7 @@
 #include "../Graphic/ArGraphics.h"
 #include "../Other/ResourceManager.h"
 #include "Component/Core/Camera.h"
-#include "Component/Renderer/Renderer.h"
+#include "Component/Renderer/ArMeshRenderer.h"
 
 
 void GameObject::AddComponent(Argent::Component::ArComponent* com)
@@ -20,17 +20,17 @@ void GameObject::AddChild(GameObject* obj)
 
 GameObject* GameObject::Cube(const std::string& name)
 {
-	return new GameObject({new MeshRenderer(new Mesh( ResourceManager::Instance().GetMeshData("Cube")))}, name);
+	return new GameObject({new Argent::Component::Renderer::ArMeshRenderer(new Mesh( ResourceManager::Instance().GetMeshData("Cube")))}, name);
 }
 
 GameObject* GameObject::Sphere(const std::string& name)
 {
-	return new GameObject({ new MeshRenderer(new Mesh (ResourceManager::Instance().GetMeshData("Sphere"))) }, name);
+	return new GameObject({ new Argent::Component::Renderer::ArMeshRenderer(new Mesh (ResourceManager::Instance().GetMeshData("Sphere"))) }, name);
 }
 
 GameObject* GameObject::Capsule(const std::string& name)
 {
-	return new GameObject({ new MeshRenderer(new Mesh (ResourceManager::Instance().GetMeshData("Capsule"))) }, name);
+	return new GameObject({ new Argent::Component::Renderer::ArMeshRenderer(new Mesh (ResourceManager::Instance().GetMeshData("Capsule"))) }, name);
 }
 
 GameObject* GameObject::SceneCamera(const std::string& name, bool setSceneCamera)

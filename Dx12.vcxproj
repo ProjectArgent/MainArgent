@@ -44,7 +44,6 @@
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.cpp" />
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\Mesh.cpp" />
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\MeshData.cpp" />
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\Argent\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArGraphics.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArShader.cpp" />
@@ -55,8 +54,8 @@
     <ClCompile Include="Source\Argent\Graphic\FrameBuffer.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArFrameResource.cpp" />
     <ClCompile Include="Source\Argent\Input\Keyboard.cpp" />
-    <ClCompile Include="Source\Argent\JustChanging\FbxLoader.cpp" />
     <ClCompile Include="Source\Argent\JustChanging\SkinnedMesh.cpp" />
+    <ClCompile Include="Source\Argent\Loader\FbxLoader.cpp" />
     <ClCompile Include="Source\Argent\Other\ArResourceManager.cpp" />
     <ClCompile Include="Source\Argent\Other\ArHelper.cpp" />
     <ClCompile Include="Source\Argent\Other\ResourceManager.cpp" />
@@ -94,7 +93,6 @@
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.h" />
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\Mesh.h" />
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\MeshData.h" />
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Renderer.h" />
     <ClInclude Include="Source\Argent\GameObject\GameObject.h" />
     <ClInclude Include="Source\Argent\Graphic\ArGraphics.h" />
     <ClInclude Include="Source\Argent\Graphic\ArShader.h" />
@@ -105,8 +103,8 @@
     <ClInclude Include="Source\Argent\Graphic\FrameBuffer.h" />
     <ClInclude Include="Source\Argent\Graphic\ArFrameResource.h" />
     <ClInclude Include="Source\Argent\Input\Keyboard.h" />
-    <ClInclude Include="Source\Argent\JustChanging\FbxLoader.h" />
     <ClInclude Include="Source\Argent\JustChanging\SkinnedMesh.h" />
+    <ClInclude Include="Source\Argent\Loader\FbxLoader.h" />
     <ClInclude Include="Source\Argent\Other\ArResourceManager.h" />
     <ClInclude Include="Source\Argent\Other\ArHelper.h" />
     <ClInclude Include="Source\Argent\Other\Misc.h" />

@@ -49,6 +49,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{d5fe9055-d4b9-4cf8-9baa-d258a4b6c28e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Argent\Loader">
+      <UniqueIdentifier>{df64dc41-6dd9-49fa-9366-60baf68d508b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -136,9 +139,6 @@
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\ArSpriteRenderer.cpp">
       <Filter>Argent\GameObject\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Renderer.cpp">
-      <Filter>Argent\GameObject\Component\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\GameObject\GameObject.cpp">
       <Filter>Argent\GameObject\Component</Filter>
     </ClCompile>
@@ -169,9 +169,6 @@
     <ClCompile Include="Source\Argent\Input\Keyboard.cpp">
       <Filter>Argent\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\JustChanging\FbxLoader.cpp">
-      <Filter>Argent\JustChanging</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\JustChanging\SkinnedMesh.cpp">
       <Filter>Argent\JustChanging</Filter>
     </ClCompile>
@@ -186,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="Source\Title.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Loader\FbxLoader.cpp">
+      <Filter>Argent\Loader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -282,9 +282,6 @@
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\ArSpriteRenderer.h">
       <Filter>Argent\GameObject\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Renderer.h">
-      <Filter>Argent\GameObject\Component\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Argent\GameObject\GameObject.h">
       <Filter>Argent\GameObject\Component</Filter>
     </ClInclude>
@@ -315,9 +312,6 @@
     <ClInclude Include="Source\Argent\Input\Keyboard.h">
       <Filter>Argent\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\JustChanging\FbxLoader.h">
-      <Filter>Argent\JustChanging</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Argent\JustChanging\SkinnedMesh.h">
       <Filter>Argent\JustChanging</Filter>
     </ClInclude>
@@ -332,6 +326,9 @@
     </ClInclude>
     <ClInclude Include="Source\Title.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Loader\FbxLoader.h">
+      <Filter>Argent\Loader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

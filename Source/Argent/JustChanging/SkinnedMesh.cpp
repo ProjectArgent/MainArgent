@@ -9,7 +9,7 @@
 
 SkinnedMesh::SkinnedMesh(ID3D12Device* device, const char* filename, 
                          float samplingRate, bool triangulate):
-	Renderer("Mesh Renderer")
+	ArRenderer("name")
 {
 	FbxManager* manager{ FbxManager::Create() };
 	FbxScene* fbxScene{ FbxScene::Create(manager, "" ) };
@@ -29,20 +29,23 @@ SkinnedMesh::SkinnedMesh(ID3D12Device* device, const char* filename,
 		converter.RemoveBadPolygonsFromMeshes(fbxScene);
 	}
 
-	std::function<void(FbxNode*)> traverse{ [&](FbxNode* fbxNode){
-		SkinnedScene::Node& node{ sceneView.nodes.emplace_back() };
-		node.attribute = fbxNode->GetNodeAttribute() ?
-			fbxNode->GetNodeAttribute()->GetAttributeType() :
-			FbxNodeAttribute::EType::eUnknown;
-		node.name = fbxNode->GetName();
-		node.id = fbxNode->GetUniqueID();
-		node.parentIndex = sceneView.IndexOf(fbxNode->GetParent() ?
-			fbxNode->GetParent()->GetUniqueID() : 0);
-		for(int childIndex = 0; childIndex < fbxNode->GetChildCount(); ++childIndex)
+	std::function<void(FbxNode* fbxNode)> traverse
+	{ [&](FbxNode* fbxNode)
 		{
-			traverse(fbxNode->GetChild(childIndex));
+			SkinnedScene::Node& node{ sceneView.nodes.emplace_back() };
+			node.attribute = fbxNode->GetNodeAttribute() ?
+				fbxNode->GetNodeAttribute()->GetAttributeType() :
+				FbxNodeAttribute::EType::eUnknown;
+			node.name = fbxNode->GetName();
+			node.id = fbxNode->GetUniqueID();
+			node.parentIndex = sceneView.IndexOf(fbxNode->GetParent() ?
+				fbxNode->GetParent()->GetUniqueID() : 0);
+			for(int childIndex = 0; childIndex < fbxNode->GetChildCount(); ++childIndex)
+			{
+				traverse(fbxNode->GetChild(childIndex));
+			}
 		}
-	}};
+	};
 
 	traverse(fbxScene->GetRootNode());
 
@@ -103,7 +106,6 @@ void SkinnedMesh::Render(ID3D12GraphicsCommandList* cmdList,
 		DirectX::XMStoreFloat4x4(&constantMap->boneTransforms[0], B[0] * A[0]);
 		DirectX::XMStoreFloat4x4(&constantMap->boneTransforms[1], B[1] * A[1] * A[0]);
 		DirectX::XMStoreFloat4x4(&constantMap->boneTransforms[2], B[2] * A[2] * A[1] * A[0]);
-
 #endif
 
 		cmdList->SetDescriptorHeaps(1, constantHeap.GetAddressOf());
@@ -175,7 +177,6 @@ void SkinnedMesh::Render()
 
 	Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
 		material->color.color, &keyframe);
-	ArComponent::Render();
 }
 
 void SkinnedMesh::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& meshes)

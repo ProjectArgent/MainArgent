@@ -29,10 +29,7 @@ namespace Argent::Component
 #endif
 		protected:
 			std::unique_ptr<Material::ArMaterial> material;
-			std::unique_ptr<Shader::ArShader> vertexShader;
-			std::unique_ptr<Shader::ArShader> pixelShader;
-
-			std::unique_ptr<Dx12::ArRenderingPipeline> graphicsPipeline;
+			std::unique_ptr<Dx12::ArRenderingPipeline> renderingPipeline;
 		};
 	}
 }
