@@ -25,43 +25,29 @@
 
 #include <algorithm>
 #include <cassert>
-#include <cfloat>
-#include <cmath>
 #include <cstring>
-#include <iterator>
 #include <new>
-#include <tuple>
 
 #include <wincodec.h>
 
 #include <wrl\client.h>
-
-#ifdef _MSC_VER
-// Off by default warnings
-#pragma warning(disable : 4619 4616 4061 4062 4623 4626 5027)
-// C4619/4616 #pragma warning warnings
-// C4061 enumerator 'x' in switch of enum 'y' is not explicitly handled by a case label
-// C4062 enumerator 'x' in switch of enum 'y' is not handled
-// C4623 default constructor was implicitly defined as deleted
-// C4626 assignment operator was implicitly defined as deleted
-// C5027 move assignment operator was implicitly defined as deleted
-#endif
 
 #ifdef __clang__
 #pragma clang diagnostic ignored "-Wtautological-type-limit-compare"
 #pragma clang diagnostic ignored "-Wcovered-switch-default"
 #pragma clang diagnostic ignored "-Wswitch"
 #pragma clang diagnostic ignored "-Wswitch-enum"
-#pragma clang diagnostic ignored "-Wunused-macros"
 #endif
 
+// Off by default warnings
+#pragma warning(disable : 4619 4616 4623 4626 5027)
+// C4619/4616 #pragma warning warnings
+// C4623 default constructor was implicitly defined as deleted
+// C4626 assignment operator was implicitly defined as deleted
+// C5027 move assignment operator was implicitly defined as deleted
+
 #define D3DX12_NO_STATE_OBJECT_HELPERS
-#define D3DX12_NO_CHECK_FEATURE_SUPPORT_CLASS
-#ifdef USING_DIRECTX_HEADERS
-#include "directx/d3dx12.h"
-#else
-#include "d3dx12.h"
-#endif
+//#include "d3dx12.h"
 
 using namespace DirectX;
 using Microsoft::WRL::ComPtr;
@@ -107,10 +93,11 @@ namespace
     //-------------------------------------------------------------------------------------
     // WIC Pixel Format nearest conversion table
     //-------------------------------------------------------------------------------------
+
     struct WICConvert
     {
-        const GUID& source;
-        const GUID& target;
+        const GUID&        source;
+        const GUID&        target;
     };
 
     constexpr WICConvert g_WICConvert[] =
@@ -119,25 +106,25 @@ namespace
 
         { GUID_WICPixelFormatBlackWhite,            GUID_WICPixelFormat8bppGray }, // DXGI_FORMAT_R8_UNORM
 
-        { GUID_WICPixelFormat1bppIndexed,           GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM
-        { GUID_WICPixelFormat2bppIndexed,           GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM
-        { GUID_WICPixelFormat4bppIndexed,           GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM
-        { GUID_WICPixelFormat8bppIndexed,           GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM
+        { GUID_WICPixelFormat1bppIndexed,           GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM 
+        { GUID_WICPixelFormat2bppIndexed,           GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM 
+        { GUID_WICPixelFormat4bppIndexed,           GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM 
+        { GUID_WICPixelFormat8bppIndexed,           GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM 
 
-        { GUID_WICPixelFormat2bppGray,              GUID_WICPixelFormat8bppGray }, // DXGI_FORMAT_R8_UNORM
-        { GUID_WICPixelFormat4bppGray,              GUID_WICPixelFormat8bppGray }, // DXGI_FORMAT_R8_UNORM
+        { GUID_WICPixelFormat2bppGray,              GUID_WICPixelFormat8bppGray }, // DXGI_FORMAT_R8_UNORM 
+        { GUID_WICPixelFormat4bppGray,              GUID_WICPixelFormat8bppGray }, // DXGI_FORMAT_R8_UNORM 
 
-        { GUID_WICPixelFormat16bppGrayFixedPoint,   GUID_WICPixelFormat16bppGrayHalf }, // DXGI_FORMAT_R16_FLOAT
-        { GUID_WICPixelFormat32bppGrayFixedPoint,   GUID_WICPixelFormat32bppGrayFloat }, // DXGI_FORMAT_R32_FLOAT
+        { GUID_WICPixelFormat16bppGrayFixedPoint,   GUID_WICPixelFormat16bppGrayHalf }, // DXGI_FORMAT_R16_FLOAT 
+        { GUID_WICPixelFormat32bppGrayFixedPoint,   GUID_WICPixelFormat32bppGrayFloat }, // DXGI_FORMAT_R32_FLOAT 
 
         { GUID_WICPixelFormat16bppBGR555,           GUID_WICPixelFormat16bppBGRA5551 }, // DXGI_FORMAT_B5G5R5A1_UNORM
 
         { GUID_WICPixelFormat32bppBGR101010,        GUID_WICPixelFormat32bppRGBA1010102 }, // DXGI_FORMAT_R10G10B10A2_UNORM
 
-        { GUID_WICPixelFormat24bppBGR,              GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM
-        { GUID_WICPixelFormat24bppRGB,              GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM
-        { GUID_WICPixelFormat32bppPBGRA,            GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM
-        { GUID_WICPixelFormat32bppPRGBA,            GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM
+        { GUID_WICPixelFormat24bppBGR,              GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM 
+        { GUID_WICPixelFormat24bppRGB,              GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM 
+        { GUID_WICPixelFormat32bppPBGRA,            GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM 
+        { GUID_WICPixelFormat32bppPRGBA,            GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM 
 
         { GUID_WICPixelFormat48bppRGB,              GUID_WICPixelFormat64bppRGBA }, // DXGI_FORMAT_R16G16B16A16_UNORM
         { GUID_WICPixelFormat48bppBGR,              GUID_WICPixelFormat64bppRGBA }, // DXGI_FORMAT_R16G16B16A16_UNORM
@@ -145,19 +132,19 @@ namespace
         { GUID_WICPixelFormat64bppPRGBA,            GUID_WICPixelFormat64bppRGBA }, // DXGI_FORMAT_R16G16B16A16_UNORM
         { GUID_WICPixelFormat64bppPBGRA,            GUID_WICPixelFormat64bppRGBA }, // DXGI_FORMAT_R16G16B16A16_UNORM
 
-        { GUID_WICPixelFormat48bppRGBFixedPoint,    GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT
-        { GUID_WICPixelFormat48bppBGRFixedPoint,    GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT
-        { GUID_WICPixelFormat64bppRGBAFixedPoint,   GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT
-        { GUID_WICPixelFormat64bppBGRAFixedPoint,   GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT
-        { GUID_WICPixelFormat64bppRGBFixedPoint,    GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT
-        { GUID_WICPixelFormat64bppRGBHalf,          GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT
-        { GUID_WICPixelFormat48bppRGBHalf,          GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT
+        { GUID_WICPixelFormat48bppRGBFixedPoint,    GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT 
+        { GUID_WICPixelFormat48bppBGRFixedPoint,    GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT 
+        { GUID_WICPixelFormat64bppRGBAFixedPoint,   GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT 
+        { GUID_WICPixelFormat64bppBGRAFixedPoint,   GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT 
+        { GUID_WICPixelFormat64bppRGBFixedPoint,    GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT 
+        { GUID_WICPixelFormat64bppRGBHalf,          GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT 
+        { GUID_WICPixelFormat48bppRGBHalf,          GUID_WICPixelFormat64bppRGBAHalf }, // DXGI_FORMAT_R16G16B16A16_FLOAT 
 
-        { GUID_WICPixelFormat128bppPRGBAFloat,      GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT
-        { GUID_WICPixelFormat128bppRGBFloat,        GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT
-        { GUID_WICPixelFormat128bppRGBAFixedPoint,  GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT
-        { GUID_WICPixelFormat128bppRGBFixedPoint,   GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT
-        { GUID_WICPixelFormat32bppRGBE,             GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT
+        { GUID_WICPixelFormat128bppPRGBAFloat,      GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT 
+        { GUID_WICPixelFormat128bppRGBFloat,        GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT 
+        { GUID_WICPixelFormat128bppRGBAFixedPoint,  GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT 
+        { GUID_WICPixelFormat128bppRGBFixedPoint,   GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT 
+        { GUID_WICPixelFormat32bppRGBE,             GUID_WICPixelFormat128bppRGBAFloat }, // DXGI_FORMAT_R32G32B32A32_FLOAT 
 
         { GUID_WICPixelFormat32bppCMYK,             GUID_WICPixelFormat32bppRGBA }, // DXGI_FORMAT_R8G8B8A8_UNORM
         { GUID_WICPixelFormat64bppCMYK,             GUID_WICPixelFormat64bppRGBA }, // DXGI_FORMAT_R16G16B16A16_UNORM
@@ -183,7 +170,7 @@ namespace
             ifactory)) ? TRUE : FALSE;
     }
 
-    IWICImagingFactory2* GetWIC() noexcept
+    IWICImagingFactory2* _GetWIC() noexcept
     {
         static INIT_ONCE s_initOnce = INIT_ONCE_STATIC_INIT;
 
@@ -201,18 +188,16 @@ namespace
     }
 
     //---------------------------------------------------------------------------------
-    #if !defined(NO_D3D12_DEBUG_NAME) && ( defined(_DEBUG) || defined(PROFILE) )
     template<UINT TNameLength>
     inline void SetDebugObjectName(_In_ ID3D12DeviceChild* resource, _In_z_ const wchar_t(&name)[TNameLength]) noexcept
     {
-        resource->SetName(name);
+        #if !defined(NO_D3D12_DEBUG_NAME) && ( defined(_DEBUG) || defined(PROFILE) )
+            resource->SetName(name);
+        #else
+            UNREFERENCED_PARAMETER(resource);
+            UNREFERENCED_PARAMETER(name);
+        #endif
     }
-    #else
-    template<UINT TNameLength>
-    inline void SetDebugObjectName(_In_ ID3D12DeviceChild*, _In_z_ const wchar_t(&)[TNameLength]) noexcept
-    {
-    }
-    #endif
 
     inline uint32_t CountMips(uint32_t width, uint32_t height) noexcept
     {
@@ -261,7 +246,7 @@ namespace
     }
 
     //---------------------------------------------------------------------------------
-    DXGI_FORMAT WICToDXGI(const GUID& guid) noexcept
+    DXGI_FORMAT _WICToDXGI(const GUID& guid) noexcept
     {
         for (size_t i = 0; i < std::size(g_WICFormats); ++i)
         {
@@ -273,9 +258,9 @@ namespace
     }
 
     //---------------------------------------------------------------------------------
-    size_t WICBitsPerPixel(REFGUID targetGuid) noexcept
+    size_t _WICBitsPerPixel(REFGUID targetGuid) noexcept
     {
-        auto pWIC = GetWIC();
+        auto pWIC = _GetWIC();
         if (!pWIC)
             return 0;
 
@@ -304,7 +289,7 @@ namespace
     //---------------------------------------------------------------------------------
     void FitPowerOf2(UINT origx, UINT origy, UINT& targetx, UINT& targety, size_t maxsize)
     {
-        const float origAR = float(origx) / float(origy);
+        float origAR = float(origx) / float(origy);
 
         if (origx > origy)
         {
@@ -315,7 +300,7 @@ namespace
             float bestScore = FLT_MAX;
             for (size_t y = maxsize; y > 0; y >>= 1)
             {
-                const float score = fabsf((float(x) / float(y)) - origAR);
+                float score = fabsf((float(x) / float(y)) - origAR);
                 if (score < bestScore)
                 {
                     bestScore = score;
@@ -332,7 +317,7 @@ namespace
             float bestScore = FLT_MAX;
             for (size_t x = maxsize; x > 0; x >>= 1)
             {
-                const float score = fabsf((float(x) / float(y)) - origAR);
+                float score = fabsf((float(x) / float(y)) - origAR);
                 if (score < bestScore)
                 {
                     bestScore = score;
@@ -375,7 +360,7 @@ namespace
         }
         else if (width > maxsize || height > maxsize)
         {
-            const float ar = static_cast<float>(height) / static_cast<float>(width);
+            float ar = static_cast<float>(height) / static_cast<float>(width);
             if (width > height)
             {
                 twidth = static_cast<UINT>(maxsize);
@@ -406,7 +391,7 @@ namespace
 
         size_t bpp = 0;
 
-        DXGI_FORMAT format = WICToDXGI(pixelFormat);
+        DXGI_FORMAT format = _WICToDXGI(pixelFormat);
         if (format == DXGI_FORMAT_UNKNOWN)
         {
             for (size_t i = 0; i < std::size(g_WICConvert); ++i)
@@ -415,9 +400,9 @@ namespace
                 {
                     memcpy_s(&convertGUID, sizeof(WICPixelFormatGUID), &g_WICConvert[i].target, sizeof(GUID));
 
-                    format = WICToDXGI(g_WICConvert[i].target);
+                    format = _WICToDXGI(g_WICConvert[i].target);
                     assert(format != DXGI_FORMAT_UNKNOWN);
-                    bpp = WICBitsPerPixel(convertGUID);
+                    bpp = _WICBitsPerPixel(convertGUID);
                     break;
                 }
             }
@@ -427,7 +412,7 @@ namespace
         }
         else
         {
-            bpp = WICBitsPerPixel(pixelFormat);
+            bpp = _WICBitsPerPixel(pixelFormat);
         }
 
         if (loadFlags & WIC_LOADER_FORCE_RGBA32)
@@ -483,7 +468,7 @@ namespace
                         sRGB = (loadFlags & WIC_LOADER_SRGB_DEFAULT) != 0;
                     }
 
-                    std::ignore = PropVariantClear(&value);
+                    (void)PropVariantClear(&value);
 
                     if (sRGB)
                         format = MakeSRGB(format);
@@ -492,14 +477,14 @@ namespace
         }
 
         // Allocate memory for decoded image
-        const uint64_t rowBytes = (uint64_t(twidth) * uint64_t(bpp) + 7u) / 8u;
-        const uint64_t numBytes = rowBytes * uint64_t(theight);
+        uint64_t rowBytes = (uint64_t(twidth) * uint64_t(bpp) + 7u) / 8u;
+        uint64_t numBytes = rowBytes * uint64_t(theight);
 
         if (rowBytes > UINT32_MAX || numBytes > UINT32_MAX)
             return HRESULT_FROM_WIN32(ERROR_ARITHMETIC_OVERFLOW);
 
-        auto const rowPitch = static_cast<size_t>(rowBytes);
-        auto const imageSize = static_cast<size_t>(numBytes);
+        auto rowPitch = static_cast<size_t>(rowBytes);
+        auto imageSize = static_cast<size_t>(numBytes);
 
         decodedData.reset(new (std::nothrow) uint8_t[imageSize]);
         if (!decodedData)
@@ -518,7 +503,7 @@ namespace
         else if (twidth != width || theight != height)
         {
             // Resize
-            auto pWIC = GetWIC();
+            auto pWIC = _GetWIC();
             if (!pWIC)
                 return E_NOINTERFACE;
 
@@ -569,7 +554,7 @@ namespace
         else
         {
             // Format conversion but no resize
-            auto pWIC = GetWIC();
+            auto pWIC = _GetWIC();
             if (!pWIC)
                 return E_NOINTERFACE;
 
@@ -595,7 +580,7 @@ namespace
         }
 
         // Count the number of mips
-        const uint32_t mipCount = (loadFlags & (WIC_LOADER_MIP_AUTOGEN | WIC_LOADER_MIP_RESERVE))
+        uint32_t mipCount = (loadFlags & (WIC_LOADER_MIP_AUTOGEN | WIC_LOADER_MIP_RESERVE))
             ? CountMips(twidth, theight) : 1u;
 
         // Create texture
@@ -609,19 +594,23 @@ namespace
         desc.SampleDesc.Quality = 0;
         desc.Flags = resFlags;
         desc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		desc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
 
-        const CD3DX12_HEAP_PROPERTIES defaultHeapProperties(D3D12_HEAP_TYPE_DEFAULT);
+		D3D12_HEAP_PROPERTIES defaultHeapProperties = {};
+		defaultHeapProperties.Type = D3D12_HEAP_TYPE_DEFAULT;
+		defaultHeapProperties.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
+		defaultHeapProperties.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
+		defaultHeapProperties.CreationNodeMask = 1;
+		defaultHeapProperties.VisibleNodeMask = 1;
 
         ID3D12Resource* tex = nullptr;
-        hr = d3dDevice->CreateCommittedResource(
-            &defaultHeapProperties,
-            D3D12_HEAP_FLAG_NONE,
-            &desc,
-            D3D12_RESOURCE_STATE_COPY_DEST,
-            nullptr,
-            IID_ID3D12Resource,
-            reinterpret_cast<void**>(&tex));
-
+		hr = d3dDevice->CreateCommittedResource(
+			&defaultHeapProperties,
+			D3D12_HEAP_FLAG_NONE,
+			&desc,
+			D3D12_RESOURCE_STATE_COPY_DEST,
+			nullptr,
+			IID_PPV_ARGS(&tex));
         if (FAILED(hr))
         {
             return hr;
@@ -640,23 +629,27 @@ namespace
     //--------------------------------------------------------------------------------------
     void SetDebugTextureInfo(
         _In_z_ const wchar_t* fileName,
-        _In_ ID3D12Resource* texture) noexcept
+        _In_ ID3D12Resource** texture) noexcept
     {
-    #if !defined(NO_D3D12_DEBUG_NAME) && ( defined(_DEBUG) || defined(PROFILE) )
-        const wchar_t* pstrName = wcsrchr(fileName, '\\');
-        if (!pstrName)
+#if !defined(NO_D3D12_DEBUG_NAME) && ( defined(_DEBUG) || defined(PROFILE) )
+        if (texture && *texture)
         {
-            pstrName = fileName;
+            const wchar_t* pstrName = wcsrchr(fileName, '\\');
+            if (!pstrName)
+            {
+                pstrName = fileName;
+            }
+            else
+            {
+                pstrName++;
+            }
+
+            (*texture)->SetName(pstrName);
         }
-        else
-        {
-            pstrName++;
-        }
-        texture->SetName(pstrName);
-    #else
+#else
         UNREFERENCED_PARAMETER(fileName);
         UNREFERENCED_PARAMETER(texture);
-    #endif
+#endif
     }
 } // anonymous namespace
 
@@ -693,7 +686,7 @@ HRESULT DirectX::LoadWICTextureFromMemoryEx(
     size_t wicDataSize,
     size_t maxsize,
     D3D12_RESOURCE_FLAGS resFlags,
-    WIC_LOADER_FLAGS loadFlags,
+    unsigned int loadFlags,
     ID3D12Resource** texture,
     std::unique_ptr<uint8_t[]>& decodedData,
     D3D12_SUBRESOURCE_DATA& subresource) noexcept
@@ -712,7 +705,7 @@ HRESULT DirectX::LoadWICTextureFromMemoryEx(
     if (wicDataSize > UINT32_MAX)
         return HRESULT_FROM_WIN32(ERROR_FILE_TOO_LARGE);
 
-    auto pWIC = GetWIC();
+    auto pWIC = _GetWIC();
     if (!pWIC)
         return E_NOINTERFACE;
 
@@ -780,7 +773,7 @@ HRESULT DirectX::LoadWICTextureFromFileEx(
     const wchar_t* fileName,
     size_t maxsize,
     D3D12_RESOURCE_FLAGS resFlags,
-    WIC_LOADER_FLAGS loadFlags,
+    unsigned int loadFlags,
     ID3D12Resource** texture,
     std::unique_ptr<uint8_t[]>& decodedData,
     D3D12_SUBRESOURCE_DATA& subresource) noexcept
@@ -793,7 +786,7 @@ HRESULT DirectX::LoadWICTextureFromFileEx(
     if (!d3dDevice || !fileName || !texture)
         return E_INVALIDARG;
 
-    auto pWIC = GetWIC();
+    auto pWIC = _GetWIC();
     if (!pWIC)
         return E_NOINTERFACE;
 
@@ -818,7 +811,7 @@ HRESULT DirectX::LoadWICTextureFromFileEx(
 
     if (SUCCEEDED(hr))
     {
-        SetDebugTextureInfo(fileName, *texture);
+        SetDebugTextureInfo(fileName, texture);
     }
 
     return hr;
