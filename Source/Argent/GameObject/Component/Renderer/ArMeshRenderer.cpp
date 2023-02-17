@@ -1,5 +1,4 @@
 #include "ArMeshRenderer.h"
-#include <vector>
 #include "../../../Graphic/ArGraphics.h"
 #include "../../GameObject.h"
 #include "../Core/Transform.h"

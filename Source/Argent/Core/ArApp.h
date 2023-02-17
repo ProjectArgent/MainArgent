@@ -9,6 +9,9 @@ namespace Argent
 {
 	namespace App
 	{
+		/**
+		 * \brief アプリケーションクラス　こいつのExecuteを呼び出すだけで動く
+		 */
 		class ArgentApp final
 		{
 		public:
@@ -19,13 +22,16 @@ namespace Argent
 			ArgentApp operator=(const ArgentApp&) = delete;
 			ArgentApp operator=(const ArgentApp&&) = delete;
 
-
-			int Execute();	//メイン関数ではこれさえ呼べばいいようにしたい
+			/**
+			 * \brief　実行関数
+			 * \return 終了コード
+			 */
+			int Execute() const;
 
 		private:
 
-			int Terminate();
-			void Initialize();
+			int Terminate() const;
+			void Initialize() const;
 
 		private:
 			bool isExistOtherInstance{ FALSE };	//ArgentAppのInstance数をカウント　> 1ならばアサート

@@ -178,6 +178,9 @@
     <ClCompile Include="Source\Argent\Loader\FbxLoader.cpp">
       <Filter>Argent\Loader</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Argent\Core\ArRandom.cpp">
+      <Filter>Argent\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">

@@ -25,7 +25,7 @@ namespace Argent::SceneManagement
 	{
 		ChangeScene();
 		
-		if(Library::Input::Keyboard::Instance().IsKeyPressEnter(Library::Input::Keyboard::A))
+		if(Input::Keyboard::Instance().IsKeyPressEnter(Input::Keyboard::A))
 		{
 			if(currentScene->GetName() != "Game")
 			{

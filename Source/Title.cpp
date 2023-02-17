@@ -31,7 +31,7 @@ void Title::Update()
 {
 	Scene::Update();
 
-	if(LibInput::Mouse::Instance().IsButtonPress(Library::Input::Mouse::Mouses::mLeftButton))
+	if(Argent::Input::Mouse::Instance().IsButtonPress(Argent::Input::Mouse::Mouses::mLeftButton))
 	{
 		//SceneManager::SetNextScene("Game");
 	}
@@ -46,7 +46,6 @@ void Title::DrawDebug()
 {
 #ifdef _DEBUG
 	Scene::DrawDebug();
-	LibInput::Mouse::Instance().DrawDebug();
 #endif
 }
 

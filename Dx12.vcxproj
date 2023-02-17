@@ -29,6 +29,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Source\Argent\Core\ArApp.cpp" />
     <ClCompile Include="Source\Argent\Core\ArConsole.cpp" />
+    <ClCompile Include="Source\Argent\Core\ArRandom.cpp" />
     <ClCompile Include="Source\Argent\Core\ArTimer.cpp" />
     <ClCompile Include="Source\Argent\Core\ArWindow.cpp" />
     <ClCompile Include="Source\Argent\GameObject\Component\Core\Camera.cpp" />

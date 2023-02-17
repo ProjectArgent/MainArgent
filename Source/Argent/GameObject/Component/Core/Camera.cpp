@@ -237,7 +237,7 @@ void CameraController::Update()
 
 	if(!camera->GetIsSceneCamera()) return;
 
-	if(LibInput::Mouse::Instance().IsButtonPress(Library::Input::Mouse::Mouses::mMiddleButton))
+	if(Argent::Input::Mouse::Instance().IsButtonPress(Argent::Input::Mouse::Mouses::mMiddleButton))
 	{
 		DirectX::XMFLOAT3 position = transform->GetPosition();
 		if(!camera) return;
@@ -245,7 +245,7 @@ void CameraController::Update()
 		DirectX::XMFLOAT3 Right = camera->GetRight();
 		DirectX::XMFLOAT3 Up = camera->GetUp();
 
-		const DirectX::XMFLOAT2 moveVec = LibInput::Mouse::Instance().GetMoveVec();
+		const DirectX::XMFLOAT2 moveVec = Argent::Input::Mouse::Instance().GetMoveVec();
 		DirectX::XMStoreFloat3(&Right, DirectX::XMVectorScale(DirectX::XMLoadFloat3(&Right), -moveVec.x * vertAndHorMoveSpeed));
 		DirectX::XMStoreFloat3(&Up, DirectX::XMVectorScale(DirectX::XMLoadFloat3(&Up), moveVec.y * vertAndHorMoveSpeed));
 
@@ -258,11 +258,11 @@ void CameraController::Update()
 	}
 
 	//Rotate
-	if(LibInput::Mouse::Instance().IsButtonPress(Library::Input::Mouse::Mouses::mRightButton))
+	if(Argent::Input::Mouse::Instance().IsButtonPress(Argent::Input::Mouse::Mouses::mRightButton))
 	{
 		DirectX::XMFLOAT4 rotation = transform->GetRotation();
 
-		DirectX::XMFLOAT2 moveVec = LibInput::Mouse::Instance().GetMoveVec();
+		DirectX::XMFLOAT2 moveVec = Argent::Input::Mouse::Instance().GetMoveVec();
 
 		moveVec.x *= rotationSpeed;
 		moveVec.y *= rotationSpeed;
@@ -274,9 +274,9 @@ void CameraController::Update()
 	}
 
 
-	if(LibInput::Mouse::Instance().IsMouseWheelRotate())
+	if(Argent::Input::Mouse::Instance().IsMouseWheelRotate())
 	{
-		float RowWheelRotateValue = LibInput::Mouse::Instance().GetRowWheelRotateValue();
+		float RowWheelRotateValue = Argent::Input::Mouse::Instance().GetRowWheelRotateValue();
 		RowWheelRotateValue /= WHEEL_DELTA;
 		const float DepthTransitionScale = RowWheelRotateValue * depthMoveSpeed;
 		DirectX::XMFLOAT3 position = transform->GetPosition();

@@ -4,7 +4,7 @@
 #include <DirectXMath.h>
 
 
-namespace Library::Input
+namespace Argent::Input
 {
 	enum class State
 	{
@@ -496,7 +496,6 @@ namespace Library::Input
 
 		float GetRowWheelRotateValue() const { return rowWheelRotateValue; }
 
-		void DrawDebug();
 		std::unordered_map<Mouses, State> mouseState;
 	private:
 		DirectX::XMFLOAT2 position;
@@ -508,5 +507,3 @@ namespace Library::Input
 		WheelStates wheelState;
 	};
 }
-
-namespace LibInput = Library::Input;

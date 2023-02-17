@@ -10,19 +10,18 @@ namespace Argent::App
 		if(isExistOtherInstance) _ASSERT_EXPR(FALSE, L"Instance is already existed");
 		isExistOtherInstance = true;
 
-		arWindow = std::make_unique<Argent::Window::ArWindow>(hInstance, width, height);
-		arGfx = std::make_unique<Argent::Graphics::ArGraphics>(arWindow->GetHandle());
+		arWindow = std::make_unique<Window::ArWindow>(hInstance, width, height);
+		arGfx = std::make_unique<Graphics::ArGraphics>(arWindow->GetHandle());
 	}
 
-	void ArgentApp::Initialize()
+	void ArgentApp::Initialize() const
 	{
 		arGfx->Initialize();
 		ImguiCtrl::Initialize(arWindow->GetHandle(), arGfx->GetDevice(), arGfx->GetGUIHeap());
-		//ResourceManager::Instance().Initialize();
-		Argent::Resource::ArResourceManager::Instance().Initialize();
+		Resource::ArResourceManager::Instance().Initialize();
 	}
 
-	int ArgentApp::Execute()
+	int ArgentApp::Execute() const
 	{
 		Initialize();
 			
@@ -46,7 +45,7 @@ namespace Argent::App
 		return Terminate();
 	}
 
-	int ArgentApp::Terminate()
+	int ArgentApp::Terminate() const
 	{
 		arGfx->Terminate();
 		return 0;
