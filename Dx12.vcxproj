@@ -58,7 +58,6 @@
     <ClCompile Include="Source\Argent\Loader\FbxLoader.cpp" />
     <ClCompile Include="Source\Argent\Other\ArResourceManager.cpp" />
     <ClCompile Include="Source\Argent\Other\ArHelper.cpp" />
-    <ClCompile Include="Source\Argent\Other\ResourceManager.cpp" />
     <ClCompile Include="Source\Argent\Scene\Scene.cpp" />
     <ClCompile Include="Source\Argent\Scene\SceneManager.cpp" />
     <ClCompile Include="Source\Game.cpp" />
@@ -108,7 +107,6 @@
     <ClInclude Include="Source\Argent\Other\ArResourceManager.h" />
     <ClInclude Include="Source\Argent\Other\ArHelper.h" />
     <ClInclude Include="Source\Argent\Other\Misc.h" />
-    <ClInclude Include="Source\Argent\Other\ResourceManager.h" />
     <ClInclude Include="Source\Argent\Scene\Scene.h" />
     <ClInclude Include="Source\Argent\Scene\SceneManager.h" />
     <ClInclude Include="Source\Game.h" />

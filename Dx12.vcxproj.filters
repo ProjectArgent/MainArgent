@@ -127,9 +127,6 @@
     <ClCompile Include="Source\Argent\Other\ArHelper.cpp">
       <Filter>Argent\Other</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Other\ResourceManager.cpp">
-      <Filter>Argent\Other</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\ArMeshRenderer.cpp">
       <Filter>Argent\GameObject\Component\Renderer</Filter>
     </ClCompile>
@@ -268,9 +265,6 @@
       <Filter>Argent\Other</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Other\Misc.h">
-      <Filter>Argent\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Other\ResourceManager.h">
       <Filter>Argent\Other</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\ArMeshRenderer.h">

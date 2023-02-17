@@ -1,6 +1,6 @@
 #include "ArApp.h"
 #include "../../../imgui/ImguiCtrl.h"
-#include "../Other/ResourceManager.h"
+#include "../Other/ArResourceManager.h"
 #include "../Scene/SceneManager.h"
 
 namespace Argent::App
@@ -18,7 +18,8 @@ namespace Argent::App
 	{
 		arGfx->Initialize();
 		ImguiCtrl::Initialize(arWindow->GetHandle(), arGfx->GetDevice(), arGfx->GetGUIHeap());
-		ResourceManager::Instance().Initialize();
+		//ResourceManager::Instance().Initialize();
+		Argent::Resource::ArResourceManager::Instance().Initialize();
 	}
 
 	int ArgentApp::Execute()
