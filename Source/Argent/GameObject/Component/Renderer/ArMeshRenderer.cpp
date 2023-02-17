@@ -47,10 +47,8 @@ namespace Argent::Component::Renderer
 
 	void ArMeshRenderer::Render()
 	{
-		ID3D12GraphicsCommandList* cmdList = Argent::Graphics::ArGraphics::Instance()->GetCommandList();
-		renderingPipeline->SetOnCommand(cmdList);
-		mesh->Render(GetOwner()->GetTransform()->GetWorld(), material->color.color);
 		ArRenderer::Render();
+		mesh->Render(GetOwner()->GetTransform()->GetWorld(), material->color.color);
 	}
 
 #ifdef _DEBUG

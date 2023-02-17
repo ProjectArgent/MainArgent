@@ -48,13 +48,12 @@ namespace Argent::Component::Renderer
 			material->color.color);
 	}
 
-	void ArSpriteRenderer::Render()
+	void ArSpriteRenderer::Render(ID3D12GraphicsCommandList* cmdList) const
 	{
-		ID3D12GraphicsCommandList* cmdList = Graphics::ArGraphics::Instance()->GetCommandList();
 		ArRenderer::Render(cmdList);
-
 		material->Render(cmdList, 0);
 		data->Render(cmdList, 1, 0, 0, 0);
+
 	}
 
 #ifdef _DEBUG
