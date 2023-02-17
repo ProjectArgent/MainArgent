@@ -1,6 +1,5 @@
 #pragma once
 #include "ArRenderer.h"
-#include "Data/Mesh.h"
 
 namespace Argent
 {
@@ -16,7 +15,6 @@ namespace Argent::Component::Renderer
 		public ArRenderer
 	{
 	public:
-		//ArMeshRenderer(Mesh* mesh);
 		ArMeshRenderer(Argent::Data::ArMeshData* data);
 
 		void Initialize() override;
@@ -31,7 +29,6 @@ namespace Argent::Component::Renderer
 #endif
 
 	protected:
-		//Mesh* mesh;
 		Argent::Data::ArMeshData* data;
 	};
 }

@@ -42,7 +42,6 @@
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.cpp" />
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMeshData.cpp" />
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.cpp" />
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\Mesh.cpp" />
     <ClCompile Include="Source\Argent\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArGraphics.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArShader.cpp" />
@@ -89,7 +88,6 @@
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.h" />
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMeshData.h" />
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.h" />
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\Mesh.h" />
     <ClInclude Include="Source\Argent\GameObject\GameObject.h" />
     <ClInclude Include="Source\Argent\Graphic\ArGraphics.h" />
     <ClInclude Include="Source\Argent\Graphic\ArShader.h" />

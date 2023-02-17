@@ -7,19 +7,6 @@
 
 namespace Argent::Component::Renderer
 {
-	//ArMeshRenderer::ArMeshRenderer(Mesh* mesh) :
-	//	ArRenderer("Mesh Renderer")
-	//,	mesh(mesh)
-	//{
-	//	ID3D12Device* device = Argent::Graphics::ArGraphics::Instance()->GetDevice();
-	//	HRESULT hr{ S_OK };
-	//	Argent::Dx12::ArRenderingPipeline::CreateGraphicsPipeline<Argent::Dx12::Mesh::ArDefaultGraphicsPipeline>(&renderingPipeline,
-	//		"./Resource/Shader/GeometricPrimitiveVertex.cso",
-	//		"./Resource/Shader/GeometricPrimitivePixel.cso"
-	//		);
-	//	material = std::make_unique<Argent::Material::ArMaterial>(L"");
-	//}
-
 	ArMeshRenderer::ArMeshRenderer(Argent::Data::ArMeshData* data):
 		ArRenderer("Mesh Renderer")
 	,	data(data)
@@ -67,7 +54,6 @@ namespace Argent::Component::Renderer
 		if(data)
 		data->Render(cmdList,
 			GetOwner()->GetTransform()->GetWorld(), material->color.color);
-		//mesh->Render(GetOwner()->GetTransform()->GetWorld(), material->color.color);
 	}
 
 #ifdef _DEBUG
