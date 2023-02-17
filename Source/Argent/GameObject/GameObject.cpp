@@ -20,17 +20,17 @@ void GameObject::AddChild(GameObject* obj)
 
 GameObject* GameObject::Cube(const std::string& name)
 {
-	return new GameObject({new Argent::Component::Renderer::ArMeshRenderer(new Mesh( Argent::Resource::ArResourceManager::Instance().GetMeshData("Cube")))}, name);
+	return new GameObject({new Argent::Component::Renderer::ArMeshRenderer(Argent::Resource::ArResourceManager::Instance().GetMeshData("Cube")) }, name);
 }
 
 GameObject* GameObject::Sphere(const std::string& name)
 {
-	return new GameObject({ new Argent::Component::Renderer::ArMeshRenderer(new Mesh (Argent::Resource::ArResourceManager::Instance().GetMeshData("Sphere"))) }, name);
+	return new GameObject({ new Argent::Component::Renderer::ArMeshRenderer(Argent::Resource::ArResourceManager::Instance().GetMeshData("Sphere")) }, name);
 }
 
 GameObject* GameObject::Capsule(const std::string& name)
 {
-	return new GameObject({ new Argent::Component::Renderer::ArMeshRenderer(new Mesh (Argent::Resource::ArResourceManager::Instance().GetMeshData("Capsule"))) }, name);
+	return new GameObject({ new Argent::Component::Renderer::ArMeshRenderer(Argent::Resource::ArResourceManager::Instance().GetMeshData("Capsule")) }, name);
 }
 
 GameObject* GameObject::SceneCamera(const std::string& name, bool setSceneCamera)

@@ -19,9 +19,11 @@ namespace Argent::Data
 		indexCountPerInstance = static_cast<UINT>(indices.size());
 	}
 
-	void ArMeshData::Render(ID3D12GraphicsCommandList* cmdList, UINT instanceCount, UINT indexOffset, INT vertexOffset,
+	void ArMeshData::Render(ID3D12GraphicsCommandList* cmdList, const DirectX::XMFLOAT4X4& world,
+		const DirectX::XMFLOAT4& color, UINT instanceCount, UINT indexOffset, INT vertexOffset,
 		UINT instanceOffset) const
 	{
+		UpdateConstant(world, color);
 		cmdList->SetDescriptorHeaps(1, descriptor->GetDescriptorHeap()->GetHeapDoublePointer());
 		cmdList->SetGraphicsRootDescriptorTable(1, descriptor->GetGPUHandle());
 		cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

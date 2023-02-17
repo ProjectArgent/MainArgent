@@ -5,7 +5,7 @@ namespace Argent::Resource
 {
 	namespace Primitive
 	{
-		std::unique_ptr<MeshData> CreateCube()
+		std::unique_ptr<Argent::Data::ArMeshData> CreateCube()
 		{
 			constexpr float width = 0.5f, height = 0.5f, depth = 0.5f;
 			std::vector<Argent::Data::ArMeshData::Vertex> vertices
@@ -51,10 +51,10 @@ namespace Argent::Resource
 				//bottom
 				13,22,19,16,13,19
 			};
-			return std::make_unique<MeshData>(vertices, indices);
+			return std::make_unique<Argent::Data::ArMeshData>(vertices, indices);
 		}
 
-		std::unique_ptr<MeshData> CreateSphere()
+		std::unique_ptr<Argent::Data::ArMeshData> CreateSphere()
 		{
 			size_t stacks = 36;
 			size_t slices = 18;
@@ -157,10 +157,10 @@ namespace Argent::Resource
 				}
 			}
 			}
-			return std::make_unique<MeshData>(vertices, indices);
+			return std::make_unique<Argent::Data::ArMeshData>(vertices, indices);
 		}
 
-		std::unique_ptr<MeshData> CreateCapsule()
+		std::unique_ptr<Argent::Data::ArMeshData> CreateCapsule()
 		{
 			const size_t stacks = 36;
 			const size_t slices = 18;
@@ -264,7 +264,7 @@ namespace Argent::Resource
 					}
 				}
 			}
-			return std::make_unique<MeshData>(vertices, indices);
+			return std::make_unique<Argent::Data::ArMeshData>(vertices, indices);
 		}
 	}
 
@@ -288,7 +288,7 @@ namespace Argent::Resource
 	}
 
 
-	MeshData* ArResourceManager::GetMeshData(const std::string& meshName) const
+	Argent::Data::ArMeshData* ArResourceManager::GetMeshData(const std::string& meshName) const
 	{
 		for(const auto& data : meshData)
 		{
@@ -300,11 +300,11 @@ namespace Argent::Resource
 		return nullptr;
 	}
 
-	const MeshData* ArResourceManager::AddMeshData(const std::string& meshName,
-		std::unique_ptr<MeshData> data)
-	{
-		return nullptr;
-	}
+	//const MeshData* ArResourceManager::AddMeshData(const std::string& meshName,
+	//	std::unique_ptr<MeshData> data)
+	//{
+	//	return nullptr;
+	//}
 
 	bool ArResourceManager::FindTexture(const wchar_t* filepath, ID3D12Resource** ppResource)
 	{

@@ -46,7 +46,8 @@ namespace Argent::Data
 			constantMap->materialColor = constant.materialColor;
 		}
 
-		void Render(ID3D12GraphicsCommandList* cmdList, UINT instanceCount = 1, UINT indexOffset = 0, INT vertexOffset = 0, UINT instanceOffset = 0) const override;
+		void Render(ID3D12GraphicsCommandList* cmdList, const DirectX::XMFLOAT4X4& world, const DirectX::XMFLOAT4& color,
+			UINT instanceCount = 1, UINT indexOffset = 0, INT vertexOffset = 0, UINT instanceOffset = 0) const;
 
 	private:
 		Constant* constantMap{};

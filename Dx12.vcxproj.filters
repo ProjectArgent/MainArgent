@@ -118,9 +118,6 @@
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\Mesh.cpp">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\MeshData.cpp">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\Other\ArResourceManager.cpp">
       <Filter>Argent\Other</Filter>
     </ClCompile>
@@ -253,9 +250,6 @@
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\Mesh.h">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\MeshData.h">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Other\ArResourceManager.h">
