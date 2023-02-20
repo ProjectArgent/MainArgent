@@ -2,20 +2,20 @@
 #include "../../../Graphic/ArGraphics.h"
 #include "../../GameObject.h"
 #include "../Core/Transform.h"
-#include "Data/ArMeshData.h"
+#include "Data/ArMesh.h"
 
 namespace Argent::Component::Renderer
 {
-	ArMeshRenderer::ArMeshRenderer(Argent::Data::ArMeshData* data):
+	ArMeshRenderer::ArMeshRenderer(Argent::Data::ArMesh* data):
 		ArRenderer("Mesh Renderer")
-	,	data(data)
+	,	mesh(data)
 	{
 		ID3D12Device* device = Argent::Graphics::ArGraphics::Instance()->GetDevice();
 		HRESULT hr{ S_OK };
 		Argent::Dx12::ArRenderingPipeline::CreateGraphicsPipeline<Argent::Dx12::Mesh::ArDefaultGraphicsPipeline>(&renderingPipeline,
 			"./Resource/Shader/GeometricPrimitiveVertex.cso",
 			"./Resource/Shader/GeometricPrimitivePixel.cso"
-			);
+		);
 		material = std::make_unique<Argent::Material::ArMaterial>(L"");
 	}
 
@@ -50,8 +50,8 @@ namespace Argent::Component::Renderer
 		Argent::Graphics::ArGraphics::Instance()->SetSceneConstant();
 		ID3D12GraphicsCommandList* cmdList = Argent::Graphics::ArGraphics::Instance()->GetCommandList();
 
-		if(data)
-		data->Render(cmdList,
+		if(mesh)
+		mesh->Render(cmdList,
 			GetOwner()->GetTransform()->GetWorld(), material->color.color);
 	}
 

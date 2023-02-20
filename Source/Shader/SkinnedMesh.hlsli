@@ -14,7 +14,6 @@ struct VS_OUT
 	float4 worldNormal : NORMAL;
 	float2 texcoord : TEXCOORD;
 	float4 color : COLOR;
-	float3 lightDirection : LIGHT_DIRECTION;
 };
 
 cbuffer SceneConstant : register(b0)

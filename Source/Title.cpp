@@ -5,6 +5,10 @@
 #include "Argent/Input/Keyboard.h"
 
 
+#include "Argent/JustChanging/SkinnedMesh.h"
+#include "Argent/Graphic/ArGraphics.h"
+
+
 void Title::Initialize()
 {
 	AddObject(new GameObject("Demo"));
@@ -15,7 +19,7 @@ void Title::Initialize()
 	AddObject(GameObject::Sphere());
 	AddObject(GameObject::Capsule());
 	//AddObject(GameObject::SceneCamera());
-	
+	AddObject( new GameObject("obj",new SkinnedMesh(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resource/RenderingEngine/plantune.fbx")));
 
 	//GetGameObject("Main Camera")->GetComponent<Camera>()->SetTarget(GetGameObject("Player")->GetTransform());
 	//GetGameObject("Player")->AddComponent<Transform>();

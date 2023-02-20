@@ -109,7 +109,7 @@
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.cpp">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMeshData.cpp">
+    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMesh.cpp">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.cpp">
@@ -243,7 +243,7 @@
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.h">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMeshData.h">
+    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMesh.h">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.h">

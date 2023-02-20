@@ -10,6 +10,8 @@
 
 #include <unordered_map>
 #include "../GameObject/Component/Renderer/ArRenderer.h"
+#include "../Graphic/Dx12/ArDescriptor.h"
+
 
 namespace Argent
 {
@@ -199,6 +201,7 @@ class SkinnedMesh:
 		std::string textureFilename[4];
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> srvHeap;
 		Microsoft::WRL::ComPtr<ID3D12Resource> texture[4];
+		Argent::Descriptor::ArDescriptor* descriptor;
 
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> cbvHeap;
 		Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
@@ -223,26 +226,23 @@ public:
 		float samplingRate);
 	void UpdateAnimation(Animation::Keyframe& keyframe);
 	void Update();
+	void DrawDebug() override;
 
 	void CreateComObject(ID3D12Device* device, const char* filename);
 
 private:
-	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> constantHeap;
+	Argent::Descriptor::ArDescriptor* constantDescriptor;
 	Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
-	std::unique_ptr<Argent::Shader::ArShader> vertexShader;
-	std::unique_ptr<Argent::Shader::ArShader> pixelShader;
 	D3D12_CONSTANT_BUFFER_VIEW_DESC constantView;
-	Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature;
-	Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelineState; 
 	Constants* constantMap{};
-	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> materialHeap;
+
 
 protected:
 	SkinnedScene sceneView;
 	std::vector<Mesh> meshes;
 	std::unordered_map<uint64_t, Material> materials;
 
-
+	int clipIndex{};
 public:
 	std::vector<Animation> animationClips;
 };

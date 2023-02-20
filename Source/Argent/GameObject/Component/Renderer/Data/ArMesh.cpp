@@ -1,11 +1,11 @@
-#include "ArMeshData.h"
+#include "ArMesh.h"
 #include "../../../../Graphic/ArGraphics.h"
 #include "../../../../Other/ArHelper.h"
 
 
 namespace Argent::Data
 {
-	ArMeshData::ArMeshData(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices)
+	ArMesh::ArMesh(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices)
 	{
 		ID3D12Device* device = Graphics::ArGraphics::Instance()->GetDevice();
 		Vertex* vertexMap{};
@@ -19,7 +19,7 @@ namespace Argent::Data
 		indexCountPerInstance = static_cast<UINT>(indices.size());
 	}
 
-	void ArMeshData::Render(ID3D12GraphicsCommandList* cmdList, const DirectX::XMFLOAT4X4& world,
+	void ArMesh::Render(ID3D12GraphicsCommandList* cmdList, const DirectX::XMFLOAT4X4& world,
 		const DirectX::XMFLOAT4& color, UINT instanceCount, UINT indexOffset, INT vertexOffset,
 		UINT instanceOffset) const
 	{
