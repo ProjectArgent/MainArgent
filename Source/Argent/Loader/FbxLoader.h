@@ -32,6 +32,9 @@ namespace Argent::Loader
 				return -1;
 			}
 		};
+
+
+
 		void LoadFbx(const char* fileName, bool triangulate = false);
 	}
 }

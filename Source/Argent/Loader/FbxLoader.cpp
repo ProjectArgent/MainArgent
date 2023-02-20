@@ -50,6 +50,7 @@ namespace Argent::Loader::Fbx
 		Traverse(scene->GetRootNode());
 
 
+
 		mgr->Destroy();
 	}
 }
