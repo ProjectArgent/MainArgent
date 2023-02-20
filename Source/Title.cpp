@@ -5,6 +5,10 @@
 #include "Argent/Input/Keyboard.h"
 
 
+#include "Argent/JustChanging/ArSkinnedMeshRenderer.h"
+#include "Argent/Graphic/ArGraphics.h"
+
+
 void Title::Initialize()
 {
 	AddObject(new GameObject("Demo"));
@@ -13,7 +17,7 @@ void Title::Initialize()
 	GetGameObject("Demo2")->AddComponent(new Argent::Component::Renderer::ArSpriteRenderer);
 	AddObject(GameObject::Cube());
 	//AddObject(GameObject::SceneCamera());
-	
+	AddObject( new GameObject("obj",new ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resource/RenderingEngine/plantune.fbx")));
 
 	//GetGameObject("Main Camera")->GetComponent<Camera>()->SetTarget(GetGameObject("Player")->GetTransform());
 	//GetGameObject("Player")->AddComponent<Transform>();

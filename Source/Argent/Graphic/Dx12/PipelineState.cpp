@@ -105,4 +105,40 @@ namespace Argent::Dx12
 			inputElementDesc.emplace_back(Helper::Dx12::InputElement::GenerateInputLayoutDesc("TEXCOORD", DXGI_FORMAT_R32G32_FLOAT));
 		}
 	}
+
+	namespace SkinnedMesh
+	{
+		void ArDefaultGraphicsPipeline::SetUpRootSigDesc()
+		{
+			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV));
+			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(1, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV));
+			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV));
+			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(2, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV));
+			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(3, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV));
+
+			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(0), D3D12_SHADER_VISIBILITY_ALL));
+			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(1), D3D12_SHADER_VISIBILITY_ALL));
+			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(2), D3D12_SHADER_VISIBILITY_ALL));
+			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(3), D3D12_SHADER_VISIBILITY_ALL));
+			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(4), D3D12_SHADER_VISIBILITY_ALL));
+
+			samplerDesc[0] = Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fAnisotropic, Helper::Dx12::Sampler::WrapMode::wRepeat);
+
+			rootSigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+			rootSigDesc.NumParameters = static_cast<UINT>(rootParam.size());
+			rootSigDesc.pParameters = rootParam.data();
+			rootSigDesc.NumStaticSamplers = 1;
+			rootSigDesc.pStaticSamplers = samplerDesc;
+		}
+
+		void ArDefaultGraphicsPipeline::SetUpInputElement()
+		{
+			inputElementDesc.emplace_back(Helper::Dx12::InputElement::GenerateInputLayoutDesc("POSITION", DXGI_FORMAT_R32G32B32_FLOAT));
+			inputElementDesc.emplace_back(Helper::Dx12::InputElement::GenerateInputLayoutDesc("NORMAL", DXGI_FORMAT_R32G32B32_FLOAT));
+			inputElementDesc.emplace_back(Helper::Dx12::InputElement::GenerateInputLayoutDesc("TEXCOORD", DXGI_FORMAT_R32G32_FLOAT));
+			inputElementDesc.emplace_back(Helper::Dx12::InputElement::GenerateInputLayoutDesc("WEIGHTS", DXGI_FORMAT_R32G32B32A32_FLOAT));
+			inputElementDesc.emplace_back(Helper::Dx12::InputElement::GenerateInputLayoutDesc("BONES", DXGI_FORMAT_R32G32B32A32_UINT));
+		}
+
+	}
 }

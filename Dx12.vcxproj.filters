@@ -109,7 +109,7 @@
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.cpp">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMeshData.cpp">
+    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMesh.cpp">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.cpp">
@@ -160,7 +160,7 @@
     <ClCompile Include="Source\Argent\Input\Keyboard.cpp">
       <Filter>Argent\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\JustChanging\SkinnedMesh.cpp">
+    <ClCompile Include="Source\Argent\JustChanging\ArSkinnedMeshRenderer.cpp">
       <Filter>Argent\JustChanging</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\Scene\Scene.cpp">
@@ -243,7 +243,7 @@
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.h">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMeshData.h">
+    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMesh.h">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.h">
@@ -297,7 +297,7 @@
     <ClInclude Include="Source\Argent\Input\Keyboard.h">
       <Filter>Argent\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\JustChanging\SkinnedMesh.h">
+    <ClInclude Include="Source\Argent\JustChanging\ArSkinnedMeshRenderer.h">
       <Filter>Argent\JustChanging</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Scene\Scene.h">

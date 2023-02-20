@@ -203,6 +203,24 @@ namespace Argent
 				void SetUpInputElement() override;
 			};
 		}
+
+		namespace SkinnedMesh
+		{
+			class ArDefaultGraphicsPipeline:
+				public ArRenderingPipeline
+			{
+			public:
+				ArDefaultGraphicsPipeline(	const char* vsFileName = "Resource/Shader/SkinnedMeshVertex.cso",
+											const char* psFileName = "Resource/Shader/SkinnedMeshPixel.cso"):
+					ArRenderingPipeline(vsFileName, psFileName)
+				{}
+
+
+			private:
+				void SetUpRootSigDesc() override;
+				void SetUpInputElement() override;
+			};
+		}
 	}
 }
 	

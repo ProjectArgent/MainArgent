@@ -6,7 +6,7 @@
 
 namespace Argent::Data
 {
-	class ArMeshData:
+	class ArMesh:
 		public ArData
 	{
 	public:
@@ -22,16 +22,9 @@ namespace Argent::Data
 			DirectX::XMFLOAT4 materialColor;
 		};
 
-		struct Subset
-		{
-			uint32_t startVertex{};
-			uint32_t vertexCount{};
-			uint32_t startIndex{};
-			uint32_t indexCount{};
-		};
-	public:
+public:
 		
-		ArMeshData(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices);
+		ArMesh(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices);
 
 		void UpdateConstant(const DirectX::XMFLOAT4X4& world, const DirectX::XMFLOAT4& color) const
 		{

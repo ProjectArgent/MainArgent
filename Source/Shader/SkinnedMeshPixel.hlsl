@@ -9,7 +9,7 @@ float4 main(VS_OUT pin) : SV_TARGET
 
 
 	float3 N = normalize(pin.worldNormal.xyz);
-	float3 L = pin.lightDirection;
+	float3 L = normalize(-lightPosition);
 	float3 diffuse = color.rgb * max(0, dot(N, L));
 	return float4(diffuse, color.a) * pin.color;
 }

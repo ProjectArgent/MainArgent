@@ -5,10 +5,10 @@ namespace Argent::Resource
 {
 	namespace Primitive
 	{
-		std::unique_ptr<Argent::Data::ArMeshData> CreateCube()
+		std::unique_ptr<Argent::Data::ArMesh> CreateCube()
 		{
 			constexpr float width = 0.5f, height = 0.5f, depth = 0.5f;
-			std::vector<Argent::Data::ArMeshData::Vertex> vertices
+			std::vector<Argent::Data::ArMesh::Vertex> vertices
 			{
 				{{-width,  height, -depth}, {-1,  0,  0} },
 				{{-width,  height, -depth}, { 0,  1,  0} },
@@ -51,17 +51,17 @@ namespace Argent::Resource
 				//bottom
 				13,22,19,16,13,19
 			};
-			return std::make_unique<Argent::Data::ArMeshData>(vertices, indices);
+			return std::make_unique<Argent::Data::ArMesh>(vertices, indices);
 		}
 
-		std::unique_ptr<Argent::Data::ArMeshData> CreateSphere()
+		std::unique_ptr<Argent::Data::ArMesh> CreateSphere()
 		{
 			size_t stacks = 36;
 			size_t slices = 18;
 			float radius = 0.5f;
 			const size_t vertexNum =  stacks * ( slices - static_cast<size_t>(1) ) + static_cast<size_t>(2);
 			const size_t indexNum = static_cast<size_t>(6) * stacks * slices - static_cast<size_t>(1);
-			std::vector<Argent::Data::ArMeshData::Vertex> vertices( vertexNum );
+			std::vector<Argent::Data::ArMesh::Vertex> vertices( vertexNum );
 			std::vector<uint32_t> indices( indexNum );
 			{
 
@@ -157,10 +157,10 @@ namespace Argent::Resource
 				}
 			}
 			}
-			return std::make_unique<Argent::Data::ArMeshData>(vertices, indices);
+			return std::make_unique<Argent::Data::ArMesh>(vertices, indices);
 		}
 
-		std::unique_ptr<Argent::Data::ArMeshData> CreateCapsule()
+		std::unique_ptr<Argent::Data::ArMesh> CreateCapsule()
 		{
 			const size_t stacks = 36;
 			const size_t slices = 18;
@@ -168,7 +168,7 @@ namespace Argent::Resource
 			const float height = 2.0f;
 			const size_t vertexCount =  stacks * ( slices - static_cast<size_t>(1) ) + static_cast<size_t>(2);
 			const size_t indexCount = static_cast<size_t>(6) * stacks * slices - static_cast<size_t>(1);
-			std::vector<Argent::Data::ArMeshData::Vertex> vertices(vertexCount);
+			std::vector<Argent::Data::ArMesh::Vertex> vertices(vertexCount);
 			std::vector<uint32_t> indices(indexCount);
 			const float theta = DirectX::XM_2PI / static_cast<float>(stacks);
 			const float phi = DirectX::XM_PI / static_cast<float>(slices);
@@ -264,7 +264,7 @@ namespace Argent::Resource
 					}
 				}
 			}
-			return std::make_unique<Argent::Data::ArMeshData>(vertices, indices);
+			return std::make_unique<Argent::Data::ArMesh>(vertices, indices);
 		}
 	}
 
@@ -288,7 +288,7 @@ namespace Argent::Resource
 	}
 
 
-	Argent::Data::ArMeshData* ArResourceManager::GetMeshData(const std::string& meshName) const
+	Argent::Data::ArMesh* ArResourceManager::GetMeshData(const std::string& meshName) const
 	{
 		for(const auto& data : meshData)
 		{

@@ -23,10 +23,9 @@ VS_OUT main( VSIN vin )
 
 	vout.worldNormal = normalize(mul(vin.normal, meshWorld));
 	vout.texcoord = vin.texcoord;
-	vout.lightDirection = normalize(vin.position.xyz - lightPosition.xyz);
 
 #if 1
-	vout.color = materialColor;
+	vout.color = materialColor * kd;
 #else
 	vout.color = float4(0, 0, 0, 0);
 	const float4 boneColors[4] = 

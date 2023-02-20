@@ -15,6 +15,10 @@ namespace Argent::Window
 
 		static LRESULT CALLBACK HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
+			//todo Ç«Ç±Ç≈åƒÇ‘Ç◊Ç´ÅH
+			Input::Mouse::Instance().SetIsWheelRotateOff();
+			Input::Mouse::Instance().SetRowWheelRotateValue(0);
+
 			switch (msg)
 			{
 			case WM_DESTROY:
@@ -29,8 +33,6 @@ namespace Argent::Window
 
 			default:
 				break;
-				Input::Mouse::Instance().SetIsWheelRotateOff();
-				Input::Mouse::Instance().SetRowWheelRotateValue(0);
 			}
 			ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 			return DefWindowProc(hWnd, msg, wParam, lParam);
