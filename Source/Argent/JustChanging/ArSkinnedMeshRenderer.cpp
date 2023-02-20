@@ -157,6 +157,7 @@ void ArSkinnedMeshRenderer::Render()
 	}
 	Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
 
+	//todo マテリアルの適用
 	Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
 		/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &keyframe);
 }
@@ -206,9 +207,6 @@ void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& mes
 			}
 		}
 
-
-
-
 		const int polygonCount{ fbxMesh->GetPolygonCount() };
 		mesh.vertices.resize(polygonCount * 3LL);
 		mesh.indices.resize(polygonCount * 3LL);
@@ -244,11 +242,6 @@ void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& mes
 						vertex.boneIndices[influenceIndex] = influencesPerControlPoint.at(influenceIndex).boneIndex;
 					}
 				}
-
-
-
-
-
 
 				if(fbxMesh->GetElementNormalCount() > 0)
 				{
@@ -579,8 +572,6 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		cbv.SizeInBytes = static_cast<UINT>(mesh.constantBuffer->GetDesc().Width);
 		cbv.BufferLocation = mesh.constantBuffer->GetGPUVirtualAddress();
 		device->CreateConstantBufferView(&cbv, mesh.constantHeap->GetCPUDescriptorHandleForHeapStart());
-		//mesh.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&mesh.constantMap));
-		//*mesh.constantMap = mesh.defaultGlobalTransform;
 	}
 
 
@@ -589,10 +580,7 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 	heapDesc.NodeMask = 0;
 	heapDesc.NumDescriptors = static_cast<UINT>(materials.size());
 	heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-	//device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(materialHeap.ReleaseAndGetAddressOf()));
 
-
-	//auto materialHeapHandle = materialHeap->GetCPUDescriptorHandleForHeapStart();
 	for(std::unordered_map<uint64_t, Material>::iterator it = materials.begin(); 
 		it != materials.end(); ++it)
 	{
@@ -601,13 +589,6 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		{
 			descriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
 		}
-		//heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-		//heapDesc.NodeMask = 0;
-		//heapDesc.NumDescriptors = 4;
-		//heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-		//hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(it->second.srvHeap.ReleaseAndGetAddressOf()));
-		//assert(SUCCEEDED(hr));
-
 
 		if(it->second.textureFilename[0].size() > 0)
 		{
@@ -627,9 +608,6 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 		srvDesc.Texture2D.MipLevels = 1;
 		device->CreateShaderResourceView(it->second.texture[0].Get(), &srvDesc, it->second.srvDescriptor.at(0)->GetCPUHandle());
-		//materialHeapHandle.ptr += device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
-
 
 		D3D12_HEAP_PROPERTIES heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 		D3D12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Buffer(Argent::Helper::Math::CalcAlignmentSize(sizeof(Material::Constant)));
@@ -646,15 +624,6 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		map->kd = it->second.kd;
 
 		it->second.constantBuffer->Unmap(0, nullptr);
-
-
-		//heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-		//heapDesc.NodeMask = 0;
-		//heapDesc.NumDescriptors = 1;
-		//heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-		//hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(it->second.cbvHeap.ReleaseAndGetAddressOf()));
-		//assert(SUCCEEDED(hr));
-
 
 		it->second.cbvDescriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
 
@@ -687,7 +656,6 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 	cbvDesc.BufferLocation = constantBuffer->GetGPUVirtualAddress();
 
 	device->CreateConstantBufferView(&cbvDesc, constantDescriptor->GetCPUHandle());
-	//device->CreateConstantBufferView(&cbvDesc, constantHeap->GetCPUDescriptorHandleForHeapStart());
 }
 
 void FetchBoneInfluences(const FbxMesh* fbxMesh, 
