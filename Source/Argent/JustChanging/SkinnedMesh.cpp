@@ -515,6 +515,7 @@ void SkinnedMesh::Update()
 
 }
 
+#ifdef _DEBUG
 void SkinnedMesh::DrawDebug()
 {
 	if(ImGui::TreeNode("Skinned Mesh Renderer"))
@@ -525,6 +526,7 @@ void SkinnedMesh::DrawDebug()
 	}
 	ArRenderer::DrawDebug();
 }
+#endif
 
 void SkinnedMesh::CreateComObject(ID3D12Device* device, const char* filename)
 {

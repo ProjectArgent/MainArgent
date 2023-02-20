@@ -226,7 +226,10 @@ public:
 		float samplingRate);
 	void UpdateAnimation(Animation::Keyframe& keyframe);
 	void Update();
+
+#ifdef _DEBUG
 	void DrawDebug() override;
+#endif
 
 	void CreateComObject(ID3D12Device* device, const char* filename);
 
