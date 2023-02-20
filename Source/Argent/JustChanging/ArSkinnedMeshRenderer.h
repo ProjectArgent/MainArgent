@@ -190,12 +190,12 @@ class ArSkinnedMeshRenderer:
 		DirectX::XMFLOAT4 kd{ 0.2f, 0.2f, 0.2f, 1.0f };
 		DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
 
-		std::string textureFilename[4];
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> srvHeap;
-		Microsoft::WRL::ComPtr<ID3D12Resource> texture[4];
+		static constexpr UINT MaxTextureNum = 4;
+		std::string textureFilename[MaxTextureNum];
+		std::vector<Argent::Descriptor::ArDescriptor*> srvCbvDescriptor;
+		Microsoft::WRL::ComPtr<ID3D12Resource> texture[MaxTextureNum];
 		Argent::Descriptor::ArDescriptor* descriptor;
 
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> cbvHeap;
 		Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
 		Material::Constant* constantMap{};
 	};

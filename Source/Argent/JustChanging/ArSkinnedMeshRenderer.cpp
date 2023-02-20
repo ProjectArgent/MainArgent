@@ -125,14 +125,14 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 
 			DirectX::XMStoreFloat4(&material.constantMap->color, DirectX::XMVectorMultiply(DirectX::XMLoadFloat4(&color),
 				DirectX::XMLoadFloat4(&material.kd)));
-			cmdList->SetDescriptorHeaps(1, material.cbvHeap.GetAddressOf());
-			cmdList->SetGraphicsRootDescriptorTable(4, material.cbvHeap->GetGPUDescriptorHandleForHeapStart());
+			cmdList->SetDescriptorHeaps(1, material.srvCbvDescriptor.at(Material::MaxTextureNum)->GetDescriptorHeap()->GetHeapDoublePointer());
+			cmdList->SetGraphicsRootDescriptorTable(4, material.srvCbvDescriptor.at(Material::MaxTextureNum)->GetGPUHandle());
 
 			cmdList->SetDescriptorHeaps(1, mesh.constantHeap.GetAddressOf());
 			cmdList->SetGraphicsRootDescriptorTable(3, mesh.constantHeap->GetGPUDescriptorHandleForHeapStart());
 
-			cmdList->SetDescriptorHeaps(1, material.srvHeap.GetAddressOf());
-			cmdList->SetGraphicsRootDescriptorTable(2, material.srvHeap->GetGPUDescriptorHandleForHeapStart());
+			cmdList->SetDescriptorHeaps(1, material.srvCbvDescriptor.at(0)->GetDescriptorHeap()->GetHeapDoublePointer());
+			cmdList->SetGraphicsRootDescriptorTable(2, material.srvCbvDescriptor.at(0)->GetGPUHandle());
 			cmdList->DrawIndexedInstanced(subset.indexCount, 1, subset.startIndexLocation, 0, 0);
 		}
 	}
@@ -597,12 +597,17 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 	for(std::unordered_map<uint64_t, Material>::iterator it = materials.begin(); 
 		it != materials.end(); ++it)
 	{
-		heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-		heapDesc.NodeMask = 0;
-		heapDesc.NumDescriptors = 4;
-		heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-		hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(it->second.srvHeap.ReleaseAndGetAddressOf()));
-		assert(SUCCEEDED(hr));
+		it->second.srvCbvDescriptor.resize(Material::MaxTextureNum + 1);
+		for(auto& descriptor : it->second.srvCbvDescriptor)
+		{
+			descriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
+		}
+		//heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+		//heapDesc.NodeMask = 0;
+		//heapDesc.NumDescriptors = 4;
+		//heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+		//hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(it->second.srvHeap.ReleaseAndGetAddressOf()));
+		//assert(SUCCEEDED(hr));
 
 
 		if(it->second.textureFilename[0].size() > 0)
@@ -622,7 +627,7 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 		srvDesc.Texture2D.MipLevels = 1;
-		device->CreateShaderResourceView(it->second.texture[0].Get(), &srvDesc, it->second.srvHeap->GetCPUDescriptorHandleForHeapStart());
+		device->CreateShaderResourceView(it->second.texture[0].Get(), &srvDesc, it->second.srvCbvDescriptor.at(0)->GetCPUHandle());
 		//materialHeapHandle.ptr += device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 		D3D12_HEAP_PROPERTIES heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
@@ -637,19 +642,19 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 
 
 
-		heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-		heapDesc.NodeMask = 0;
-		heapDesc.NumDescriptors = 1;
-		heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-		hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(it->second.cbvHeap.ReleaseAndGetAddressOf()));
-		assert(SUCCEEDED(hr));
+		//heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+		//heapDesc.NodeMask = 0;
+		//heapDesc.NumDescriptors = 1;
+		//heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+		//hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(it->second.cbvHeap.ReleaseAndGetAddressOf()));
+		//assert(SUCCEEDED(hr));
 
 
 
 		D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc{};
 		cbvDesc.SizeInBytes = static_cast<UINT>(it->second.constantBuffer->GetDesc().Width);
 		cbvDesc.BufferLocation = it->second.constantBuffer->GetGPUVirtualAddress();
-		device->CreateConstantBufferView(&cbvDesc, it->second.cbvHeap->GetCPUDescriptorHandleForHeapStart());
+		device->CreateConstantBufferView(&cbvDesc, it->second.srvCbvDescriptor.at(Material::MaxTextureNum)->GetCPUHandle());
 	}
 
 
