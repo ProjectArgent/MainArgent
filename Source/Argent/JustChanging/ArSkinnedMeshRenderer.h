@@ -13,13 +13,6 @@
 #include "../Graphic/Dx12/ArDescriptor.h"
 
 
-namespace Argent
-{
-	namespace Shader
-	{
-		class ArShader;
-	}
-}
 
 struct SkinnedScene
 {
@@ -109,7 +102,7 @@ struct Animation
 	std::vector<Keyframe> sequence;
 };
 
-class SkinnedMesh:
+class ArSkinnedMeshRenderer:
 	public Argent::Component::Renderer::ArRenderer
 	
 {
@@ -155,7 +148,6 @@ class SkinnedMesh:
 			};
 		};
 
-
 		uint64_t uniqueId{};
 		std::string name;
 		int64_t nodeIndex{};
@@ -180,7 +172,7 @@ class SkinnedMesh:
 		D3D12_VERTEX_BUFFER_VIEW vertexView{};
 		D3D12_INDEX_BUFFER_VIEW indexView{};
 
-		friend class SkinnedMesh;
+		friend class ArSkinnedMeshRenderer;
 
 		Skeleton bindPose;
 	};
@@ -210,8 +202,8 @@ class SkinnedMesh:
 
 
 public:
-	SkinnedMesh(ID3D12Device* device, const char* filename, float samplingRate = 0, bool triangulate = false);
-	virtual ~SkinnedMesh() = default;
+	ArSkinnedMeshRenderer(ID3D12Device* device, const char* filename, float samplingRate = 0, bool triangulate = false);
+	virtual ~ArSkinnedMeshRenderer() = default;
 
 	void Render(ID3D12GraphicsCommandList* cmdList,
 		const DirectX::XMFLOAT4X4& world, const DirectX::XMFLOAT4& color,

@@ -1,13 +1,14 @@
-#include "SkinnedMesh.h"
+#include "ArSkinnedMeshRenderer.h"
 #include <functional>
 #include <d3dx12.h>
 #include <filesystem>
 #include "../Core/ArTimer.h"
+#include "../Other/Misc.h"
 #include "../GameObject/GameObject.h"
 #include "../Other/ArHelper.h"
 
 
-SkinnedMesh::SkinnedMesh(ID3D12Device* device, const char* filename, 
+ArSkinnedMeshRenderer::ArSkinnedMeshRenderer(ID3D12Device* device, const char* filename, 
                          float samplingRate, bool triangulate):
 	ArRenderer("name")
 {
@@ -17,10 +18,11 @@ SkinnedMesh::SkinnedMesh(ID3D12Device* device, const char* filename,
 	FbxImporter* importer{ FbxImporter::Create(manager, "") };
 	bool importState{ FALSE };
 	importState = importer->Initialize(filename);
-	assert(importState);
+	_ASSERT_EXPR_A(importState, importer->GetStatus().GetErrorString());
 
+	
 	importState = importer->Import(fbxScene);
-	assert(importState);
+	_ASSERT_EXPR_A(importState, importer->GetStatus().GetErrorString());
 
 	FbxGeometryConverter converter(manager);
 	if(triangulate)
@@ -63,15 +65,12 @@ SkinnedMesh::SkinnedMesh(ID3D12Device* device, const char* filename,
 }
 
 
-void SkinnedMesh::Render(ID3D12GraphicsCommandList* cmdList, 
+void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList, 
 	const DirectX::XMFLOAT4X4& world,
 	const DirectX::XMFLOAT4& color,
 	const Animation::Keyframe* keyframe)
 {
 	ArRenderer::Render(cmdList);
-	//constantMap->world = world;
-	//cmdList->SetGraphicsRootSignature(rootSignature.Get());
-	//cmdList->SetPipelineState(pipelineState.Get());
 
 	Argent::Graphics::ArGraphics::Instance()->SetSceneConstant();
 
@@ -139,7 +138,7 @@ void SkinnedMesh::Render(ID3D12GraphicsCommandList* cmdList,
 	}
 }
 
-void SkinnedMesh::Render()
+void ArSkinnedMeshRenderer::Render()
 {
 	//static int clipIndex{};
 	int frameIndex{};
@@ -149,11 +148,6 @@ void SkinnedMesh::Render()
 	frameIndex = static_cast<int>(animationTick* animation.samplingRate);
 	if(frameIndex > animation.sequence.size() - 1)
 	{
-		////++clipIndex;
-		////if(clipIndex > this->animationClips.size() - 1)
-		//{
-		//	clipIndex = 0;
-		//}
 		frameIndex = 0;
 
 		animationTick = 0;
@@ -168,7 +162,7 @@ void SkinnedMesh::Render()
 		/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &keyframe);
 }
 
-void SkinnedMesh::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& meshes)
+void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& meshes)
 {
 	for(const SkinnedScene::Node& node : sceneView.nodes)
 	{
@@ -283,7 +277,7 @@ void SkinnedMesh::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& meshes)
 	}
 }
 
-void SkinnedMesh::FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, Material>& materials)
+void ArSkinnedMeshRenderer::FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, Material>& materials)
 {
 	const size_t nodeCount{ sceneView.nodes.size() };
 	for(size_t nodeIndex = 0; nodeIndex < nodeCount; ++nodeIndex)
@@ -377,7 +371,7 @@ void SkinnedMesh::FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t,
 	}
 }
 
-void SkinnedMesh::FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose)
+void ArSkinnedMeshRenderer::FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose)
 {
 	const int deformerCount = fbxMesh->GetDeformerCount(FbxDeformer::eSkin);
 	for(int deformerIndex = 0; deformerIndex < deformerCount; ++deformerIndex)
@@ -405,7 +399,7 @@ void SkinnedMesh::FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose)
 	}
 }
 
-void SkinnedMesh::FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, float samplingRate)
+void ArSkinnedMeshRenderer::FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, float samplingRate)
 {
 	FbxArray<FbxString*> animationStackNames;
 	fbxScene->FillAnimStackNameArray(animationStackNames);
@@ -455,7 +449,7 @@ void SkinnedMesh::FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& ani
 	}
 }
 
-void SkinnedMesh::UpdateAnimation(Animation::Keyframe& keyframe)
+void ArSkinnedMeshRenderer::UpdateAnimation(Animation::Keyframe& keyframe)
 {
 	size_t nodeCount{ keyframe.nodes.size() };
 	for(size_t nodeIndex = 0; nodeIndex < nodeCount; ++nodeIndex)
@@ -473,7 +467,7 @@ void SkinnedMesh::UpdateAnimation(Animation::Keyframe& keyframe)
 	}
 }
 
-void SkinnedMesh::Update()
+void ArSkinnedMeshRenderer::Update()
 {
 #if 0
 	static int clipIndex{};
@@ -516,7 +510,7 @@ void SkinnedMesh::Update()
 }
 
 #ifdef _DEBUG
-void SkinnedMesh::DrawDebug()
+void ArSkinnedMeshRenderer::DrawDebug()
 {
 	if(ImGui::TreeNode("Skinned Mesh Renderer"))
 	{
@@ -528,7 +522,7 @@ void SkinnedMesh::DrawDebug()
 }
 #endif
 
-void SkinnedMesh::CreateComObject(ID3D12Device* device, const char* filename)
+void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* filename)
 {
 	HRESULT hr{ S_OK };
 	for(Mesh& mesh : meshes)
