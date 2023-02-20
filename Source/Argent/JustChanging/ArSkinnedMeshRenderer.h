@@ -120,6 +120,7 @@ class ArSkinnedMeshRenderer:
 	struct Constants
 	{
 		DirectX::XMFLOAT4X4 world;
+		DirectX::XMFLOAT4 color;
 	};
 
 	struct Mesh
@@ -181,7 +182,9 @@ class ArSkinnedMeshRenderer:
 	{
 		struct Constant
 		{
-			DirectX::XMFLOAT4 color;
+			DirectX::XMFLOAT4 ka;
+			DirectX::XMFLOAT4 kd;
+			DirectX::XMFLOAT4 ks;
 		};
 		uint64_t uniqueId{};
 		std::string name;
@@ -192,12 +195,12 @@ class ArSkinnedMeshRenderer:
 
 		static constexpr UINT MaxTextureNum = 4;
 		std::string textureFilename[MaxTextureNum];
-		std::vector<Argent::Descriptor::ArDescriptor*> srvCbvDescriptor;
+		std::vector<Argent::Descriptor::ArDescriptor*> srvDescriptor;
 		Microsoft::WRL::ComPtr<ID3D12Resource> texture[MaxTextureNum];
-		Argent::Descriptor::ArDescriptor* descriptor;
+		Argent::Descriptor::ArDescriptor* cbvDescriptor;
 
 		Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
-		Material::Constant* constantMap{};
+		//Material::Constant* constantMap{};
 	};
 
 

@@ -27,6 +27,7 @@ static const int MaxBones = 256;
 cbuffer ObjectConstant : register(b1)
 {
 	row_major float4x4 world;
+	float4 materialColor;
 }
 cbuffer MeshConstant : register(b2)
 {
@@ -37,5 +38,7 @@ cbuffer MeshConstant : register(b2)
 
 cbuffer MaterialConstant : register(b3)
 {
-	float4 materialColor;
+	float4 ka;
+	float4 kd;
+	float4 ks;
 }

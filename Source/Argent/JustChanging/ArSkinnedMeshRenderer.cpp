@@ -77,6 +77,7 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 
 	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	constantMap->world = world;
+	constantMap->color = color;
 	for(const Mesh& mesh : meshes)
 	{
 
@@ -123,16 +124,14 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 			const Material& material{ materials.at(subset.materialUniqueId) };
 			
 
-			DirectX::XMStoreFloat4(&material.constantMap->color, DirectX::XMVectorMultiply(DirectX::XMLoadFloat4(&color),
-				DirectX::XMLoadFloat4(&material.kd)));
-			cmdList->SetDescriptorHeaps(1, material.srvCbvDescriptor.at(Material::MaxTextureNum)->GetDescriptorHeap()->GetHeapDoublePointer());
-			cmdList->SetGraphicsRootDescriptorTable(4, material.srvCbvDescriptor.at(Material::MaxTextureNum)->GetGPUHandle());
+			cmdList->SetDescriptorHeaps(1, material.cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
+			cmdList->SetGraphicsRootDescriptorTable(4, material.cbvDescriptor->GetGPUHandle());
 
 			cmdList->SetDescriptorHeaps(1, mesh.constantHeap.GetAddressOf());
 			cmdList->SetGraphicsRootDescriptorTable(3, mesh.constantHeap->GetGPUDescriptorHandleForHeapStart());
 
-			cmdList->SetDescriptorHeaps(1, material.srvCbvDescriptor.at(0)->GetDescriptorHeap()->GetHeapDoublePointer());
-			cmdList->SetGraphicsRootDescriptorTable(2, material.srvCbvDescriptor.at(0)->GetGPUHandle());
+			cmdList->SetDescriptorHeaps(1, material.srvDescriptor.at(0)->GetDescriptorHeap()->GetHeapDoublePointer());
+			cmdList->SetGraphicsRootDescriptorTable(2, material.srvDescriptor.at(0)->GetGPUHandle());
 			cmdList->DrawIndexedInstanced(subset.indexCount, 1, subset.startIndexLocation, 0, 0);
 		}
 	}
@@ -597,8 +596,8 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 	for(std::unordered_map<uint64_t, Material>::iterator it = materials.begin(); 
 		it != materials.end(); ++it)
 	{
-		it->second.srvCbvDescriptor.resize(Material::MaxTextureNum + 1);
-		for(auto& descriptor : it->second.srvCbvDescriptor)
+		it->second.srvDescriptor.resize(Material::MaxTextureNum + 1);
+		for(auto& descriptor : it->second.srvDescriptor)
 		{
 			descriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
 		}
@@ -627,8 +626,10 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 		srvDesc.Texture2D.MipLevels = 1;
-		device->CreateShaderResourceView(it->second.texture[0].Get(), &srvDesc, it->second.srvCbvDescriptor.at(0)->GetCPUHandle());
+		device->CreateShaderResourceView(it->second.texture[0].Get(), &srvDesc, it->second.srvDescriptor.at(0)->GetCPUHandle());
 		//materialHeapHandle.ptr += device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+
 
 		D3D12_HEAP_PROPERTIES heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 		D3D12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Buffer(Argent::Helper::Math::CalcAlignmentSize(sizeof(Material::Constant)));
@@ -636,10 +637,15 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 			D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(it->second.constantBuffer.ReleaseAndGetAddressOf()));
 		assert(SUCCEEDED(hr));
 
-		hr = it->second.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&it->second.constantMap));
+		ArSkinnedMeshRenderer::Material::Constant* map{};
+		hr = it->second.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&map));
 		assert(SUCCEEDED(hr));
 
+		map->ka = it->second.ka;
+		map->ks = it->second.ks;
+		map->kd = it->second.kd;
 
+		it->second.constantBuffer->Unmap(0, nullptr);
 
 
 		//heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
@@ -650,11 +656,12 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		//assert(SUCCEEDED(hr));
 
 
+		it->second.cbvDescriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
 
 		D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc{};
 		cbvDesc.SizeInBytes = static_cast<UINT>(it->second.constantBuffer->GetDesc().Width);
 		cbvDesc.BufferLocation = it->second.constantBuffer->GetGPUVirtualAddress();
-		device->CreateConstantBufferView(&cbvDesc, it->second.srvCbvDescriptor.at(Material::MaxTextureNum)->GetCPUHandle());
+		device->CreateConstantBufferView(&cbvDesc, it->second.cbvDescriptor->GetCPUHandle());
 	}
 
 
