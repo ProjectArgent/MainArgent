@@ -185,6 +185,7 @@ class ArSkinnedMeshRenderer:
 			DirectX::XMFLOAT4 ka;
 			DirectX::XMFLOAT4 kd;
 			DirectX::XMFLOAT4 ks;
+			float shininess;
 		};
 		uint64_t uniqueId{};
 		std::string name;
@@ -200,7 +201,23 @@ class ArSkinnedMeshRenderer:
 		Argent::Descriptor::ArDescriptor* cbvDescriptor;
 
 		Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
-		//Material::Constant* constantMap{};
+		Constant* constantMap{};
+
+
+#ifdef _DEBUG
+		void DrawDebug()
+		{
+			if(ImGui::TreeNode(name.c_str()))
+			{
+				ImGui::DragFloat3("Ka", &constantMap->ka.x, 0.001f, 0, 1.0f);
+				ImGui::DragFloat3("Kd", &constantMap->kd.x, 0.001f, 0, 1.0f);
+				ImGui::DragFloat3("Ks", &constantMap->ks.x, 0.001f, 0, 1.0f);
+				ImGui::DragFloat("Shininess", &constantMap->shininess, 1.0f, 0, FLT_MAX);
+				ImGui::TreePop();
+			}
+		}
+#endif
+
 	};
 
 

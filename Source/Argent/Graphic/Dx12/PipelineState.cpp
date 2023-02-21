@@ -64,13 +64,13 @@ namespace Argent::Dx12
 			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(0), D3D12_SHADER_VISIBILITY_PIXEL));
 
-			samplerDesc[0] = { Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fAnisotropic, Helper::Dx12::Sampler::WrapMode::wBorder) };
+			samplerDesc.emplace_back( Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fAnisotropic, Helper::Dx12::Sampler::WrapMode::wBorder));
 
 			rootSigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 			rootSigDesc.NumParameters = 1;
 			rootSigDesc.pParameters = &rootParam.at(0);
 			rootSigDesc.NumStaticSamplers = 1;
-			rootSigDesc.pStaticSamplers = samplerDesc;
+			rootSigDesc.pStaticSamplers = samplerDesc.data();
 		}
 	}
 
@@ -89,13 +89,13 @@ namespace Argent::Dx12
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(2), D3D12_SHADER_VISIBILITY_ALL));
 
 
-			samplerDesc[0] = Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fAnisotropic, Helper::Dx12::Sampler::WrapMode::wRepeat);
+			samplerDesc.emplace_back(Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fAnisotropic, Helper::Dx12::Sampler::WrapMode::wRepeat));
 
 			rootSigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 			rootSigDesc.NumParameters = static_cast<UINT>(rootParam.size());
 			rootSigDesc.pParameters = rootParam.data();
 			rootSigDesc.NumStaticSamplers = 1;
-			rootSigDesc.pStaticSamplers = samplerDesc;
+			rootSigDesc.pStaticSamplers = samplerDesc.data();
 		}
 
 		void ArDefaultGraphicsPipeline::SetUpInputElement()
@@ -115,20 +115,24 @@ namespace Argent::Dx12
 			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV));
 			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(2, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV));
 			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(3, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV));
+			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(1, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV));
+
 
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(0), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(1), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(2), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(3), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(4), D3D12_SHADER_VISIBILITY_ALL));
+			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(5), D3D12_SHADER_VISIBILITY_ALL));
 
-			samplerDesc[0] = Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fAnisotropic, Helper::Dx12::Sampler::WrapMode::wRepeat);
+			samplerDesc.emplace_back(Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fPoint, Helper::Dx12::Sampler::WrapMode::wRepeat));
+			//samplerDesc.emplace_back(Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fAnisotropic, Helper::Dx12::Sampler::WrapMode::wRepeat));
 
 			rootSigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 			rootSigDesc.NumParameters = static_cast<UINT>(rootParam.size());
 			rootSigDesc.pParameters = rootParam.data();
-			rootSigDesc.NumStaticSamplers = 1;
-			rootSigDesc.pStaticSamplers = samplerDesc;
+			rootSigDesc.NumStaticSamplers = samplerDesc.size();
+			rootSigDesc.pStaticSamplers = samplerDesc.data();
 		}
 
 		void ArDefaultGraphicsPipeline::SetUpInputElement()

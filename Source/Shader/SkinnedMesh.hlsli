@@ -1,7 +1,7 @@
 struct VSIN
 {
 	float4 position : POSITION;
-	float4 normal : NORMAL;
+	float3 normal : NORMAL;
 	float2 texcoord : TEXCOORD;
 	float4 boneWeights : WEIGHTS;
 	uint4 boneIndices : BONES;
@@ -19,8 +19,9 @@ struct VS_OUT
 cbuffer SceneConstant : register(b0)
 {
 	row_major float4x4 viewProjection;
-	float3 lightPosition;
-	float3 cameraPosition;
+	float4 lightColor;
+	float4 lightPosition;
+	float4 cameraPosition;
 }
 
 static const int MaxBones = 256;
@@ -41,4 +42,5 @@ cbuffer MaterialConstant : register(b3)
 	float4 ka;
 	float4 kd;
 	float4 ks;
+	float shininess;
 }
