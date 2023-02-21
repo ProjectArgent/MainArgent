@@ -117,6 +117,7 @@ namespace Argent::Dx12
 			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(3, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV));
 			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(1, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV));
 
+
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(0), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(1), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(2), D3D12_SHADER_VISIBILITY_ALL));

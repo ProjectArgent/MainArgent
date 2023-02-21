@@ -49,6 +49,7 @@ ArSkinnedMeshRenderer::ArSkinnedMeshRenderer(ID3D12Device* device, const char* f
 		}
 	};
 
+	
 	traverse(fbxScene->GetRootNode());
 
 	FetchMesh(fbxScene, meshes);
@@ -506,9 +507,13 @@ void ArSkinnedMeshRenderer::DrawDebug()
 		ImGui::Text(animationClips.at(clipIndex).name.c_str());
 
 
-		for(auto& m : materials)
+		if(ImGui::TreeNode("Material")) 
 		{
-			m.second.DrawDebug();
+			for(auto& m : materials)
+			{
+				m.second.DrawDebug();
+			}
+			ImGui::TreePop();
 		}
 		ImGui::TreePop();
 	}

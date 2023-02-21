@@ -19,7 +19,7 @@ void Title::Initialize()
 	AddObject(GameObject::Sphere());
 	AddObject(GameObject::Capsule());
 	//AddObject(GameObject::SceneCamera());
-	AddObject( new GameObject("obj",new ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resource/RenderingEngine/plantune.fbx")));
+	AddObject( new GameObject("obj",new ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resource/RenderingEngine/nico.fbx")));
 
 	//GetGameObject("Main Camera")->GetComponent<Camera>()->SetTarget(GetGameObject("Player")->GetTransform());
 	//GetGameObject("Player")->AddComponent<Transform>();
