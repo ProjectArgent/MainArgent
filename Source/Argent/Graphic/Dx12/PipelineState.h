@@ -83,8 +83,8 @@ namespace Argent
 
 			D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineStateDesc{};
 			D3D12_ROOT_SIGNATURE_DESC rootSigDesc{};
-			static constexpr UINT numSampler = 3;
-			D3D12_STATIC_SAMPLER_DESC samplerDesc[numSampler]{};
+			//static constexpr UINT numSampler = 3;
+			std::vector<D3D12_STATIC_SAMPLER_DESC> samplerDesc{};
 			std::vector<D3D12_DESCRIPTOR_RANGE> range{};
 			std::vector<D3D12_ROOT_PARAMETER> rootParam{};
 			std::vector<D3D12_INPUT_ELEMENT_DESC> inputElementDesc{};

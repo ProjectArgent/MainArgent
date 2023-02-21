@@ -97,6 +97,7 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 		DirectX::XMStoreFloat4x4(&constantMap->boneTransforms[2], B[2] * A[2] * A[1] * A[0]);
 #endif
 
+
 		cmdList->SetDescriptorHeaps(1, constantDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
 		cmdList->SetGraphicsRootDescriptorTable(1, constantDescriptor->GetGPUHandle());
 
@@ -119,13 +120,15 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 			const Animation::Keyframe::Node meshNode{ keyframe->nodes.at(mesh.nodeIndex) };
 			mesh.constantMap->globalTransform = meshNode.globalTransform;
 			mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
-
-
-			const Material& material{ materials.at(subset.materialUniqueId) };
 			
+			
+			const Material& material{ materials.at(subset.materialUniqueId) };
 
 			cmdList->SetDescriptorHeaps(1, material.cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
 			cmdList->SetGraphicsRootDescriptorTable(4, material.cbvDescriptor->GetGPUHandle());
+
+			//cmdList->SetDescriptorHeaps(1, material.cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
+			//cmdList->SetGraphicsRootDescriptorTable(5, material.srvDescriptor.at(3)->GetGPUHandle());
 
 			cmdList->SetDescriptorHeaps(1, mesh.constantHeap.GetAddressOf());
 			cmdList->SetGraphicsRootDescriptorTable(3, mesh.constantHeap->GetGPUDescriptorHandleForHeapStart());
@@ -327,6 +330,13 @@ void ArSkinnedMeshRenderer::FetchMaterial(FbxScene* fbxScene, std::unordered_map
 					material.ka.w = 1.0f;
 
 					const FbxFileTexture* fbxTexture{ fbxProp.GetSrcObject<FbxFileTexture>() };
+					material.textureFilename[2] = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
+				}
+
+				fbxProp = fbxMaterial->FindProperty(FbxSurfaceMaterial::sNormalMap);
+				if(fbxProp.IsValid())
+				{
+					const FbxFileTexture* fbxTexture{ fbxProp.GetSrcObject<FbxFileTexture>() };
 					material.textureFilename[3] = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
 				}
 				materials.emplace(material.uniqueId, std::move(material));
@@ -346,20 +356,6 @@ void ArSkinnedMeshRenderer::FetchMaterial(FbxScene* fbxScene, std::unordered_map
 			materials.emplace(material.uniqueId, std::move(material));
 
 		}
-
-		if(materialCount == 0)
-		{
-			Material material;
-			material.name = "Dummy";
-			material.uniqueId = 0;
-			material.kd.x = 
-			material.kd.y = 
-			material.kd.z = 
-			material.kd.w = 1.0f;
-			material.textureFilename[0] = "";
-			materials.emplace(material.uniqueId, std::move(material));
-		}
-
 	}
 }
 
@@ -508,8 +504,16 @@ void ArSkinnedMeshRenderer::DrawDebug()
 	{
 		ImGui::SliderInt("Animation Clip", &clipIndex, 0, animationClips.size() - 1);
 		ImGui::Text(animationClips.at(clipIndex).name.c_str());
+
+
+		for(auto& m : materials)
+		{
+			m.second.DrawDebug();
+		}
 		ImGui::TreePop();
 	}
+
+
 	ArRenderer::DrawDebug();
 }
 #endif
@@ -523,7 +527,7 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		D3D12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Buffer(sizeof(Vertex) * mesh.vertices.size());
 		hr = device->CreateCommittedResource(&heapProp, D3D12_HEAP_FLAG_NONE, &resDesc, D3D12_RESOURCE_STATE_GENERIC_READ, 
 			nullptr, IID_PPV_ARGS(mesh.vertexBuffer.ReleaseAndGetAddressOf()));
-		assert(SUCCEEDED(hr));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
 
 		Vertex* vMap{};
@@ -539,7 +543,7 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		resDesc.Width = sizeof(uint32_t) * mesh.indices.size();
 		hr = device->CreateCommittedResource(&heapProp, D3D12_HEAP_FLAG_NONE, &resDesc, D3D12_RESOURCE_STATE_GENERIC_READ,
 			nullptr, IID_PPV_ARGS(mesh.indexBuffer.ReleaseAndGetAddressOf()));
-		assert(SUCCEEDED(hr));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
 		uint32_t* iMap{};
 		hr = mesh.indexBuffer->Map(0, nullptr, reinterpret_cast<void**>(&iMap));
@@ -556,16 +560,16 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 		heapDesc.NumDescriptors = 1;
 		heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 		hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(mesh.constantHeap.ReleaseAndGetAddressOf()));
-		assert(SUCCEEDED(hr));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
 		resDesc = CD3DX12_RESOURCE_DESC::Buffer(Argent::Helper::Math::CalcAlignmentSize(sizeof(Mesh::Constant)));
 
 		hr = device->CreateCommittedResource(&heapProp, D3D12_HEAP_FLAG_NONE, &resDesc, D3D12_RESOURCE_STATE_GENERIC_READ, 
 			nullptr, IID_PPV_ARGS(mesh.constantBuffer.ReleaseAndGetAddressOf()));
-		assert(SUCCEEDED(hr));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
 		hr = mesh.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&mesh.constantMap));
-		assert(SUCCEEDED(hr));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 		mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
 
 		D3D12_CONSTANT_BUFFER_VIEW_DESC cbv{};
@@ -590,38 +594,64 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 			descriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
 		}
 
-		if(it->second.textureFilename[0].size() > 0)
 		{
-			std::filesystem::path path(filename);
-			path.replace_filename(it->second.textureFilename[0]);
-			Argent::Graphics::ArGraphics::Instance()->LoadTexture(path.c_str(), it->second.texture[0].ReleaseAndGetAddressOf());
+			if(it->second.textureFilename[0].size() > 0)
+			{
+				std::filesystem::path path(filename);
+				path.replace_filename(it->second.textureFilename[0]);
+				Argent::Graphics::ArGraphics::Instance()->LoadTexture(path.c_str(), it->second.texture[0].ReleaseAndGetAddressOf());
 
-		}
-		else
-		{
-			Argent::Graphics::ArGraphics::Instance()->CreateWhiteTexture(it->second.texture[0].ReleaseAndGetAddressOf());
-		}
+			}
+			else
+			{
+				Argent::Graphics::ArGraphics::Instance()->CreateWhiteTexture(it->second.texture[0].ReleaseAndGetAddressOf());
+			}
 
-		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
-		srvDesc.Format = it->second.texture[0]->GetDesc().Format;
-		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
-		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-		srvDesc.Texture2D.MipLevels = 1;
+			D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
+			srvDesc.Format = it->second.texture[0]->GetDesc().Format;
+			srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+			srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+			srvDesc.Texture2D.MipLevels = 1;
 		device->CreateShaderResourceView(it->second.texture[0].Get(), &srvDesc, it->second.srvDescriptor.at(0)->GetCPUHandle());
+		}
+
+		{
+			if(it->second.textureFilename[3].size() > 0)
+			{
+				std::filesystem::path path(filename);
+				path.replace_filename(it->second.textureFilename[3]);
+				Argent::Graphics::ArGraphics::Instance()->LoadTexture(path.c_str(), it->second.texture[3].ReleaseAndGetAddressOf());
+
+			}
+			else
+			{
+				Argent::Graphics::ArGraphics::Instance()->CreateWhiteTexture(it->second.texture[3].ReleaseAndGetAddressOf());
+			}
+
+			D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
+			srvDesc.Format = it->second.texture[3]->GetDesc().Format;
+			srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+			srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+			srvDesc.Texture2D.MipLevels = 1;
+			device->CreateShaderResourceView(it->second.texture[3].Get(), &srvDesc, it->second.srvDescriptor.at(3)->GetCPUHandle());
+		}
+
 
 		D3D12_HEAP_PROPERTIES heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 		D3D12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Buffer(Argent::Helper::Math::CalcAlignmentSize(sizeof(Material::Constant)));
 		hr = device->CreateCommittedResource(&heapProp, D3D12_HEAP_FLAG_NONE, &resDesc, 
 			D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(it->second.constantBuffer.ReleaseAndGetAddressOf()));
-		assert(SUCCEEDED(hr));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
-		ArSkinnedMeshRenderer::Material::Constant* map{};
-		hr = it->second.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&map));
-		assert(SUCCEEDED(hr));
+		//ArSkinnedMeshRenderer::Material::Constant* map{};
+		hr = it->second.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&it->second.constantMap));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
-		map->ka = it->second.ka;
-		map->ks = it->second.ks;
-		map->kd = it->second.kd;
+		it->second.constantMap->ka = it->second.ka;
+		it->second.constantMap->ks = it->second.ks;
+		it->second.constantMap->kd = it->second.kd;
+		//todo スペキュラの強度を変更できるように
+		it->second.constantMap->shininess = 128;
 
 		it->second.constantBuffer->Unmap(0, nullptr);
 
@@ -641,11 +671,11 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 
 		hr = device->CreateCommittedResource(&constHeapProp, D3D12_HEAP_FLAG_NONE, &constResDesc, D3D12_RESOURCE_STATE_GENERIC_READ,
 			nullptr, IID_PPV_ARGS(constantBuffer.ReleaseAndGetAddressOf()));
-		assert(SUCCEEDED(hr));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
 		
 		hr = constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&constantMap));
-		assert(SUCCEEDED(hr));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr)); 
 		DirectX::XMStoreFloat4x4(&constantMap->world, DirectX::XMMatrixIdentity());
 	}
 

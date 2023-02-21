@@ -2,7 +2,7 @@
 
 VS_OUT main( VSIN vin )
 {
-	vin.normal.w = 0;
+	//vin.normal.w = 0;
 	float4 blendedPosition = { 0, 0, 0, 1 };
 	float4 blendedNormal = { 0, 0, 0, 0 };
 	for(int boneIndex = 0; boneIndex < 4; ++boneIndex)
