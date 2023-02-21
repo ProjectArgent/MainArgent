@@ -127,8 +127,8 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 			cmdList->SetDescriptorHeaps(1, material.cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
 			cmdList->SetGraphicsRootDescriptorTable(4, material.cbvDescriptor->GetGPUHandle());
 
-			//cmdList->SetDescriptorHeaps(1, material.cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
-			//cmdList->SetGraphicsRootDescriptorTable(5, material.srvDescriptor.at(3)->GetGPUHandle());
+			cmdList->SetDescriptorHeaps(1, material.cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
+			cmdList->SetGraphicsRootDescriptorTable(5, material.srvDescriptor.at(3)->GetGPUHandle());
 
 			cmdList->SetDescriptorHeaps(1, mesh.constantHeap.GetAddressOf());
 			cmdList->SetGraphicsRootDescriptorTable(3, mesh.constantHeap->GetGPUDescriptorHandleForHeapStart());

@@ -115,14 +115,14 @@ namespace Argent::Dx12
 			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV));
 			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(2, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV));
 			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(3, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV));
-			//range.emplace_back(Helper::Dx12::DescriptorRange::Generate(1, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV));
+			range.emplace_back(Helper::Dx12::DescriptorRange::Generate(1, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV));
 
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(0), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(1), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(2), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(3), D3D12_SHADER_VISIBILITY_ALL));
 			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(4), D3D12_SHADER_VISIBILITY_ALL));
-			//rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(5), D3D12_SHADER_VISIBILITY_ALL));
+			rootParam.emplace_back(Helper::Dx12::RootParameter::Generate(1, &range.at(5), D3D12_SHADER_VISIBILITY_ALL));
 
 			samplerDesc.emplace_back(Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fPoint, Helper::Dx12::Sampler::WrapMode::wRepeat));
 			//samplerDesc.emplace_back(Helper::Dx12::Sampler::GenerateSamplerDesc(Helper::Dx12::Sampler::FilterMode::fAnisotropic, Helper::Dx12::Sampler::WrapMode::wRepeat));

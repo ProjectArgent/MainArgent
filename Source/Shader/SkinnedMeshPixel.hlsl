@@ -3,7 +3,7 @@ SamplerState smpPoint : register(s0);
 //SamplerState smpAniso : register(s1);
 
 Texture2D tex : register(t0);
-//Texture2D normalTex : register(t1);
+Texture2D normalTex : register(t1);
 
 float3 CalcLambertDiffuse(float3 normal, float3 lightVector, float3 lightColor, float3 kd)
 {
@@ -27,15 +27,15 @@ float4 main(VS_OUT pin) : SV_TARGET
 {
 	float4 color = tex.Sample(smpPoint, pin.texcoord);
 
-	//float3 normal = normalTex.Sample(smpPoint, pin.texcoord).rgb;
+	float3 normal = normalTex.Sample(smpPoint, pin.texcoord).rgb;
 
 	float3 T = float3(1.0001, 0, 0);
 	float3x3 CM = {normalize(T), normalize(cross(pin.worldNormal.xyz, T)), normalize(pin.worldNormal.xyz) };
 
 
-	float3 N = normalize(pin.worldNormal.xyz);
-	//float3 N = normalTex.Sample(smpAniso, pin.texcoord).rgb;
-	//N = normalize(mul(normal * 2.0f - 1.0f, CM));
+	//float3 N = normalize(pin.worldNormal.xyz);
+	float3 N = normalTex.Sample(smpPoint, pin.texcoord).rgb;
+	N = normalize(mul(normal * 2.0f - 1.0f, CM));
 
 	float3 L = normalize(float3(-lightPosition.xyz));
 	float3 E = normalize(float3(cameraPosition.xyz - pin.worldPosition.xyz));
