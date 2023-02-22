@@ -52,9 +52,11 @@ ArSkinnedMeshRenderer::ArSkinnedMeshRenderer(ID3D12Device* device, const char* f
 	
 	traverse(fbxScene->GetRootNode());
 
-	FetchMesh(fbxScene, meshes);
-	FetchMaterial(fbxScene, materials);
-	FetchAnimation(fbxScene, animationClips, samplingRate);
+	FetchMesh(fbxScene, meshes, sceneView);
+	FetchMaterial(fbxScene, materials, sceneView);
+	FetchAnimation(fbxScene, animationClips, samplingRate, sceneView);
+
+	
 
 	manager->Destroy();
 
@@ -107,21 +109,23 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 
 		for(const Mesh::Subset& subset : mesh.subsets)
 		{
-			const size_t boneCount{ mesh.bindPose.bones.size() };
-			for(int boneIndex = 0; boneIndex < boneCount; ++boneIndex)
+			if(animationClips.size() > 0)
 			{
-				const Skeleton::Bone& bone{ mesh.bindPose.bones.at(boneIndex) };
-				const Animation::Keyframe::Node& boneNode{ keyframe->nodes.at(bone.nodeIndex) };
-				DirectX::XMStoreFloat4x4(&mesh.constantMap->boneTransforms[boneIndex],
-					DirectX::XMLoadFloat4x4(&bone.offsetTransform) * 
-					DirectX::XMLoadFloat4x4(&boneNode.globalTransform) * 
-					DirectX::XMMatrixInverse(nullptr, DirectX::XMLoadFloat4x4(&mesh.defaultGlobalTransform))
-				);
+				const size_t boneCount{ mesh.bindPose.bones.size() };
+				for(int boneIndex = 0; boneIndex < boneCount; ++boneIndex)
+				{
+					const Skeleton::Bone& bone{ mesh.bindPose.bones.at(boneIndex) };
+					const Animation::Keyframe::Node& boneNode{ keyframe->nodes.at(bone.nodeIndex) };
+					DirectX::XMStoreFloat4x4(&mesh.constantMap->boneTransforms[boneIndex],
+						DirectX::XMLoadFloat4x4(&bone.offsetTransform) * 
+						DirectX::XMLoadFloat4x4(&boneNode.globalTransform) * 
+						DirectX::XMMatrixInverse(nullptr, DirectX::XMLoadFloat4x4(&mesh.defaultGlobalTransform))
+					);
+				}
+				const Animation::Keyframe::Node meshNode{ keyframe->nodes.at(mesh.nodeIndex) };
+				mesh.constantMap->globalTransform = meshNode.globalTransform;
+				mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
 			}
-			const Animation::Keyframe::Node meshNode{ keyframe->nodes.at(mesh.nodeIndex) };
-			mesh.constantMap->globalTransform = meshNode.globalTransform;
-			mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
-			
 			
 			const Material& material{ materials.at(subset.materialUniqueId) };
 
@@ -144,29 +148,39 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 void ArSkinnedMeshRenderer::Render()
 {
 	//static int clipIndex{};
-	int frameIndex{};
-	static float animationTick{};
 
-	Animation& animation{ this->animationClips.at(clipIndex) };
-	frameIndex = static_cast<int>(animationTick* animation.samplingRate);
-	if(frameIndex > animation.sequence.size() - 1)
+	if(animationClips.size() > 0)
 	{
-		frameIndex = 0;
+		int frameIndex{};
+		static float animationTick{};
 
-		animationTick = 0;
+		Animation& animation{ this->animationClips.at(clipIndex) };
+		frameIndex = static_cast<int>(animationTick* animation.samplingRate);
+		if(frameIndex > animation.sequence.size() - 1)
+		{
+			frameIndex = 0;
+
+			animationTick = 0;
+		}
+		else
+		{
+			animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
+		}
+		Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
+
+		//todo マテリアルの適用
+		Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
+			/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &keyframe);
 	}
 	else
 	{
-		animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
+		Animation::Keyframe key{};
+		Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
+			/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &key);
 	}
-	Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
-
-	//todo マテリアルの適用
-	Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
-		/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &keyframe);
 }
 
-void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& meshes)
+void FetchMesh(FbxScene* fbxScene, std::vector<ArSkinnedMeshRenderer::Mesh>& meshes, const SkinnedScene& sceneView)
 {
 	for(const SkinnedScene::Node& node : sceneView.nodes)
 	{
@@ -175,7 +189,7 @@ void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& mes
 		FbxNode* fbxNode{ fbxScene->FindNodeByName(node.name.c_str()) };
 		FbxMesh* fbxMesh{ fbxNode->GetMesh() };
 
-		Mesh& mesh{ meshes.emplace_back() };
+		ArSkinnedMeshRenderer::Mesh& mesh{ meshes.emplace_back() };
 		mesh.uniqueId = fbxMesh->GetNode()->GetUniqueID();
 		mesh.name = fbxMesh->GetNode()->GetName();
 		mesh.nodeIndex = sceneView.IndexOf(mesh.uniqueId);
@@ -183,9 +197,9 @@ void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& mes
 
 		std::vector<boneInfluencesPerControlPoint> boneInfluences;
 		FetchBoneInfluences(fbxMesh, boneInfluences);
-		FetchSkeleton(fbxMesh, mesh.bindPose);
+		FetchSkeleton(fbxMesh, mesh.bindPose, sceneView);
 
-		std::vector<Mesh::Subset>& subsets{ mesh.subsets };
+		std::vector<ArSkinnedMeshRenderer::Mesh::Subset>& subsets{ mesh.subsets };
 		const int MaterialCount{ fbxMesh->GetNode()->GetMaterialCount() };
 		subsets.resize(MaterialCount > 0 ? MaterialCount : 1);
 		for(int materialIndex = 0; materialIndex < MaterialCount; ++materialIndex)
@@ -203,7 +217,7 @@ void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& mes
 				subsets.at(materialIndex).indexCount += 3;
 			}
 			uint32_t offset{};
-			for(Mesh::Subset& subset : subsets)
+			for(ArSkinnedMeshRenderer::Mesh::Subset& subset : subsets)
 			{
 				subset.startIndexLocation = offset;
 				offset += subset.indexCount;
@@ -222,14 +236,14 @@ void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& mes
 		{
 			const int materialIndex{ MaterialCount > 0 ? 
 				fbxMesh->GetElementMaterial()->GetIndexArray().GetAt(polygonIndex) : 0 };
-			Mesh::Subset& subset{ subsets.at(materialIndex) };
+			ArSkinnedMeshRenderer::Mesh::Subset& subset{ subsets.at(materialIndex) };
 			const uint32_t offset{ subset.startIndexLocation + subset.indexCount };
 
 			for(int positionInPolygon = 0; positionInPolygon < 3; ++positionInPolygon)
 			{
 				const int vertexIndex{ polygonIndex * 3 + positionInPolygon };
 
-				Vertex vertex;
+				ArSkinnedMeshRenderer::Vertex vertex;
 				const int polygonVertex{ fbxMesh->GetPolygonVertex(polygonIndex, positionInPolygon) };
 				vertex.position.x = static_cast<float>(controlPoints[polygonVertex][0]);
 				vertex.position.y = static_cast<float>(controlPoints[polygonVertex][1]);
@@ -240,7 +254,7 @@ void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& mes
 				const boneInfluencesPerControlPoint& influencesPerControlPoint{ boneInfluences.at(polygonVertex) };
 				for(size_t influenceIndex = 0; influenceIndex < influencesPerControlPoint.size(); ++influenceIndex)
 				{
-					if(influenceIndex < MaxBoneInfluences)
+					if(influenceIndex < ArSkinnedMeshRenderer::MaxBoneInfluences)
 					{
 						vertex.boneWeights[influenceIndex] = influencesPerControlPoint.at(influenceIndex).boneWeight;
 						vertex.boneIndices[influenceIndex] = influencesPerControlPoint.at(influenceIndex).boneIndex;
@@ -273,7 +287,7 @@ void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& mes
 	}
 }
 
-void ArSkinnedMeshRenderer::FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, Material>& materials)
+void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, ArSkinnedMeshRenderer::Material>& materials, const SkinnedScene& sceneView)
 {
 	const size_t nodeCount{ sceneView.nodes.size() };
 	for(size_t nodeIndex = 0; nodeIndex < nodeCount; ++nodeIndex)
@@ -288,7 +302,7 @@ void ArSkinnedMeshRenderer::FetchMaterial(FbxScene* fbxScene, std::unordered_map
 			{
 				const FbxSurfaceMaterial* fbxMaterial{ fbxNode->GetMaterial(materialIndex) };
 
-				Material material;
+				ArSkinnedMeshRenderer::Material material;
 				material.name = fbxMaterial->GetName();
 				material.uniqueId = fbxMaterial->GetUniqueID();
 
@@ -345,7 +359,7 @@ void ArSkinnedMeshRenderer::FetchMaterial(FbxScene* fbxScene, std::unordered_map
 		}
 		else
 		{
-			Material material;
+			ArSkinnedMeshRenderer::Material material;
 			material.name = "Dummy";
 			//material.uniqueId = 0;
 			material.kd.x = 
@@ -360,7 +374,7 @@ void ArSkinnedMeshRenderer::FetchMaterial(FbxScene* fbxScene, std::unordered_map
 	}
 }
 
-void ArSkinnedMeshRenderer::FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose)
+void FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose, const SkinnedScene& sceneView)
 {
 	const int deformerCount = fbxMesh->GetDeformerCount(FbxDeformer::eSkin);
 	for(int deformerIndex = 0; deformerIndex < deformerCount; ++deformerIndex)
@@ -388,7 +402,7 @@ void ArSkinnedMeshRenderer::FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose)
 	}
 }
 
-void ArSkinnedMeshRenderer::FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, float samplingRate)
+void FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, float samplingRate, const SkinnedScene& sceneView)
 {
 	FbxArray<FbxString*> animationStackNames;
 	fbxScene->FillAnimStackNameArray(animationStackNames);
@@ -438,7 +452,7 @@ void ArSkinnedMeshRenderer::FetchAnimation(FbxScene* fbxScene, std::vector<Anima
 	}
 }
 
-void ArSkinnedMeshRenderer::UpdateAnimation(Animation::Keyframe& keyframe)
+void UpdateAnimation(Animation::Keyframe& keyframe, const SkinnedScene& sceneView)
 {
 	size_t nodeCount{ keyframe.nodes.size() };
 	for(size_t nodeIndex = 0; nodeIndex < nodeCount; ++nodeIndex)

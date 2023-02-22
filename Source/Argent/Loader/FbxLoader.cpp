@@ -1,9 +1,52 @@
 #include "FbxLoader.h"
 #include <fbxsdk.h>
 #include <functional>
+#include "../Other/ArResourceManager.h"
 
 namespace Argent::Loader::Fbx
 {
+	//データの読み込みとアニメーションのアップデートに使ってる
+	struct SkinnedScene
+	{
+		struct Node
+		{
+			uint64_t id{};
+			std::string name;
+			FbxNodeAttribute::EType attribute{};
+			int64_t parentIndex{ -1 };
+		};
+		std::vector<Node> nodes;
+
+		//todo 何のやつでしょう？
+		int64_t IndexOf(uint64_t id) const
+		{
+			int64_t index{};
+			for(const Node& node : nodes)
+			{
+				if(node.id == id) return index;
+				++index;
+			}
+			return -1;
+		}
+	};
+
+	void Traverse(FbxNode* fbxNode, SkinnedScene& sceneView)
+	{
+		SkinnedScene::Node& node{ sceneView.nodes.emplace_back() };
+		node.attribute = fbxNode->GetNodeAttribute() ?
+			fbxNode->GetNodeAttribute()->GetAttributeType() :
+			FbxNodeAttribute::EType::eUnknown;
+		
+		node.name = fbxNode->GetName();
+		node.id = fbxNode->GetUniqueID();
+		node.parentIndex = sceneView.IndexOf(fbxNode->GetParent() ?
+			fbxNode->GetParent()->GetUniqueID() : 0);
+		for(int childIndex = 0; childIndex < fbxNode->GetChildCount(); ++childIndex)
+		{
+			Traverse(fbxNode->GetChild(childIndex), sceneView);
+		}
+	}
+
 	void LoadFbx(const char* fileName, bool triangulate)
 	{
 		FbxManager* mgr{ FbxManager::Create() };
@@ -27,28 +70,13 @@ namespace Argent::Loader::Fbx
 
 		//再帰関数　シーン内に存在するすべてのノードを取り込む
 		//todo nullノードとかあるらしいがそういうのって飛ばしちゃだめなのか？
-		std::function<void(FbxNode*)> Traverse
-		{
-			[&](FbxNode* fbxNode)
-			{
-				SkinnedScene::Node& node{ sceneView.nodes.emplace_back() };
-				node.attribute = fbxNode->GetNodeAttribute() ?
-					fbxNode->GetNodeAttribute()->GetAttributeType() :
-					FbxNodeAttribute::EType::eUnknown;
-				
-				node.name = fbxNode->GetName();
-				node.id = fbxNode->GetUniqueID();
-				node.parentIndex = sceneView.IndexOf(fbxNode->GetParent() ?
-					fbxNode->GetParent()->GetUniqueID() : 0);
-				for(int childIndex = 0; childIndex < fbxNode->GetChildCount(); ++childIndex)
-				{
-					Traverse(fbxNode->GetChild(childIndex));
-				}
-			}
-		};
-
-		Traverse(scene->GetRootNode());
+		Traverse(scene->GetRootNode(), sceneView);
 
 		mgr->Destroy();
+
+		std::vector<Argent::Data::ArMesh::Vertex> vertices;
+		std::vector<uint32_t> indices;
+		Argent::Resource::ArResourceManager::Instance().AddMesh(fileName, std::make_unique<Argent::Data::ArMesh>(vertices, indices));
+
 	}
 }
