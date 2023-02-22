@@ -29,6 +29,19 @@ namespace Argent::Resource
 		[[nodiscard]] Argent::Data::ArMesh* GetMeshData(const std::string& meshName) const;
 		//[[nodiscard]] const MeshData* AddMeshData(const std::string& meshName, std::unique_ptr<MeshData> mesh);
 
+		void AddMesh(std::string name, std::unique_ptr<Data::ArMesh> mesh)
+		{
+			for(const auto& data : meshData)
+			{
+				if(data.first == name)
+				{
+					return;
+				}
+			}
+
+			meshData[name].swap(mesh);
+		}
+
 	private:
 		std::unordered_map<std::wstring, Microsoft::WRL::ComPtr<ID3D12Resource>> textures;
 		std::unordered_map<std::string, std::unique_ptr<Argent::Data::ArMesh>> meshData;

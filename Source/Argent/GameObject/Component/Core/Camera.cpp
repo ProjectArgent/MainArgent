@@ -160,7 +160,8 @@ void Camera::DrawDebug()
 
 		ImGui::InputFloat3("Forward", &forward.x);
 		ImGui::InputFloat3("Right", &right.x);
-		ImGui::InputFloat3("Up", &up.x);
+		ImGui::InputFloat3("Up", &up.x); 
+		ImGui::SliderFloat("Far", &farZ, 1, 10000);
 
 		std::string str;
 		if(target)

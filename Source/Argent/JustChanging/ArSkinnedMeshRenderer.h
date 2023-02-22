@@ -14,6 +14,12 @@
 
 
 
+//todo　ボーンあるいはアニメーションを持っていない場合はレンダリングできないため
+//クラスを分けたい　
+//ボーンを持っている== skinnedMesh 持っていない== mesh　という感じ
+//なのでfbxローダを外側で作ってボーンの数を取得　そこからどっちにするか分ける
+//リソースマネージャーにでもおいときゃいい感じになるでしょ
+
 struct SkinnedScene
 {
 	struct Node
@@ -106,6 +112,7 @@ class ArSkinnedMeshRenderer:
 	public Argent::Component::Renderer::ArRenderer
 	
 {
+public:
 	static constexpr int MaxBoneInfluences{ 4 };
 	struct Vertex
 	{
@@ -163,7 +170,7 @@ class ArSkinnedMeshRenderer:
 		std::vector<Vertex> vertices;
 		std::vector<uint32_t> indices;
 
-	private:
+	//private:
 		Microsoft::WRL::ComPtr<ID3D12Resource> vertexBuffer;
 		Microsoft::WRL::ComPtr<ID3D12Resource> indexBuffer;
 		Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
@@ -231,12 +238,6 @@ public:
 
 	void Render();
 
-	void FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& meshes);
-	void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, Material>& materials);
-	void FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose);
-	void FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, 
-		float samplingRate);
-	void UpdateAnimation(Animation::Keyframe& keyframe);
 	void Update();
 
 #ifdef _DEBUG
@@ -261,5 +262,14 @@ protected:
 public:
 	std::vector<Animation> animationClips;
 };
+
+
+void FetchMesh(FbxScene* fbxScene, std::vector<ArSkinnedMeshRenderer::Mesh>& meshes, const SkinnedScene& sceneView);
+void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, ArSkinnedMeshRenderer::Material>& materials, const SkinnedScene& sceneView);
+void FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose, const SkinnedScene& sceneView);
+void FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, 
+	float samplingRate, const SkinnedScene& sceneView);
+void UpdateAnimation(Animation::Keyframe& keyframe, const SkinnedScene& sceneView);
+
 
 void FetchBoneInfluences(const FbxMesh* fbxMesh, std::vector<boneInfluencesPerControlPoint>& boneInfluences);
