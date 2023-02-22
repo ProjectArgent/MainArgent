@@ -107,21 +107,23 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 
 		for(const Mesh::Subset& subset : mesh.subsets)
 		{
-			const size_t boneCount{ mesh.bindPose.bones.size() };
-			for(int boneIndex = 0; boneIndex < boneCount; ++boneIndex)
+			if(animationClips.size() > 0)
 			{
-				const Skeleton::Bone& bone{ mesh.bindPose.bones.at(boneIndex) };
-				const Animation::Keyframe::Node& boneNode{ keyframe->nodes.at(bone.nodeIndex) };
-				DirectX::XMStoreFloat4x4(&mesh.constantMap->boneTransforms[boneIndex],
-					DirectX::XMLoadFloat4x4(&bone.offsetTransform) * 
-					DirectX::XMLoadFloat4x4(&boneNode.globalTransform) * 
-					DirectX::XMMatrixInverse(nullptr, DirectX::XMLoadFloat4x4(&mesh.defaultGlobalTransform))
-				);
+				const size_t boneCount{ mesh.bindPose.bones.size() };
+				for(int boneIndex = 0; boneIndex < boneCount; ++boneIndex)
+				{
+					const Skeleton::Bone& bone{ mesh.bindPose.bones.at(boneIndex) };
+					const Animation::Keyframe::Node& boneNode{ keyframe->nodes.at(bone.nodeIndex) };
+					DirectX::XMStoreFloat4x4(&mesh.constantMap->boneTransforms[boneIndex],
+						DirectX::XMLoadFloat4x4(&bone.offsetTransform) * 
+						DirectX::XMLoadFloat4x4(&boneNode.globalTransform) * 
+						DirectX::XMMatrixInverse(nullptr, DirectX::XMLoadFloat4x4(&mesh.defaultGlobalTransform))
+					);
+				}
+				const Animation::Keyframe::Node meshNode{ keyframe->nodes.at(mesh.nodeIndex) };
+				mesh.constantMap->globalTransform = meshNode.globalTransform;
+				mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
 			}
-			const Animation::Keyframe::Node meshNode{ keyframe->nodes.at(mesh.nodeIndex) };
-			mesh.constantMap->globalTransform = meshNode.globalTransform;
-			mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
-			
 			
 			const Material& material{ materials.at(subset.materialUniqueId) };
 
@@ -144,27 +146,38 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 void ArSkinnedMeshRenderer::Render()
 {
 	//static int clipIndex{};
-	int frameIndex{};
-	static float animationTick{};
 
-	Animation& animation{ this->animationClips.at(clipIndex) };
-	frameIndex = static_cast<int>(animationTick* animation.samplingRate);
-	if(frameIndex > animation.sequence.size() - 1)
+	if(animationClips.size() > 0)
 	{
-		frameIndex = 0;
+		int frameIndex{};
+		static float animationTick{};
 
-		animationTick = 0;
+		Animation& animation{ this->animationClips.at(clipIndex) };
+		frameIndex = static_cast<int>(animationTick* animation.samplingRate);
+		if(frameIndex > animation.sequence.size() - 1)
+		{
+			frameIndex = 0;
+
+			animationTick = 0;
+		}
+		else
+		{
+			animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
+		}
+		Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
+
+		//todo マテリアルの適用
+		Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
+			/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &keyframe);
 	}
 	else
 	{
-		animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
+		Animation::Keyframe key{};
+		Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
+			/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &key);
 	}
-	Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
-
-	//todo マテリアルの適用
-	Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
-		/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &keyframe);
 }
+
 
 void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& meshes)
 {
