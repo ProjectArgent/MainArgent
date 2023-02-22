@@ -10,6 +10,7 @@
 
 namespace Argent::Graphics
 {
+
 	ArGraphics* ArGraphics::instance =  nullptr;
 
 	ArGraphics::ArGraphics(HWND hWnd):
