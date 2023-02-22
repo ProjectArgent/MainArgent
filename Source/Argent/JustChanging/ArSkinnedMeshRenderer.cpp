@@ -107,22 +107,24 @@ void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 
 		for(const Mesh::Subset& subset : mesh.subsets)
 		{
-			const size_t boneCount{ mesh.bindPose.bones.size() };
-			for(int boneIndex = 0; boneIndex < boneCount; ++boneIndex)
+			if (animationClips.size() > 0)
 			{
-				const Skeleton::Bone& bone{ mesh.bindPose.bones.at(boneIndex) };
-				const Animation::Keyframe::Node& boneNode{ keyframe->nodes.at(bone.nodeIndex) };
-				DirectX::XMStoreFloat4x4(&mesh.constantMap->boneTransforms[boneIndex],
-					DirectX::XMLoadFloat4x4(&bone.offsetTransform) * 
-					DirectX::XMLoadFloat4x4(&boneNode.globalTransform) * 
-					DirectX::XMMatrixInverse(nullptr, DirectX::XMLoadFloat4x4(&mesh.defaultGlobalTransform))
-				);
+				const size_t boneCount{ mesh.bindPose.bones.size() };
+				for (int boneIndex = 0; boneIndex < boneCount; ++boneIndex)
+				{
+					const Skeleton::Bone& bone{ mesh.bindPose.bones.at(boneIndex) };
+					const Animation::Keyframe::Node& boneNode{ keyframe->nodes.at(bone.nodeIndex) };
+					DirectX::XMStoreFloat4x4(&mesh.constantMap->boneTransforms[boneIndex],
+						DirectX::XMLoadFloat4x4(&bone.offsetTransform) *
+						DirectX::XMLoadFloat4x4(&boneNode.globalTransform) *
+						DirectX::XMMatrixInverse(nullptr, DirectX::XMLoadFloat4x4(&mesh.defaultGlobalTransform))
+					);
+				}
+				const Animation::Keyframe::Node meshNode{ keyframe->nodes.at(mesh.nodeIndex) };
+				mesh.constantMap->globalTransform = meshNode.globalTransform;
+				mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
+
 			}
-			const Animation::Keyframe::Node meshNode{ keyframe->nodes.at(mesh.nodeIndex) };
-			mesh.constantMap->globalTransform = meshNode.globalTransform;
-			mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
-			
-			
 			const Material& material{ materials.at(subset.materialUniqueId) };
 
 			cmdList->SetDescriptorHeaps(1, material.cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
@@ -147,23 +149,32 @@ void ArSkinnedMeshRenderer::Render()
 	int frameIndex{};
 	static float animationTick{};
 
-	Animation& animation{ this->animationClips.at(clipIndex) };
-	frameIndex = static_cast<int>(animationTick* animation.samplingRate);
-	if(frameIndex > animation.sequence.size() - 1)
+	if (animationClips.size() > 0)
 	{
-		frameIndex = 0;
+		Animation& animation{ this->animationClips.at(clipIndex) };
+		frameIndex = static_cast<int>(animationTick * animation.samplingRate);
+		if (frameIndex > animation.sequence.size() - 1)
+		{
+			frameIndex = 0;
 
-		animationTick = 0;
+			animationTick = 0;
+		}
+		else
+		{
+			animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
+		}
+		Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
+		Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
+			/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &keyframe);
 	}
 	else
 	{
-		animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
+		Animation::Keyframe key{};
+		Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
+			/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &key);
 	}
-	Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
 
 	//todo マテリアルの適用
-	Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
-		/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1), &keyframe);
 }
 
 void ArSkinnedMeshRenderer::FetchMesh(FbxScene* fbxScene, std::vector<Mesh>& meshes)
@@ -306,7 +317,8 @@ void ArSkinnedMeshRenderer::FetchMaterial(FbxScene* fbxScene, std::unordered_map
 					const FbxFileTexture* fbxTexture{ fbxProp.GetSrcObject<FbxFileTexture>() };
 					material.textureFilename[0] = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
 				}
-
+				
+				
 				fbxProp= fbxMaterial->FindProperty(FbxSurfaceMaterial::sSpecular);
 				if(fbxProp.IsValid())
 				{
@@ -503,9 +515,11 @@ void ArSkinnedMeshRenderer::DrawDebug()
 {
 	if(ImGui::TreeNode("Skinned Mesh Renderer"))
 	{
-		ImGui::SliderInt("Animation Clip", &clipIndex, 0, animationClips.size() - 1);
-		ImGui::Text(animationClips.at(clipIndex).name.c_str());
-
+		if (animationClips.size() > 0)
+		{
+			ImGui::SliderInt("Animation Clip", &clipIndex, 0, animationClips.size() - 1);
+			ImGui::Text(animationClips.at(clipIndex).name.c_str());
+		}
 
 		if(ImGui::TreeNode("Material")) 
 		{
@@ -617,7 +631,7 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 			srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 			srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 			srvDesc.Texture2D.MipLevels = 1;
-		device->CreateShaderResourceView(it->second.texture[0].Get(), &srvDesc, it->second.srvDescriptor.at(0)->GetCPUHandle());
+			device->CreateShaderResourceView(it->second.texture[0].Get(), &srvDesc, it->second.srvDescriptor.at(0)->GetCPUHandle());
 		}
 
 		{
