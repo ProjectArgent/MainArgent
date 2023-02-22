@@ -16,6 +16,7 @@ void Title::Initialize()
 	GetGameObject("Demo")->AddComponent(new Argent::Component::Renderer::ArSpriteRenderer);
 	GetGameObject("Demo2")->AddComponent(new Argent::Component::Renderer::ArSpriteRenderer);
 	//AddObject(GameObject::Cube());
+
 	//AddObject(GameObject::Sphere());
 	//AddObject(GameObject::Capsule());
 	//AddObject(GameObject::SceneCamera());
