@@ -376,5 +376,6 @@
     <None Include="Source\Shader\SkinnedMesh.hlsli">
       <Filter>Shader</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

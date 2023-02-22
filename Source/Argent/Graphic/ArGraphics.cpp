@@ -6,11 +6,10 @@
 #include "../Other/Misc.h"
 #include "../GameObject/GameObject.h"
 #include "../Other/ArHelper.h"
-
+#include <pix3.h>
 
 namespace Argent::Graphics
 {
-		
 	ArGraphics* ArGraphics::instance =  nullptr;
 
 	ArGraphics::ArGraphics(HWND hWnd):
