@@ -52,9 +52,9 @@ ArSkinnedMeshRenderer::ArSkinnedMeshRenderer(ID3D12Device* device, const char* f
 	
 	traverse(fbxScene->GetRootNode());
 
-	FetchMesh(fbxScene, meshes, sceneView);
-	FetchMaterial(fbxScene, materials, sceneView);
-	FetchAnimation(fbxScene, animationClips, samplingRate, sceneView);
+	SkinnedMesh::FetchMesh(fbxScene, meshes, sceneView);
+	SkinnedMesh::FetchMaterial(fbxScene, materials, sceneView);
+	SkinnedMesh::FetchAnimation(fbxScene, animationClips, samplingRate, sceneView);
 
 	
 
@@ -180,7 +180,7 @@ void ArSkinnedMeshRenderer::Render()
 	}
 }
 
-void FetchMesh(FbxScene* fbxScene, std::vector<ArSkinnedMeshRenderer::Mesh>& meshes, const SkinnedScene& sceneView)
+void SkinnedMesh::FetchMesh(FbxScene* fbxScene, std::vector<ArSkinnedMeshRenderer::Mesh>& meshes, const SkinnedScene& sceneView)
 {
 	for(const SkinnedScene::Node& node : sceneView.nodes)
 	{
@@ -196,8 +196,8 @@ void FetchMesh(FbxScene* fbxScene, std::vector<ArSkinnedMeshRenderer::Mesh>& mes
 		mesh.defaultGlobalTransform = Argent::Helper::FBX::ToFloat4x4(fbxMesh->GetNode()->EvaluateGlobalTransform());
 
 		std::vector<boneInfluencesPerControlPoint> boneInfluences;
-		FetchBoneInfluences(fbxMesh, boneInfluences);
-		FetchSkeleton(fbxMesh, mesh.bindPose, sceneView);
+		SkinnedMesh::FetchBoneInfluences(fbxMesh, boneInfluences);
+		SkinnedMesh::FetchSkeleton(fbxMesh, mesh.bindPose, sceneView);
 
 		std::vector<ArSkinnedMeshRenderer::Mesh::Subset>& subsets{ mesh.subsets };
 		const int MaterialCount{ fbxMesh->GetNode()->GetMaterialCount() };
@@ -287,7 +287,7 @@ void FetchMesh(FbxScene* fbxScene, std::vector<ArSkinnedMeshRenderer::Mesh>& mes
 	}
 }
 
-void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, ArSkinnedMeshRenderer::Material>& materials, const SkinnedScene& sceneView)
+void SkinnedMesh::FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, ArSkinnedMeshRenderer::Material>& materials, const SkinnedScene& sceneView)
 {
 	const size_t nodeCount{ sceneView.nodes.size() };
 	for(size_t nodeIndex = 0; nodeIndex < nodeCount; ++nodeIndex)
@@ -374,7 +374,7 @@ void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, ArSkinnedMes
 	}
 }
 
-void FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose, const SkinnedScene& sceneView)
+void SkinnedMesh::FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose, const SkinnedScene& sceneView)
 {
 	const int deformerCount = fbxMesh->GetDeformerCount(FbxDeformer::eSkin);
 	for(int deformerIndex = 0; deformerIndex < deformerCount; ++deformerIndex)
@@ -402,7 +402,7 @@ void FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose, const SkinnedScene& sce
 	}
 }
 
-void FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, float samplingRate, const SkinnedScene& sceneView)
+void SkinnedMesh::FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, float samplingRate, const SkinnedScene& sceneView)
 {
 	FbxArray<FbxString*> animationStackNames;
 	fbxScene->FillAnimStackNameArray(animationStackNames);
@@ -452,7 +452,7 @@ void FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, 
 	}
 }
 
-void UpdateAnimation(Animation::Keyframe& keyframe, const SkinnedScene& sceneView)
+void SkinnedMesh::UpdateAnimation(Animation::Keyframe& keyframe, const SkinnedScene& sceneView)
 {
 	size_t nodeCount{ keyframe.nodes.size() };
 	for(size_t nodeIndex = 0; nodeIndex < nodeCount; ++nodeIndex)
@@ -707,8 +707,8 @@ void ArSkinnedMeshRenderer::CreateComObject(ID3D12Device* device, const char* fi
 	device->CreateConstantBufferView(&cbvDesc, constantDescriptor->GetCPUHandle());
 }
 
-void FetchBoneInfluences(const FbxMesh* fbxMesh, 
-	std::vector<boneInfluencesPerControlPoint>& boneInfluences)
+void SkinnedMesh::FetchBoneInfluences(const FbxMesh* fbxMesh, 
+                                      std::vector<boneInfluencesPerControlPoint>& boneInfluences)
 {
 	const int controlPointsCount{ fbxMesh->GetControlPointsCount() };
 	boneInfluences.resize(controlPointsCount);

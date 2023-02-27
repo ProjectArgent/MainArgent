@@ -110,7 +110,6 @@ struct Animation
 
 class ArSkinnedMeshRenderer:
 	public Argent::Component::Renderer::ArRenderer
-	
 {
 public:
 	static constexpr int MaxBoneInfluences{ 4 };
@@ -263,13 +262,16 @@ public:
 	std::vector<Animation> animationClips;
 };
 
+namespace SkinnedMesh
+{
+	
+	void FetchMesh(FbxScene* fbxScene, std::vector<ArSkinnedMeshRenderer::Mesh>& meshes, const SkinnedScene& sceneView);
+	void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, ArSkinnedMeshRenderer::Material>& materials, const SkinnedScene& sceneView);
+	void FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose, const SkinnedScene& sceneView);
+	void FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, 
+		float samplingRate, const SkinnedScene& sceneView);
+	void UpdateAnimation(Animation::Keyframe& keyframe, const SkinnedScene& sceneView);
 
-void FetchMesh(FbxScene* fbxScene, std::vector<ArSkinnedMeshRenderer::Mesh>& meshes, const SkinnedScene& sceneView);
-void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, ArSkinnedMeshRenderer::Material>& materials, const SkinnedScene& sceneView);
-void FetchSkeleton(FbxMesh* fbxMesh, Skeleton& bindPose, const SkinnedScene& sceneView);
-void FetchAnimation(FbxScene* fbxScene, std::vector<Animation>& animationClips, 
-	float samplingRate, const SkinnedScene& sceneView);
-void UpdateAnimation(Animation::Keyframe& keyframe, const SkinnedScene& sceneView);
 
-
-void FetchBoneInfluences(const FbxMesh* fbxMesh, std::vector<boneInfluencesPerControlPoint>& boneInfluences);
+	void FetchBoneInfluences(const FbxMesh* fbxMesh, std::vector<boneInfluencesPerControlPoint>& boneInfluences);
+}
