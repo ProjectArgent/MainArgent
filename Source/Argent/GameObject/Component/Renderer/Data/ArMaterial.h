@@ -42,5 +42,9 @@ namespace Argent::Material
 
 		std::unique_ptr<Image::ArImage> texture;
 		Color color;
+		std::string name;
+		DirectX::XMFLOAT4 ka{ 0.2f, 0.2f, 0.2f, 1.0f };
+		DirectX::XMFLOAT4 kd{ 0.2f, 0.2f, 0.2f, 1.0f };
+		DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
 	};
 }

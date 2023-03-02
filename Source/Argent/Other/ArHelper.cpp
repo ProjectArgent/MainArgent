@@ -5,6 +5,7 @@
 #include "Misc.h"
 #include "WICTextureLoader12.h"
 #include "ArResourceManager.h"
+#include "../Graphic/ArGraphics.h"
 
 namespace Argent
 {
@@ -192,7 +193,16 @@ namespace Argent
 				if (Argent::Resource::ArResourceManager::Instance().FindTexture(filepath, resource)) return S_OK;
 
 				hr = DirectX::LoadFromWICFile(filepath, DirectX::WIC_FLAGS_NONE, &metaData, scratchImage);
-				_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));;
+
+
+
+				//todo 直せ
+				if(FAILED(hr))
+				{
+					hr =Argent::Graphics::ArGraphics::Instance()->CreateWhiteTexture(resource);
+					_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));;
+					return hr;
+				}
 				{
 					auto rowImage = scratchImage.GetImage(0, 0, 0);
 					//中間バッファ
