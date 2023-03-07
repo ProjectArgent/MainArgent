@@ -177,7 +177,6 @@ namespace Argent
 				f3.z = static_cast<float>(fbxDouble[2]);
 				return f3;
 			}
-
 		}
 
 		namespace Texture

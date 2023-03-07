@@ -103,7 +103,7 @@
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArData.cpp">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArImage.cpp">
+    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArTexture.cpp">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.cpp">
@@ -237,7 +237,7 @@
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArData.h">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArImage.h">
+    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArTexture.h">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.h">
@@ -314,6 +314,9 @@
     </ClInclude>
     <ClInclude Include="Source\Argent\Loader\FbxLoader.h">
       <Filter>Argent\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArResource.h">
+      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

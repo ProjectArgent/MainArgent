@@ -20,7 +20,6 @@ namespace Argent::Resource::FBX
 		bool importState{ FALSE };
 		importState = importer->Initialize(filename);
 		_ASSERT_EXPR_A(importState, importer->GetStatus().GetErrorString());
-
 		
 		importState = importer->Import(fbxScene);
 		_ASSERT_EXPR_A(importState, importer->GetStatus().GetErrorString());
@@ -56,8 +55,6 @@ namespace Argent::Resource::FBX
 		SkinnedMesh::FetchMesh(fbxScene, meshes, sceneView);
 		SkinnedMesh::FetchMaterial(fbxScene, materials, sceneView, filename);
 		SkinnedMesh::FetchAnimation(fbxScene, animationClips, samplingRate, sceneView);
-
-		
 
 		manager->Destroy();
 

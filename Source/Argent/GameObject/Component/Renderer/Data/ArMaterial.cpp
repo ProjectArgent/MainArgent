@@ -1,15 +1,20 @@
 #include "ArMaterial.h"
 #include "../imgui/imgui.h"
+#include "../../../../Other/ArResourceManager.h"
+
 
 namespace Argent::Material
 {
 	ArMaterial::ArMaterial(const wchar_t* textureFilepath):
-		texture(nullptr)
+		Argent::Resource::ArResource(
+			Argent::Resource::ArResourceManager::GenerateResourceUniqueId(),
+			"material")
+	,	texture(nullptr)
 	,	color(DirectX::XMFLOAT4(1, 1, 1, 1))
 	{
 		if(textureFilepath[0] != NULL)
 		{
-			texture = std::make_unique<Image::ArImage>(textureFilepath);
+			texture = std::make_unique<Texture::ArTexture>(textureFilepath);
 		}
 	}
 

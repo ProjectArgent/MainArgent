@@ -115,16 +115,18 @@ namespace Argent::Resource::FBX
 	{
 	public:
 		static constexpr int MaxBoneInfluences{ 4 };
-		struct Vertex
+		
+		struct Vertex			
 		{
 			DirectX::XMFLOAT3 position;
 			DirectX::XMFLOAT3 normal;
 			DirectX::XMFLOAT2 texcoord;
-			float boneWeights[MaxBoneInfluences]{ 1, 0, 0, 0 };
-			uint32_t boneIndices[MaxBoneInfluences]{};
+			float boneWeights[MaxBoneInfluences]{1, 0, 0, 0};
+			uint32_t boneIndices[MaxBoneInfluences];
 		};
 
 		static const int MaxBones{ 256 };
+
 		struct Constants
 		{
 			DirectX::XMFLOAT4X4 world;
@@ -181,7 +183,6 @@ namespace Argent::Resource::FBX
 			D3D12_INDEX_BUFFER_VIEW indexView{};
 
 			friend class FbxResource;
-
 			Skeleton bindPose;
 		};
 
@@ -200,7 +201,7 @@ namespace Argent::Resource::FBX
 			DirectX::XMFLOAT4 kd{ 0.2f, 0.2f, 0.2f, 1.0f };
 			DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
 
-			std::vector<std::unique_ptr<Argent::Image::ArImage>> textures;
+			std::vector<std::unique_ptr<Argent::Texture::ArTexture>> textures;
 			//static constexpr UINT MaxTextureNum = 4;
 			//std::string textureFilename[MaxTextureNum];
 			//std::vector<Argent::Descriptor::ArDescriptor*> srvDescriptor;
@@ -212,7 +213,7 @@ namespace Argent::Resource::FBX
 
 			void CreateTexture(const wchar_t* filePath) 
 			{
-				textures.emplace_back(std::make_unique<Argent::Image::ArImage>(filePath));
+				textures.emplace_back(std::make_unique<Argent::Texture::ArTexture>(filePath));
 			}
 
 			void SetOnCommand(ID3D12GraphicsCommandList* cmdList) const
