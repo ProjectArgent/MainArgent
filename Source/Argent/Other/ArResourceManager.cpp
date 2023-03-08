@@ -268,7 +268,6 @@ namespace Argent::Resource
 		}
 	}
 
-
 	void ArResourceManager::Initialize()
 	{
 		Clear();

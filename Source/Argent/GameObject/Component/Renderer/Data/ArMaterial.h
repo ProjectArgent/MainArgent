@@ -4,7 +4,8 @@
 #include <vector>
 #include <DirectXMath.h>
 #include "../imgui/imgui.h"
-#include "ArImage.h"
+#include "ArTexture.h"
+#include "ArResource.h"
 
 namespace Argent::Material
 {
@@ -25,7 +26,8 @@ namespace Argent::Material
 		DirectX::XMFLOAT4 color;
 	};
 
-	struct ArMaterial
+	class ArMaterial:
+		public Argent::Resource::ArResource
 	{
 	public:
 		ArMaterial(const wchar_t* textureFilepath);
@@ -40,7 +42,22 @@ namespace Argent::Material
 		void DrawDebug();
 #endif
 
-		std::unique_ptr<Image::ArImage> texture;
+		std::shared_ptr<Texture::ArTexture> textures;
+		std::unique_ptr<Texture::ArTexture> texture;
 		Color color;
+		std::string name;
+		DirectX::XMFLOAT4 ka{ 0.2f, 0.2f, 0.2f, 1.0f };
+		DirectX::XMFLOAT4 kd{ 0.2f, 0.2f, 0.2f, 1.0f };
+		DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
+	};
+}
+
+namespace Argent::Resource
+{
+	class ArBaseMaterial:
+		public ArResource
+	{
+	public:
+			
 	};
 }

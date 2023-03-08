@@ -76,7 +76,10 @@ namespace Argent::Loader::Fbx
 
 		std::vector<Argent::Data::ArMesh::Vertex> vertices;
 		std::vector<uint32_t> indices;
-		Argent::Resource::ArResourceManager::Instance().AddMesh(fileName, std::make_unique<Argent::Data::ArMesh>(vertices, indices));
+
+		Argent::Resource::ArResourceManager::Instance().AddMesh("DemoFBX", std::make_unique<Argent::Data::ArMesh>(vertices, indices));
+		//Argent::Resource::ArResourceManager::Instance().AddMesh(fileName, std::make_unique<Argent::Data::ArMesh>(vertices, indices));
 
 	}
+
 }

@@ -52,6 +52,7 @@ namespace Argent::Component::Renderer
 	{
 		ArRenderer::Render(cmdList);
 		material->Render(cmdList, 0);
+		cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 		data->Render(cmdList, 1, 0, 0, 0);
 
 	}

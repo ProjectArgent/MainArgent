@@ -6,6 +6,9 @@
 #include <string>
 #include "../GameObject/Component/Renderer/Data/ArMesh.h"
 
+#include "../GameObject/Component/Renderer/Data/ArResource.h"
+
+
 namespace Argent::Resource
 {
 	class ArResourceManager
@@ -42,11 +45,27 @@ namespace Argent::Resource
 			meshData[name].swap(mesh);
 		}
 
+		/**
+		 * \brief リソース管理用ユニークidを生み出す
+		 * \return 
+		 */
+		[[nodiscard]]static UINT64 GenerateResourceUniqueId()
+		{
+			static UINT64 uniqueId = 0;
+			const UINT64 ret = uniqueId;
+			++uniqueId;
+			return ret;
+		}
+
+
 	private:
 		std::unordered_map<std::wstring, Microsoft::WRL::ComPtr<ID3D12Resource>> textures;
 		std::unordered_map<std::string, std::unique_ptr<Argent::Data::ArMesh>> meshData;
 		//std::unordered_map<std::string, std::unique_ptr<MeshData>> meshData;
 
+
+		std::unordered_map<uint64_t, std::weak_ptr<Argent::Resource::ArResource>> resources;
+		 
 	public:
 		static ArResourceManager& Instance()
 		{
