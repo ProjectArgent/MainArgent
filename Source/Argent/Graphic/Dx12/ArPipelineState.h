@@ -10,6 +10,53 @@ namespace Argent
 {
 	namespace Dx12
 	{
+		class ArPipelineState:
+			public ID3D12PipelineState
+		{
+		public:
+			ArPipelineState(const D3D12_GRAPHICS_PIPELINE_STATE_DESC* pGraphicsPipelineDesc)
+			{
+				ID3D12Device* device;
+				HRESULT hr = device->CreateGraphicsPipelineState(pGraphicsPipelineDesc, IID_PPV_ARGS(pipelineState.ReleaseAndGetAddressOf()));
+				_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+			}
+			virtual ~ArPipelineState() = default;
+			ArPipelineState(const ArPipelineState&) = delete;
+			ArPipelineState(const ArPipelineState&&) = delete;
+			const ArPipelineState& operator=(const ArPipelineState&) = delete;
+			const ArPipelineState& operator=(const ArPipelineState&&) = delete;
+
+			void SetOnCommandList(ID3D12GraphicsCommandList* cmdList) const
+			{
+				cmdList->SetPipelineState(pipelineState.Get());
+			}
+		private:
+			Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelineState;
+		};
+
+		class ArRootSignature:
+			public ID3D12RootSignature
+		{
+		public:
+			ArRootSignature(const D3D12_ROOT_SIGNATURE_DESC* rootSigDesc)
+			{
+				ID3D12Device* device;
+				Microsoft::WRL::ComPtr<ID3DBlob> rootSigBlob;
+				Microsoft::WRL::ComPtr<ID3DBlob> errorBlob;
+				HRESULT hr = D3D12SerializeRootSignature(rootSigDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, 
+					rootSigBlob.ReleaseAndGetAddressOf(), errorBlob.ReleaseAndGetAddressOf());
+				_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+
+				hr = device->CreateRootSignature(0, 
+					rootSigBlob->GetBufferPointer(), rootSigBlob->GetBufferSize(), 
+					IID_PPV_ARGS(rootSignature.ReleaseAndGetAddressOf()));
+				_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+			}
+
+		private:
+			Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature;
+		};
+
 		class ArRenderingPipeline
 		{
 		public:

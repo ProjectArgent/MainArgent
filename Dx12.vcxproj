@@ -45,11 +45,12 @@
     <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.cpp" />
     <ClCompile Include="Source\Argent\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArGraphics.cpp" />
+    <ClCompile Include="Source\Argent\Graphic\ArRenderingPipeline.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArShader.cpp" />
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArCommand.cpp" />
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArDescriptor.cpp" />
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.cpp" />
-    <ClCompile Include="Source\Argent\Graphic\Dx12\PipelineState.cpp" />
+    <ClCompile Include="Source\Argent\Graphic\Dx12\ArPipelineState.cpp" />
     <ClCompile Include="Source\Argent\Graphic\FrameBuffer.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArFrameResource.cpp" />
     <ClCompile Include="Source\Argent\Input\Keyboard.cpp" />
@@ -92,11 +93,12 @@
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.h" />
     <ClInclude Include="Source\Argent\GameObject\GameObject.h" />
     <ClInclude Include="Source\Argent\Graphic\ArGraphics.h" />
+    <ClInclude Include="Source\Argent\Graphic\ArRenderingPipeline.h" />
     <ClInclude Include="Source\Argent\Graphic\ArShader.h" />
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArCommand.h" />
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArDescriptor.h" />
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.h" />
-    <ClInclude Include="Source\Argent\Graphic\Dx12\PipelineState.h" />
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArPipelineState.h" />
     <ClInclude Include="Source\Argent\Graphic\FrameBuffer.h" />
     <ClInclude Include="Source\Argent\Graphic\ArFrameResource.h" />
     <ClInclude Include="Source\Argent\Input\Keyboard.h" />

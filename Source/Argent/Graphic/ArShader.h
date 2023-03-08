@@ -12,7 +12,6 @@ namespace Argent::Shader
 		~ArShader() = default;
 		bool Read(const char* filename);
 		
-	public:
 		[[nodiscard]] void* GetData() const { return data.get(); }
 		[[nodiscard]] uint64_t GetSize() const { return size; }
 			
