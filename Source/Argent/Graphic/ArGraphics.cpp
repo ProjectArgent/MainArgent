@@ -6,7 +6,7 @@
 #include "../Other/Misc.h"
 #include "../GameObject/GameObject.h"
 #include "../Other/ArHelper.h"
-#include <pix3.h>
+
 
 namespace Argent::Graphics
 {
@@ -348,11 +348,7 @@ namespace Argent::Graphics
 		hr = DirectX::LoadFromWICFile(filename.c_str(),
 		                              DirectX::WIC_FLAGS_NONE, &metaData, scratchImage);
 
-<<<<<<< HEAD
 		//todo •Ï‚¦‚Ü‚µ‚å‚¤
-=======
-		//todo Ž¡‚·‚±‚Æ
->>>>>>> Desctop
 		if(FAILED(hr))
 		{
 			hr = CreateWhiteTexture(resource);
@@ -386,12 +382,6 @@ namespace Argent::Graphics
 				resDesc.SampleDesc.Quality = 0;
 				hr = mDevice->CreateCommittedResource(&uploadHeapProp, D3D12_HEAP_FLAG_NONE,
 				                                      &resDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(uploadBuffer.ReleaseAndGetAddressOf()));
-<<<<<<< HEAD
-
-
-=======
-			
->>>>>>> Desctop
 				_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));;
 			}
 		
@@ -420,11 +410,7 @@ namespace Argent::Graphics
 				                                      &resDesc, D3D12_RESOURCE_STATE_COPY_DEST, 
 				                                      nullptr, 
 				                                      IID_PPV_ARGS(resource));
-<<<<<<< HEAD
-		
-=======
->>>>>>> Desctop
-				_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));;
+				_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 			}
 		
 		
@@ -517,10 +503,6 @@ namespace Argent::Graphics
 		                                      IID_PPV_ARGS(resource));
 		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
-<<<<<<< HEAD
-=======
-		
->>>>>>> Desctop
 		std::vector<unsigned char> data(4 * 4 * 4);
 		std::fill(data.begin(), data.end(), 0xff);
 		hr = (*resource)->WriteToSubresource(0, nullptr, data.data(), 4 * 4, static_cast<UINT>(data.size()));
