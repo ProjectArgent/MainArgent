@@ -47,6 +47,20 @@ namespace Argent::Loader::Fbx
 		}
 	}
 
+	Argent::Data::ArMesh* CreateMeshFromFBX(FbxScene* fbxScene)
+	{
+
+
+
+		//Argent::Resource::ArResourceManager::Instance().AddMesh("Tmp", std::make_unique<Argent::Data::ArMesh>())
+		return nullptr;
+	}
+
+	void CreateSkinnedMeshFromFBX()
+	{
+
+	}
+
 	void LoadFbx(const char* fileName, bool triangulate)
 	{
 		FbxManager* mgr{ FbxManager::Create() };

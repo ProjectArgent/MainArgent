@@ -7,7 +7,6 @@
 #include "../GameObject/GameObject.h"
 #include "../Other/ArHelper.h"
 
-
 namespace Argent::Graphics
 {
 
@@ -382,7 +381,7 @@ namespace Argent::Graphics
 				resDesc.SampleDesc.Quality = 0;
 				hr = mDevice->CreateCommittedResource(&uploadHeapProp, D3D12_HEAP_FLAG_NONE,
 				                                      &resDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(uploadBuffer.ReleaseAndGetAddressOf()));
-				_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));;
+				_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 			}
 		
 			//アップロード用のバッファ

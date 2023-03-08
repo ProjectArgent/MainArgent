@@ -31,72 +31,9 @@ namespace Argent::Resource::FBX
 			converter.RemoveBadPolygonsFromMeshes(fbxScene);
 		}
 
-//<<<<<<< HEAD
-//	
-//	traverse(fbxScene->GetRootNode());
-//
-//	FetchMesh(fbxScene, meshes, sceneView);
-//	FetchMaterial(fbxScene, materials, sceneView);
-//	FetchAnimation(fbxScene, animationClips, samplingRate, sceneView);
-//
-//	
-//
-//	manager->Destroy();
-//
-//	CreateComObject(device, filename);
-//
-//	Argent::Dx12::ArRenderingPipeline::CreateGraphicsPipeline<Argent::Dx12::SkinnedMesh::ArDefaultGraphicsPipeline>(&renderingPipeline,
-//			"./Resource/Shader/SkinnedMeshVertex.cso",
-//			"./Resource/Shader/SkinnedMeshPixel.cso");
-//}
-//
-//
-//void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList, 
-//	const DirectX::XMFLOAT4X4& world,
-//	const DirectX::XMFLOAT4& color,
-//	const Animation::Keyframe* keyframe)
-//{
-//	ArRenderer::Render(cmdList);
-//
-//	Argent::Graphics::ArGraphics::Instance()->SetSceneConstant();
-//
-//
-//	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-//	constantMap->world = world;
-//	constantMap->color = color;
-//	for(const Mesh& mesh : meshes)
-//	{
-//
-//#if 0
-//		DirectX::XMMATRIX B[3];
-//		B[0] = DirectX::XMLoadFloat4x4(&mesh.bindPose.bones.at(0).offsetTransform);
-//		B[1] = DirectX::XMLoadFloat4x4(&mesh.bindPose.bones.at(1).offsetTransform);
-//		B[2] = DirectX::XMLoadFloat4x4(&mesh.bindPose.bones.at(2).offsetTransform);
-//
-//		DirectX::XMMATRIX A[3];
-//		A[0] = DirectX::XMMatrixRotationRollPitchYaw(DirectX::XMConvertToRadians(90), 0, 0);
-//		A[1] = DirectX::XMMatrixRotationRollPitchYaw(0, 0, DirectX::XMConvertToRadians(45)) * DirectX::XMMatrixTranslation(0, 2, 0);
-//		A[2] = DirectX::XMMatrixRotationRollPitchYaw(0, 0, DirectX::XMConvertToRadians(-45)) * DirectX::XMMatrixTranslation(0, 2, 0);
-//
-//		DirectX::XMStoreFloat4x4(&constantMap->boneTransforms[0], B[0] * A[0]);
-//		DirectX::XMStoreFloat4x4(&constantMap->boneTransforms[1], B[1] * A[1] * A[0]);
-//		DirectX::XMStoreFloat4x4(&constantMap->boneTransforms[2], B[2] * A[2] * A[1] * A[0]);
-//#endif
-//
-//
-//		cmdList->SetDescriptorHeaps(1, constantDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
-//		cmdList->SetGraphicsRootDescriptorTable(1, constantDescriptor->GetGPUHandle());
-//
-//		cmdList->IASetVertexBuffers(0, 1, &mesh.vertexView);
-//		cmdList->IASetIndexBuffer(&mesh.indexView);
-//
-//		for(const Mesh::Subset& subset : mesh.subsets)
-//		{
-//			if (animationClips.size() > 0)
-//			{
-//				const size_t boneCount{ mesh.bindPose.bones.size() };
-//				for (int boneIndex = 0; boneIndex < boneCount; ++boneIndex)
-//=======
+
+		SkinnedScene sceneView{};
+		
 		std::function<void(FbxNode* fbxNode)> traverse
 		{ [&](FbxNode* fbxNode)
 			{
@@ -109,18 +46,11 @@ namespace Argent::Resource::FBX
 				node.parentIndex = sceneView.IndexOf(fbxNode->GetParent() ?
 					fbxNode->GetParent()->GetUniqueID() : 0);
 				for(int childIndex = 0; childIndex < fbxNode->GetChildCount(); ++childIndex)
-//>>>>>>> origin/fbxResource
 				{
 					traverse(fbxNode->GetChild(childIndex));
 				}
 			}
-//<<<<<<< HEAD
-
-//			const Material& material{ materials.at(subset.materialUniqueId) };
-//=======
 		};
-//>>>>>>> origin/fbxResource
-
 		
 		traverse(fbxScene->GetRootNode());
 
