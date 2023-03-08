@@ -30,7 +30,7 @@ ArSkinnedMeshRenderer::ArSkinnedMeshRenderer(ID3D12Device* device, const char* f
 		converter.Triangulate(fbxScene, true, false);
 		converter.RemoveBadPolygonsFromMeshes(fbxScene);
 	}
-
+	SkinnedScene sceneView{};
 	std::function<void(FbxNode* fbxNode)> traverse
 	{ [&](FbxNode* fbxNode)
 		{

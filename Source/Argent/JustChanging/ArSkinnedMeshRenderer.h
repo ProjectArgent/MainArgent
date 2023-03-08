@@ -19,6 +19,9 @@
 //ボーンを持っている== skinnedMesh 持っていない== mesh　という感じ
 //なのでfbxローダを外側で作ってボーンの数を取得　そこからどっちにするか分ける
 //リソースマネージャーにでもおいときゃいい感じになるでしょ
+//コンストラクタの引数を変更するのはありじゃない
+//ボーンとメッシュ情報にするのは全然あり　アニメーションも置いといていいかも
+//unityみたいにしたいがアニメーションを分離して別の場所に置くと管理が大変そう
 
 struct SkinnedScene
 {
@@ -254,7 +257,7 @@ private:
 
 
 protected:
-	SkinnedScene sceneView;
+	//SkinnedScene sceneView;
 	std::vector<Mesh> meshes;
 	std::unordered_map<uint64_t, Material> materials;
 
