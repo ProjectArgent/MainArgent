@@ -1,9 +1,12 @@
 #pragma once
 #include <memory>
+#include "../GameObject/Component/Renderer/Data/ArResource.h"
+
 
 namespace Argent::Shader
 {
-	class ArShader
+	class ArShader:
+		public Resource::ArResource
 	{
 	public:
 		ArShader(const char* filepath);
@@ -16,7 +19,6 @@ namespace Argent::Shader
 		[[nodiscard]] uint64_t GetSize() const { return size; }
 			
 	private:
-		const char* filepath;
 		std::unique_ptr<uint8_t[]> data;
 		uint64_t size;
 	};

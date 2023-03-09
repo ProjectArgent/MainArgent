@@ -57,6 +57,7 @@ namespace Argent::Graphics
 		HRESULT CreateWhiteTexture(ID3D12Resource** resource);
 		HRESULT CreateBlackTexture(ID3D12Resource** resource);
 		HRESULT CreateGrayGradationTexture(ID3D12Resource** resource);
+		HRESULT CreateNoiseTexture(ID3D12Resource** resource);
 		
 		void SetSceneConstant(UINT rootParameterIndex = 0);
 	public:

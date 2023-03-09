@@ -9,6 +9,8 @@
 #include "d3dx12.h"
 #include "../Graphic/Dx12/ArCommand.h"
 #include "Misc.h"
+#include <cstdlib>
+#include <string>
 
 namespace Argent
 {
@@ -37,9 +39,38 @@ namespace Argent
 			std::string GetTexturePathFromModelAndPath(const std::string& modelPath, const char* texturePath);
 			
 			//モデルパスからテクスチャパスへの変更
+
 			// todo filesystemを使ったスマートな形へ変更する
 			std::wstring GetWideStringFromString(const std::string& str);
+
+
+
+			//ワイド文字列からマルチバイト文字列
+			//ロケール依存
+			inline std::string narrow(const std::wstring& src)
+			{
+				std::string ret{};
+				size_t size{};
+				const size_t destSize = src.length() * MB_CUR_MAX + 1;
+				char* mbs = new char[destSize];
+				wcstombs_s(&size, mbs, destSize,  src.c_str(), src.length());
 			
+				ret = mbs;
+				delete[] mbs;
+
+				return ret;
+			}
+
+			//マルチバイト文字列からワイド文字列
+			//ロケール依存
+			/*void widen(const std::string& src, std::wstring& dest) {
+				wchar_t* wcs = new wchar_t[src.length() + 1];
+				mbstowcs(wcs, src.c_str(), src.length() + 1);
+				dest = wcs;
+				delete[] wcs;
+			}*/
+
+
 			//拡張子を取得
 			std::string GetExtension(const std::string& path);
 			

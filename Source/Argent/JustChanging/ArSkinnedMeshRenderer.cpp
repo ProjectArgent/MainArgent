@@ -13,9 +13,7 @@ namespace Argent::Resource::FBX
 {
 	void ArSkinnedMeshRenderer::Material::CreateTexture(const char* filePath, TextureType type)
 	{
-		textures[static_cast<int>(type)] = std::make_shared<Argent::Texture::ArTexture>(filePath);
-		textures[static_cast<int>(type)] = Argent::Resource::ArResourceManager::Instance().LoadTexture(filePath);
-		//textures.emplace_back(std::make_unique<Argent::Texture::ArTexture>(filePath));
+		textures[static_cast<int>(type)] = std::reinterpret_pointer_cast<Argent::Texture::ArTexture>(Argent::Resource::ArResourceManager::Instance().LoadTexture(filePath));
 	}
 
 	ArSkinnedMeshRenderer::ArSkinnedMeshRenderer(ID3D12Device* device, const char* filename, 
@@ -402,9 +400,12 @@ namespace Argent::Resource::FBX
 
 						//if(tmpFilePath.size() > 0)
 						//{
-							std::filesystem::path path(fbxFilePath);
-							path.replace_filename(tmpFilePath);
-							material.CreateTexture(path.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Albedo);
+						std::filesystem::path path(fbxFilePath);
+						path.replace_filename(tmpFilePath);
+
+						const std::string replacedFilePath = Helper::String::narrow(path.c_str());
+						material.CreateTexture( "", ArSkinnedMeshRenderer::Material::TextureType::Albedo);
+						//material.CreateTexture( replacedFilePath.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Albedo);
 						//}
 						//else
 						//{
@@ -475,7 +476,9 @@ namespace Argent::Resource::FBX
 						//{
 							std::filesystem::path path(fbxFilePath);
 							path.replace_filename(tmpFilePath);
-							material.CreateTexture(path.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Normal);
+
+							const std::string replacedFilePath = Helper::String::narrow(path.c_str());
+							material.CreateTexture(replacedFilePath.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Normal);
 						//}
 						//else
 						//{

@@ -6,6 +6,7 @@
 #include "../Other/Misc.h"
 #include "../GameObject/GameObject.h"
 #include "../Other/ArHelper.h"
+#include "../Core/ArRandom.h"
 
 namespace Argent::Graphics
 {
@@ -600,7 +601,54 @@ namespace Argent::Graphics
 		                                     static_cast<UINT>(sizeof(unsigned int) * data.size()));
 		return hr;
 	}
-		
+
+	HRESULT ArGraphics::CreateNoiseTexture(ID3D12Resource** resource)
+	{
+		HRESULT hr{ S_OK };
+
+
+		D3D12_HEAP_PROPERTIES heapProp{};
+		heapProp.Type = D3D12_HEAP_TYPE_CUSTOM;
+		heapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
+		heapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;
+		heapProp.VisibleNodeMask = 0;
+
+		D3D12_RESOURCE_DESC resDesc{};
+		resDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		resDesc.Width = 256;
+		resDesc.Height = 256;
+		resDesc.DepthOrArraySize = 1;
+		resDesc.SampleDesc.Count = 1;
+		resDesc.SampleDesc.Quality = 0;
+		resDesc.MipLevels = 1;
+		resDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		resDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
+		resDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
+
+		hr = mDevice->CreateCommittedResource(&heapProp, D3D12_HEAP_FLAG_NONE,
+			&resDesc, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, nullptr,
+			IID_PPV_ARGS(resource));
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+
+		struct TexRGBA
+		{
+			unsigned char R, G, B, A;
+		};
+
+		std::vector<TexRGBA> textureBuffer(256 * 256);
+
+		for(auto& buf : textureBuffer)
+		{
+			buf.R = static_cast<unsigned char>(Argent::Random::Generate(0, 255));
+			buf.G = static_cast<unsigned char>(Argent::Random::Generate(0, 255));
+			buf.B = static_cast<unsigned char>(Argent::Random::Generate(0, 255));
+			buf.A = 255;
+		}
+		hr = (*resource)->WriteToSubresource(0, nullptr, textureBuffer.data(), sizeof(TexRGBA) * 256, sizeof(TexRGBA) * textureBuffer.size());
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+		return hr;
+	}
+
 	void ArGraphics::SetSceneConstant(UINT rootParameterIndex)
 	{
 		curFrameResource->SetSceneConstant(rootParameterIndex);

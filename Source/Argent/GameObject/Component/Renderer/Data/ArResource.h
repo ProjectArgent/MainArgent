@@ -1,4 +1,5 @@
 #pragma once
+#include <filesystem>
 #include <string>
 
 
@@ -20,9 +21,10 @@ namespace Argent::Resource
 		,	filePath(filePath)
 		,	type(type)
 		{}
+		
 
 		uint64_t GetUniqueId() const { return uniqueId; }  // NOLINT(modernize-use-nodiscard)
-		const std::string& GetFilePath() const { return filePath; }// NOLINT(modernize-use-nodiscard)
+		const char* GetFilePath() const { return filePath.c_str(); }// NOLINT(modernize-use-nodiscard)
 
 	private:
 		uint64_t uniqueId;

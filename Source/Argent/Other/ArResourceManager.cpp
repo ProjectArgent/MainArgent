@@ -301,6 +301,7 @@ namespace Argent::Resource
 
 	std::shared_ptr<Argent::Resource::ArResource> ArResourceManager::LoadTexture(const char* filePath)
 	{
+
 		std::shared_ptr<ArResource> ret = FindResource(filePath);
 		if(ret) return ret; 
 

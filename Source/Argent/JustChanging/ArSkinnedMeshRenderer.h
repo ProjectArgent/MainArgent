@@ -219,7 +219,8 @@ namespace Argent::Resource::FBX
 			DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
 
 			static constexpr int NumTextures = 2;
-			std::shared_ptr<Argent::Resource::ArResource> textures[NumTextures]; 
+			//std::shared_ptr<Argent::Resource::ArResource> textures[NumTextures]; 
+			std::shared_ptr<Argent::Texture::ArTexture> textures[NumTextures]; 
 			//std::vector<std::unique_ptr<Argent::Texture::ArTexture>> textures;
 			//static constexpr UINT MaxTextureNum = 4;
 			//std::string textureFilename[MaxTextureNum];

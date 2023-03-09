@@ -94,7 +94,7 @@ namespace Argent::Resource
 		std::unordered_map<std::string, std::unique_ptr<Argent::Data::ArMesh>> meshData;
 
 		std::unordered_map<uint64_t, std::weak_ptr<Argent::Resource::ArResource>> resources;
-		std::unordered_map<uint64_t, std::weak_ptr<Argent::Texture::ArTexture>> textures;
+		//std::unordered_map<uint64_t, std::weak_ptr<Argent::Texture::ArTexture>> textures;
 		 
 	public:
 		static ArResourceManager& Instance()

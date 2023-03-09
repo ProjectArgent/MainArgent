@@ -11,7 +11,8 @@ namespace Argent::Texture
 		public Argent::Resource::ArResource
 	{
 	public:
-		ArTexture(const char* filepath);
+		ArTexture(const char* filePath);
+		ArTexture(const wchar_t* filePath);
 
 		void Render(ID3D12GraphicsCommandList* cmdList, UINT RootParameterIndex) const;
 		ID3D12Resource* GetTexture() const { return shaderResource.Get(); }

@@ -3,11 +3,11 @@
 #include <d3d12.h>
 #include <cassert>
 #include <fstream>
-
+#include "../Other/ArResourceManager.h"
 namespace Argent::Shader
 {
 	ArShader::ArShader(const char* filepath):
-		filepath(filepath)
+		ArResource(Resource::ArResourceManager::GenerateResourceUniqueId(), filepath, ResourceType::rShader)
 	{
 		data = nullptr;
 		size = 0;
