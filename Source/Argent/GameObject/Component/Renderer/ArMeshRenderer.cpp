@@ -87,7 +87,7 @@ namespace Argent::Component::Renderer
 			&rootSigDesc,
 			&pipelineStateDesc
 			);
-		material = std::make_unique<Argent::Material::ArMaterial>(L"");
+		material = std::make_unique<Argent::Material::ArMaterial>("");
 	}
 
 	void ArMeshRenderer::Initialize()

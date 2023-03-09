@@ -7,11 +7,19 @@
 #include "../GameObject/GameObject.h"
 #include "../Other/ArHelper.h"
 #include "d3dx12.h"
+#include "../Other/ArResourceManager.h"
 
 namespace Argent::Resource::FBX
 {
+	void ArSkinnedMeshRenderer::Material::CreateTexture(const char* filePath, TextureType type)
+	{
+		textures[static_cast<int>(type)] = std::make_shared<Argent::Texture::ArTexture>(filePath);
+		textures[static_cast<int>(type)] = Argent::Resource::ArResourceManager::Instance().LoadTexture(filePath);
+		//textures.emplace_back(std::make_unique<Argent::Texture::ArTexture>(filePath));
+	}
+
 	ArSkinnedMeshRenderer::ArSkinnedMeshRenderer(ID3D12Device* device, const char* filename, 
-	                         float samplingRate, bool triangulate):
+	                                             float samplingRate, bool triangulate):
 		ArRenderer("name")
 	{ 
 		FbxManager* manager{ FbxManager::Create() };

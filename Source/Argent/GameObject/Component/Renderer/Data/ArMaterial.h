@@ -26,11 +26,10 @@ namespace Argent::Material
 		DirectX::XMFLOAT4 color;
 	};
 
-	class ArMaterial:
-		public Argent::Resource::ArResource
+	class ArMaterial
 	{
 	public:
-		ArMaterial(const wchar_t* textureFilepath);
+		ArMaterial(const char* textureFilepath);
 
 		/**
 		 * \brief 

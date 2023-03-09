@@ -7,16 +7,26 @@ namespace Argent::Resource
 	class ArResource
 	{
 	public:
-		ArResource(uint64_t uniqueId, const char* name):
+
+		enum class ResourceType
+		{
+			rShader,
+			rTexture,
+			rMesh,
+			rSkinnedMesh,
+		};
+		ArResource(uint64_t uniqueId, const char* filePath, ResourceType type):
 			uniqueId(uniqueId)
-		,	name(name)
+		,	filePath(filePath)
+		,	type(type)
 		{}
 
 		uint64_t GetUniqueId() const { return uniqueId; }  // NOLINT(modernize-use-nodiscard)
-		const std::string& GetName() const { return name; }// NOLINT(modernize-use-nodiscard)
+		const std::string& GetFilePath() const { return filePath; }// NOLINT(modernize-use-nodiscard)
 
 	private:
 		uint64_t uniqueId;
-		std::string name;
+		std::string filePath;
+		ResourceType type;
 	};
 }

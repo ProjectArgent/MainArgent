@@ -5,11 +5,8 @@
 
 namespace Argent::Material
 {
-	ArMaterial::ArMaterial(const wchar_t* textureFilepath):
-		Argent::Resource::ArResource(
-			Argent::Resource::ArResourceManager::GenerateResourceUniqueId(),
-			"material")
-	,	texture(nullptr)
+	ArMaterial::ArMaterial(const char* textureFilepath):
+		texture(nullptr)
 	,	color(DirectX::XMFLOAT4(1, 1, 1, 1))
 	{
 		if(textureFilepath[0] != NULL)

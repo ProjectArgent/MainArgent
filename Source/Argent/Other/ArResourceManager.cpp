@@ -1,5 +1,5 @@
 #include "ArResourceManager.h"
-
+#include "../GameObject/Component/Renderer/Data/ArTexture.h"
 
 namespace Argent::Resource
 {
@@ -299,11 +299,15 @@ namespace Argent::Resource
 		return nullptr;
 	}
 
-	//const MeshData* ArResourceManager::AddMeshData(const std::string& meshName,
-	//	std::unique_ptr<MeshData> data)
-	//{
-	//	return nullptr;
-	//}
+	std::shared_ptr<Argent::Resource::ArResource> ArResourceManager::LoadTexture(const char* filePath)
+	{
+		std::shared_ptr<ArResource> ret = FindResource(filePath);
+		if(ret) return ret; 
+
+		ret = std::make_shared<Argent::Texture::ArTexture>(filePath);
+
+		return ret;
+	}
 
 	bool ArResourceManager::FindTexture(const wchar_t* filepath, ID3D12Resource** ppResource)
 	{

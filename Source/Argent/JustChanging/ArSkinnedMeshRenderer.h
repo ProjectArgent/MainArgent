@@ -219,7 +219,7 @@ namespace Argent::Resource::FBX
 			DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
 
 			static constexpr int NumTextures = 2;
-			std::shared_ptr<Argent::Texture::ArTexture> textures[NumTextures]; 
+			std::shared_ptr<Argent::Resource::ArResource> textures[NumTextures]; 
 			//std::vector<std::unique_ptr<Argent::Texture::ArTexture>> textures;
 			//static constexpr UINT MaxTextureNum = 4;
 			//std::string textureFilename[MaxTextureNum];
@@ -230,11 +230,8 @@ namespace Argent::Resource::FBX
 			Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
 			Constant* constantMap{};
 
-			void CreateTexture(const wchar_t* filePath, TextureType type) 
-			{
-				textures[static_cast<int>(type)] = std::make_shared<Argent::Texture::ArTexture>(filePath);
-				//textures.emplace_back(std::make_unique<Argent::Texture::ArTexture>(filePath));
-			}
+			void CreateTexture(const char* filePath, TextureType type);
+			
 
 			void SetOnCommand(ID3D12GraphicsCommandList* cmdList) const
 			{

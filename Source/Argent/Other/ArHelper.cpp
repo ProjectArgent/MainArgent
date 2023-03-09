@@ -188,9 +188,6 @@ namespace Argent
 
 				HRESULT hr{ S_OK };
 
-				//すでにロードしたテクスチャか確認
-				if (Argent::Resource::ArResourceManager::Instance().FindTexture(filepath, resource)) return S_OK;
-
 				hr = DirectX::LoadFromWICFile(filepath, DirectX::WIC_FLAGS_NONE, &metaData, scratchImage);
 
 

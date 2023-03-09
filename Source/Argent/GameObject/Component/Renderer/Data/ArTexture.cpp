@@ -1,4 +1,6 @@
 #include "ArTexture.h"
+
+#include "ArResource.h"
 #include "../../../../Graphic/ArGraphics.h"
 #include "../../../../Graphic/Dx12/ArDescriptorHeap.h"
 #include "../../../../Other/ArHelper.h"
@@ -6,14 +8,18 @@
 
 namespace Argent::Texture
 {
-	ArTexture::ArTexture(std::wstring filepath):
+	ArTexture::ArTexture(const char* filepath):
 	//todo ファイルパスの最後尾からファイル名を取ってきてそれをnameに入れる
-		Argent::Resource::ArResource(Argent::Resource::ArResourceManager::GenerateResourceUniqueId(), "name")
-	,	filepath(std::move(filepath))
+		Argent::Resource::ArResource(Argent::Resource::ArResourceManager::GenerateResourceUniqueId(),
+			filepath, ResourceType::rTexture)
 	{
 		descriptor = Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
 		imDescriptor = Graphics::ArGraphics::Instance()->GetImGuiHeap()->PopDescriptor();
-		Load();
+		const std::filesystem::path path{ filepath };
+		const HRESULT hr = Helper::Texture::LoadTexture(Argent::Graphics::ArGraphics::Instance()->GetDevice(), Argent::Graphics::ArGraphics::Instance()->GetResourceCmdBundle(), 
+		                                                Argent::Graphics::ArGraphics::Instance()->GetResourceCmdQueue(), path.c_str(), shaderResource.ReleaseAndGetAddressOf());
+
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
 		ID3D12Device* device = Graphics::ArGraphics::Instance()->GetDevice();
 
@@ -31,16 +37,6 @@ namespace Argent::Texture
 		width = static_cast<float>(shaderResource->GetDesc().Width);
 		height = static_cast<float>(shaderResource->GetDesc().Height);
 	}
-
-	HRESULT ArTexture::Load()
-	{
-		const HRESULT hr = Helper::Texture::LoadTexture(Argent::Graphics::ArGraphics::Instance()->GetDevice(), Argent::Graphics::ArGraphics::Instance()->GetResourceCmdBundle(), 
-		                                                Argent::Graphics::ArGraphics::Instance()->GetResourceCmdQueue(), filepath.c_str(), shaderResource.ReleaseAndGetAddressOf());
-
-		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
-		return S_OK;
-	}
-
 
 	void ArTexture::Render(ID3D12GraphicsCommandList* cmdList, UINT RootParameterIndex) const
 	{
