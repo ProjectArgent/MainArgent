@@ -39,7 +39,7 @@ namespace Argent::Frame
 		void Begin() const;
 		void UpdateSceneConstant(const DirectX::XMMATRIX& viewProjection, const DirectX::XMFLOAT4& lightColor, 
 		                         const DirectX::XMFLOAT3& lightPosition, const DirectX::XMFLOAT3& cameraPosition) const;
-		void SetSceneConstant();
+		void SetSceneConstant(UINT rootParameterIndex = 0);
 		void SetBarrier(D3D12_RESOURCE_STATES before, D3D12_RESOURCE_STATES after) const;
 	public:
 		std::vector<std::unique_ptr<Dx12::ArCommandBundle>> cmdBundle;

@@ -94,10 +94,10 @@ namespace Argent::Frame
 		cbScene->lightPosition = lightPosition;
 	}
 
-	void FrameResource::SetSceneConstant()
+	void FrameResource::SetSceneConstant(UINT rootParameterIndex)
 	{
 		cmdBundle.at(0)->cmdList->SetDescriptorHeaps(1, cbv->GetDescriptorHeap()->GetHeapDoublePointer());
-		cmdBundle.at(0)->cmdList->SetGraphicsRootDescriptorTable(0, cbv->GetGPUHandle());
+		cmdBundle.at(0)->cmdList->SetGraphicsRootDescriptorTable(rootParameterIndex, cbv->GetGPUHandle());
 	}
 
 	void FrameResource::SetBarrier(D3D12_RESOURCE_STATES before, D3D12_RESOURCE_STATES after) const

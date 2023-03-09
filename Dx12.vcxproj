@@ -109,6 +109,7 @@
     <ClInclude Include="Source\Argent\Other\Misc.h" />
     <ClInclude Include="Source\Argent\Scene\Scene.h" />
     <ClInclude Include="Source\Argent\Scene\SceneManager.h" />
+    <ClInclude Include="Source\DemoShaderMacro.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Title.h" />
   </ItemGroup>
@@ -282,7 +283,7 @@
       <AdditionalDependencies>zlib-md.lib;libxml2-md.lib;libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
-      <ShaderModel>5.0</ShaderModel>
+      <ShaderModel>5.1</ShaderModel>
       <ObjectFileOutput>.\Resource\Shader\%(Filename).cso</ObjectFileOutput>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
       <AssemblerOutputFile>.\Resource\Shader\%(Filename).cso</AssemblerOutputFile>

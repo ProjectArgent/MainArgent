@@ -1,9 +1,11 @@
 #include "SkinnedMesh.hlsli"
+#include "../DemoShaderMacro.h"
+
 SamplerState smpPoint : register(s0);
 //SamplerState smpAniso : register(s1);
 
-Texture2D tex : register(t0);
-Texture2D normalTex : register(t1);
+Texture2D tex : register(ALBEDO);
+Texture2D normalTex : register(NORMAL);
 
 float3 CalcLambertDiffuse(float3 normal, float3 lightVector, float3 lightColor, float3 kd)
 {

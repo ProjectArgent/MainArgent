@@ -4,7 +4,8 @@
 #include "../ArComponent.h"
 #include "Data/ArMaterial.h"
 #include "../../../Graphic/ArShader.h"
-#include "../../../Graphic/Dx12/PipelineState.h"
+#include "../../../Graphic/Dx12/ArPipelineState.h"
+#include "../../../Graphic/ArRenderingPipeline.h"
 
 
 //描画用のコンポーネント
@@ -33,7 +34,8 @@ namespace Argent::Component
 #endif
 		protected:
 			std::unique_ptr<Material::ArMaterial> material;
-			std::unique_ptr<Dx12::ArRenderingPipeline> renderingPipeline;
+			//std::unique_ptr<Dx12::ArRenderingPipeline> renderingPipeline;
+			std::shared_ptr<Argent::Graphics::RenderingPipeline::ArBaseRenderingPipeline> renderingPipeline;
 		};
 	}
 }

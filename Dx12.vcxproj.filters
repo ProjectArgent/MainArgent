@@ -154,9 +154,6 @@
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.cpp">
       <Filter>Argent\Graphic\Dx12</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\Dx12\PipelineState.cpp">
-      <Filter>Argent\Graphic\Dx12</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\Input\Keyboard.cpp">
       <Filter>Argent\Input</Filter>
     </ClCompile>
@@ -181,6 +178,8 @@
     <ClCompile Include="Source\Argent\Core\ArRandom.cpp">
       <Filter>Argent\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Argent\Graphic\ArRenderingPipeline.cpp" />
+    <ClCompile Include="Source\Argent\Graphic\Dx12\ArPipelineState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -291,9 +290,6 @@
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.h">
       <Filter>Argent\Graphic\Dx12</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\Dx12\PipelineState.h">
-      <Filter>Argent\Graphic\Dx12</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Argent\Input\Keyboard.h">
       <Filter>Argent\Input</Filter>
     </ClInclude>
@@ -317,6 +313,11 @@
     </ClInclude>
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArResource.h">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\ArRenderingPipeline.h" />
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArPipelineState.h" />
+    <ClInclude Include="Source\DemoShaderMacro.h">
+      <Filter>Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -379,6 +380,5 @@
     <None Include="Source\Shader\SkinnedMesh.hlsli">
       <Filter>Shader</Filter>
     </None>
-    
   </ItemGroup>
 </Project>

@@ -35,7 +35,7 @@ namespace Argent::Component::Renderer
 
 	void ArRenderer::Render(ID3D12GraphicsCommandList* cmdList) const
 	{
-		renderingPipeline->SetOnCommand(cmdList);
+		renderingPipeline->SetOnCommandList(cmdList);
 	}
 
 	void ArRenderer::Render()

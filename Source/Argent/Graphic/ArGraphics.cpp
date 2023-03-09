@@ -601,9 +601,9 @@ namespace Argent::Graphics
 		return hr;
 	}
 		
-	void ArGraphics::SetSceneConstant()
+	void ArGraphics::SetSceneConstant(UINT rootParameterIndex)
 	{
-		curFrameResource->SetSceneConstant();
+		curFrameResource->SetSceneConstant(rootParameterIndex);
 	}
 
 	HRESULT FindAdapter(IDXGIFactory6* factory, IDXGIAdapter1** adapter)

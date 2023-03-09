@@ -117,6 +117,15 @@ namespace Argent::Resource::FBX
 		public Argent::Component::Renderer::ArRenderer
 	{
 	public:
+		enum class RootParameterIndex
+		{
+			cbScene,
+			cbObject,
+			cbMesh,
+			cbMaterial,
+			txAlbedo,
+			txNormal,
+		};
 		static constexpr int MaxBoneInfluences{ 4 };
 		
 		struct Vertex			
@@ -191,6 +200,11 @@ namespace Argent::Resource::FBX
 
 		struct Material
 		{
+			enum class TextureType
+			{
+				Albedo,
+				Normal,
+			};
 			struct Constant
 			{
 				DirectX::XMFLOAT4 ka;
@@ -204,7 +218,9 @@ namespace Argent::Resource::FBX
 			DirectX::XMFLOAT4 kd{ 0.2f, 0.2f, 0.2f, 1.0f };
 			DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
 
-			std::vector<std::unique_ptr<Argent::Texture::ArTexture>> textures;
+			static constexpr int NumTextures = 2;
+			std::shared_ptr<Argent::Texture::ArTexture> textures[NumTextures]; 
+			//std::vector<std::unique_ptr<Argent::Texture::ArTexture>> textures;
 			//static constexpr UINT MaxTextureNum = 4;
 			//std::string textureFilename[MaxTextureNum];
 			//std::vector<Argent::Descriptor::ArDescriptor*> srvDescriptor;
@@ -214,16 +230,19 @@ namespace Argent::Resource::FBX
 			Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
 			Constant* constantMap{};
 
-			void CreateTexture(const wchar_t* filePath) 
+			void CreateTexture(const wchar_t* filePath, TextureType type) 
 			{
-				textures.emplace_back(std::make_unique<Argent::Texture::ArTexture>(filePath));
+				textures[static_cast<int>(type)] = std::make_shared<Argent::Texture::ArTexture>(filePath);
+				//textures.emplace_back(std::make_unique<Argent::Texture::ArTexture>(filePath));
 			}
 
 			void SetOnCommand(ID3D12GraphicsCommandList* cmdList) const
 			{
 				//todo ‚È‚ñ‚Æ‚©”’
-				textures.at(0)->Render(cmdList, 2);
-				textures.at(2)->Render(cmdList, 5);
+				cmdList->SetDescriptorHeaps(1, cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
+				cmdList->SetGraphicsRootDescriptorTable(static_cast<UINT>(RootParameterIndex::cbMaterial), cbvDescriptor->GetGPUHandle());
+				textures[static_cast<int>(TextureType::Albedo)]->Render(cmdList, static_cast<UINT>(RootParameterIndex::txAlbedo));
+				textures[static_cast<int>(TextureType::Normal)]->Render(cmdList, static_cast<UINT>(RootParameterIndex::txNormal));
 			}
 
 	#ifdef _DEBUG
@@ -244,6 +263,7 @@ namespace Argent::Resource::FBX
 
 
 	public:
+		
 		ArSkinnedMeshRenderer(ID3D12Device* device, const char* filename, float samplingRate = 0, bool triangulate = false);
 		virtual ~ArSkinnedMeshRenderer() = default;
 

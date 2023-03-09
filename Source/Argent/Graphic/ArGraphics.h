@@ -58,7 +58,7 @@ namespace Argent::Graphics
 		HRESULT CreateBlackTexture(ID3D12Resource** resource);
 		HRESULT CreateGrayGradationTexture(ID3D12Resource** resource);
 		
-		void SetSceneConstant();
+		void SetSceneConstant(UINT rootParameterIndex = 0);
 	public:
 		static ArGraphics* Instance() { return instance; }
 		[[nodiscard]] ID3D12Device* GetDevice() const { return mDevice.Get(); }

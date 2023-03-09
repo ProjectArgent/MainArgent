@@ -1,3 +1,4 @@
+// ReSharper disable All
 #pragma once
 
 #include <d3d12.h>
@@ -96,6 +97,22 @@ namespace Argent
 				D3D12_STATIC_SAMPLER_DESC GenerateSamplerDesc(FilterMode fMode, WrapMode wMode,
 					D3D12_STATIC_BORDER_COLOR borderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK, FLOAT maxLOD = D3D12_FLOAT32_MAX, FLOAT minLOD = 0.0f);
 			}
+
+			namespace Rasterizer
+			{
+				//hack à¯êîÇì¸ÇÍÇÈÇÊÇ§Ç…
+				inline D3D12_RASTERIZER_DESC Generate()
+				{
+					D3D12_RASTERIZER_DESC desc{};
+					desc.MultisampleEnable = FALSE;
+					desc.FrontCounterClockwise = TRUE;
+					desc.CullMode = D3D12_CULL_MODE_BACK;
+					desc.FillMode = D3D12_FILL_MODE_SOLID;
+					desc.DepthClipEnable = TRUE;
+					return desc;
+				}
+			}
+
 
 			namespace Buffer
 			{
