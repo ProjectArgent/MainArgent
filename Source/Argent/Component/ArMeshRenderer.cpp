@@ -81,8 +81,8 @@ namespace Argent::Component::Renderer
 		
 
 		renderingPipeline = std::make_shared<Graphics::RenderingPipeline::ArBaseRenderingPipeline>(
-			"./Resource/Shader/GeometricPrimitiveVertex.cso",
-			"./Resource/Shader/GeometricPrimitivePixel.cso",
+			"./Resources/Shader/GeometricPrimitiveVertex.cso",
+			"./Resources/Shader/GeometricPrimitivePixel.cso",
 			&rootSigDesc,
 			&pipelineStateDesc
 			);

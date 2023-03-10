@@ -10,7 +10,7 @@ namespace Argent::Component::Renderer
 		ArRenderer("Sprite Renderer")
 	{
 		data = std::make_unique<Mesh::Sprite::ArSprite>();
-		materials.emplace_back(std::make_shared<Material::ArMaterial>("Resource/Sample256.png"));
+		materials.emplace_back(std::make_shared<Material::ArMaterial>("Resources/Sample256.png"));
 
 
 		D3D12_ROOT_SIGNATURE_DESC rootSigDesc{};
@@ -80,8 +80,8 @@ namespace Argent::Component::Renderer
 		
 
 		renderingPipeline = std::make_shared<Graphics::RenderingPipeline::ArBaseRenderingPipeline>(
-			"Resource/Shader/SpriteVertex.cso", 
-			"Resource/Shader/SpritePixel.cso",
+			"Resources/Shader/SpriteVertex.cso", 
+			"Resources/Shader/SpritePixel.cso",
 			&rootSigDesc,
 			&pipelineStateDesc);
 	}

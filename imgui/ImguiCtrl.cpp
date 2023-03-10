@@ -31,7 +31,7 @@ void ::ImguiCtrl::Initialize(HWND hWnd, ID3D12Device* device, ID3D12DescriptorHe
 #ifdef _DEBUG
 	IMGUI_CHECKVERSION();
 	if(!ImGui::CreateContext()) assert(0);
-	ImGui::GetIO().Fonts->AddFontFromFileTTF("Resource/Fonts/migu-1m.ttf", 
+	ImGui::GetIO().Fonts->AddFontFromFileTTF("Resources/Fonts/migu-1m.ttf", 
 		16.0f, nullptr);
 
 

@@ -19,8 +19,8 @@ void Title::Initialize()
 	//AddObject(GameObject::Capsule());
 	//AddObject(GameObject::SceneCamera());
 	//AddObject( new GameObject("obj",new ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resource/DragonBinary.fbx")));
-	AddObject( new GameObject("obj",new Argent::Resource::FBX::ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resource/fbxkakidashi.fbx")));
-	//AddObject( new GameObject("obj",new Argent::Resource::FBX::ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resource/RenderingEngine/nico.fbx")));
+	//AddObject( new GameObject("obj",new Argent::Resource::FBX::ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resources/fbxkakidashi.fbx")));
+	AddObject( new GameObject("obj",new Argent::Resource::FBX::ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resources/RenderingEngine/nico.fbx")));
 
 	//GetGameObject("Main Camera")->GetComponent<Camera>()->SetTarget(GetGameObject("Player")->GetTransform());
 	//GetGameObject("Player")->AddComponent<Transform>();

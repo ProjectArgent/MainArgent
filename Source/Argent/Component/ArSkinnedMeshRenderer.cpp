@@ -144,8 +144,8 @@ namespace Argent::Resource::FBX
 
 			
 			renderingPipeline = std::make_shared<Argent::Graphics::RenderingPipeline::ArBaseRenderingPipeline>(
-				"./Resource/Shader/SkinnedMeshVertex.cso",
-				"./Resource/Shader/SkinnedMeshPixel.cso",
+				"./Resources/Shader/SkinnedMeshVertex.cso",
+				"./Resources/Shader/SkinnedMeshPixel.cso",
 				 &rootSigDesc,
 				 &pipelineStateDesc
 				);
