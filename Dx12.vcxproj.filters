@@ -43,6 +43,9 @@
     <Filter Include="Argent\Component">
       <UniqueIdentifier>{bec5a5f9-6155-4a63-8910-aa9452963f79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Argent\Component\Renderer">
+      <UniqueIdentifier>{74e8ebb6-2552-4bbe-be80-33d0deb1255f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -130,13 +133,13 @@
     <ClCompile Include="Source\Argent\Other\ArHelper.cpp">
       <Filter>Argent\Other</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArData.cpp">
+    <ClCompile Include="Source\Argent\Resource\ArMesh.cpp">
       <Filter>Argent\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\Resource\ArMaterial.cpp">
       <Filter>Argent\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArMesh.cpp">
+    <ClCompile Include="Source\Argent\Resource\ArStaticMesh.cpp">
       <Filter>Argent\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\Resource\ArResourceManager.cpp">
@@ -154,18 +157,6 @@
     <ClCompile Include="Source\Argent\Component\ArComponent.cpp">
       <Filter>Argent\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Component\ArMeshRenderer.cpp">
-      <Filter>Argent\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Component\ArRenderer.cpp">
-      <Filter>Argent\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Component\ArSkinnedMeshRenderer.cpp">
-      <Filter>Argent\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Component\ArSpriteRenderer.cpp">
-      <Filter>Argent\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\Component\Camera.cpp">
       <Filter>Argent\Component</Filter>
     </ClCompile>
@@ -174,6 +165,18 @@
     </ClCompile>
     <ClCompile Include="Source\Argent\Component\Transform.cpp">
       <Filter>Argent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArMeshRenderer.cpp">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArRenderer.cpp">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArSkinnedMeshRenderer.cpp">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArSpriteRenderer.cpp">
+      <Filter>Argent\Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -273,13 +276,13 @@
     <ClInclude Include="Source\Argent\Other\Misc.h">
       <Filter>Argent\Other</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArData.h">
+    <ClInclude Include="Source\Argent\Resource\ArMesh.h">
       <Filter>Argent\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Resource\ArMaterial.h">
       <Filter>Argent\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArMesh.h">
+    <ClInclude Include="Source\Argent\Resource\ArStaticMesh.h">
       <Filter>Argent\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Resource\ArResource.h">
@@ -300,18 +303,6 @@
     <ClInclude Include="Source\Argent\Component\ArComponent.h">
       <Filter>Argent\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Component\ArMeshRenderer.h">
-      <Filter>Argent\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Component\ArRenderer.h">
-      <Filter>Argent\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Component\ArSkinnedMeshRenderer.h">
-      <Filter>Argent\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Component\ArSpriteRenderer.h">
-      <Filter>Argent\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Argent\Component\Camera.h">
       <Filter>Argent\Component</Filter>
     </ClInclude>
@@ -320,6 +311,24 @@
     </ClInclude>
     <ClInclude Include="Source\Argent\Component\Transform.h">
       <Filter>Argent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArSkinnedMeshRenderer.h">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArMeshRenderer.h">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArRenderer.h">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArSpriteRenderer.h">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArVertexBuffer.h">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArIndexBuffer.h">
+      <Filter>Argent\Graphic\Dx12</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -28,9 +28,9 @@ namespace Argent::Component::Renderer
 #endif
 
 
-		[[nodiscard]] Material::ArMaterial* GetMaterial() const { return material.get();  }
+		[[nodiscard]] Material::ArMaterial* GetMaterial() const { return materials.at(0).get();  }
 
 	private:
-		std::unique_ptr<Data::Sprite::ArSpriteData> data;
+		std::unique_ptr<Mesh::Sprite::ArSpriteData> data;
 	};
 }

@@ -53,36 +53,36 @@ namespace Argent::Loader::Fbx
 
 	void LoadFbx(const char* fileName, bool triangulate)
 	{
-		FbxManager* mgr{ FbxManager::Create() };
-		FbxScene* scene{ FbxScene::Create(mgr, "") };
-		FbxImporter* importer{ FbxImporter::Create(mgr, "") };
-		SkinnedScene sceneView{};
-		bool result{};
-		result = importer->Initialize(fileName);
-		_ASSERT_EXPR(result, L"import Initialize failed");
+		//FbxManager* mgr{ FbxManager::Create() };
+		//FbxScene* scene{ FbxScene::Create(mgr, "") };
+		//FbxImporter* importer{ FbxImporter::Create(mgr, "") };
+		//SkinnedScene sceneView{};
+		//bool result{};
+		//result = importer->Initialize(fileName);
+		//_ASSERT_EXPR(result, L"import Initialize failed");
 
-		result = importer->Import(scene);
-		_ASSERT_EXPR(result, L"Import failed");
+		//result = importer->Import(scene);
+		//_ASSERT_EXPR(result, L"Import failed");
 
-		//todo 三角化するかどうかをsdkの関数でしたい（関数あるかも知らない）
-		if(triangulate)
-		{
-			FbxGeometryConverter converter(mgr);
-			converter.Triangulate(scene, true);
-			converter.RemoveBadPolygonsFromMeshes(scene);
-		}
+		////todo 三角化するかどうかをsdkの関数でしたい（関数あるかも知らない）
+		//if(triangulate)
+		//{
+		//	FbxGeometryConverter converter(mgr);
+		//	converter.Triangulate(scene, true);
+		//	converter.RemoveBadPolygonsFromMeshes(scene);
+		//}
 
-		//再帰関数　シーン内に存在するすべてのノードを取り込む
-		//todo nullノードとかあるらしいがそういうのって飛ばしちゃだめなのか？
-		Traverse(scene->GetRootNode(), sceneView);
+		////再帰関数　シーン内に存在するすべてのノードを取り込む
+		////todo nullノードとかあるらしいがそういうのって飛ばしちゃだめなのか？
+		//Traverse(scene->GetRootNode(), sceneView);
 
-		mgr->Destroy();
+		//mgr->Destroy();
 
-		std::vector<Argent::Data::ArMesh::Vertex> vertices;
-		std::vector<uint32_t> indices;
+		//std::vector<Argent::Mesh::ArStaticMesh::Vertex> vertices;
+		//std::vector<uint32_t> indices;
 
-		Argent::Resource::ArResourceManager::Instance().AddMesh("DemoFBX", std::make_unique<Argent::Data::ArMesh>(vertices, indices));
-		//Argent::Resource::ArResourceManager::Instance().AddMesh(fileName, std::make_unique<Argent::Data::ArMesh>(vertices, indices));
+		//Argent::Resource::ArResourceManager::Instance().AddMesh("DemoFBX", std::make_unique<Argent::Mesh::ArStaticMesh>(vertices, indices));
+		////Argent::Resource::ArResourceManager::Instance().AddMesh(fileName, std::make_unique<Argent::Mesh::ArStaticMesh>(vertices, indices));
 
 	}
 

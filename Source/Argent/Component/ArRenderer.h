@@ -4,14 +4,7 @@
 
 #include "ArComponent.h"
 #include "../Graphic/ArRenderingPipeline.h"
-
-namespace Argent
-{
-	namespace Material
-	{
-		class ArMaterial;
-	}
-}
+#include "../Resource/ArMaterial.h"
 
 //描画用のコンポーネント
 namespace Argent::Component
@@ -38,7 +31,7 @@ namespace Argent::Component
 			void DrawDebug() override{}
 #endif
 		protected:
-			std::unique_ptr<Material::ArMaterial> material;
+			std::vector<std::shared_ptr<Material::ArMaterial>> materials;
 			std::shared_ptr<Argent::Graphics::RenderingPipeline::ArBaseRenderingPipeline> renderingPipeline;
 		};
 	}

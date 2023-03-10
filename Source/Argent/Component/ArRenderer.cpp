@@ -24,7 +24,6 @@ namespace Argent::Component::Renderer
 {
 	ArRenderer::ArRenderer(const std::string& name):
 		ArComponent(name)
-	,	material(nullptr)
 	{}
 
 	ArRenderer::~ArRenderer()
@@ -43,5 +42,4 @@ namespace Argent::Component::Renderer
 		ID3D12GraphicsCommandList* cmdList = Argent::Graphics::ArGraphics::Instance()->GetCommandList();
 		Render(cmdList);
 	}
-
 }

@@ -2,15 +2,7 @@
 #include <vector>
 
 #include "ArRenderer.h"
-
-namespace Argent
-{
-	namespace Data
-	{
-		class ArMesh;
-	}
-}
-
+#include "../Resource/ArStaticMesh.h"
 namespace Argent::Component::Renderer
 {
 	struct Subset
@@ -26,7 +18,7 @@ namespace Argent::Component::Renderer
 		public ArRenderer
 	{
 	public:
-		ArMeshRenderer(Argent::Data::ArMesh* data);
+		ArMeshRenderer(Argent::Mesh::StaticMesh::ArStaticMesh* data);
 
 		void Initialize() override;
 		void Finalize() override;
@@ -43,6 +35,6 @@ namespace Argent::Component::Renderer
 	protected:
 		
 		std::vector<Subset> subsets;
-		Argent::Data::ArMesh* mesh;
+		Argent::Mesh::StaticMesh::ArStaticMesh* mesh;
 	};
 }

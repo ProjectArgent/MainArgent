@@ -9,8 +9,8 @@ namespace Argent::Component::Renderer
 	ArSpriteRenderer::ArSpriteRenderer():
 		ArRenderer("Sprite Renderer")
 	{
-		data = std::make_unique<Data::Sprite::ArSpriteData>();
-		material = std::make_unique<Material::ArMaterial>("Resource/Sample256.png");
+		data = std::make_unique<Mesh::Sprite::ArSpriteData>();
+		materials.emplace_back(std::make_shared<Material::ArMaterial>("Resource/Sample256.png"));
 
 
 		D3D12_ROOT_SIGNATURE_DESC rootSigDesc{};
@@ -54,7 +54,9 @@ namespace Argent::Component::Renderer
 
 
 		D3D12_DEPTH_STENCIL_DESC depthStencilDesc{};
-		depthStencilDesc.DepthEnable = FALSE;
+		depthStencilDesc.DepthEnable = TRUE;
+		depthStencilDesc.DepthFunc = D3D12_COMPARISON_FUNC_ALWAYS;
+		depthStencilDesc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
 
 		D3D12_RASTERIZER_DESC rasterizerDesc{};
 		rasterizerDesc.MultisampleEnable = FALSE;
@@ -74,7 +76,7 @@ namespace Argent::Component::Renderer
 		pipelineStateDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
 		pipelineStateDesc.SampleDesc = sampleDesc;
 		pipelineStateDesc.DepthStencilState = depthStencilDesc;
-		pipelineStateDesc.DSVFormat = DXGI_FORMAT_UNKNOWN;
+		pipelineStateDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 		
 
 		renderingPipeline = std::make_shared<Graphics::RenderingPipeline::ArBaseRenderingPipeline>(
@@ -115,17 +117,16 @@ namespace Argent::Component::Renderer
 		const Transform* transform = GetOwner()->GetTransform();
 
 		//todo Center‚Ì’l‚ð‚Ç‚Á‚©‚Å’è‹`‚·‚é‚±‚Æ
-		data->UpdateVertexMap(transform->GetPosition(), transform->GetScale(), DirectX::XMFLOAT2(), transform->GetRotation().z, material->texture->GetWidth(), material->texture->GetHeight(),
-			material->color.color);
+		data->UpdateVertexMap(transform->GetPosition(), transform->GetScale(), DirectX::XMFLOAT2(), transform->GetRotation().z, materials.at(0)->texture->GetWidth(), materials.at(0)->texture->GetHeight(),
+			materials.at(0)->color.color);
 	}
 
 	void ArSpriteRenderer::Render(ID3D12GraphicsCommandList* cmdList) const
 	{
 		ArRenderer::Render(cmdList);
-		material->Render(cmdList, 0);
+		materials.at(0)->Render(cmdList, 0);
 		cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-		data->Render(cmdList, 1, 0, 0, 0);
-
+		data->Render(cmdList);
 	}
 
 #ifdef _DEBUG
@@ -134,7 +135,7 @@ namespace Argent::Component::Renderer
 		if(ImGui::TreeNode(GetName().c_str()))
 		{
 			ArRenderer::DrawDebug();
-			material->DrawDebug();
+			materials.at(0)->DrawDebug();
 			ImGui::TreePop();
 		}
 	}

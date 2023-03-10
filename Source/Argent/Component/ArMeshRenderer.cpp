@@ -2,13 +2,14 @@
 #include "../Graphic/ArGraphics.h"
 #include "../GameObject/GameObject.h"
 #include "Transform.h"
-#include "../Resource/ArMesh.h"
+#include "../Resource/ArStaticMesh.h"
 #include "../Other/ArHelper.h"
 #include "../Resource/ArMaterial.h"
+#include "../Resource/ArStaticMesh.h"
 
 namespace Argent::Component::Renderer
 {
-	ArMeshRenderer::ArMeshRenderer(Argent::Data::ArMesh* data):
+	ArMeshRenderer::ArMeshRenderer(Argent::Mesh::StaticMesh::ArStaticMesh* data):
 		ArRenderer("Mesh Renderer")
 	,	mesh(data)
 	{
@@ -89,7 +90,7 @@ namespace Argent::Component::Renderer
 			&rootSigDesc,
 			&pipelineStateDesc
 			);
-		material = std::make_unique<Argent::Material::ArMaterial>("");
+		materials.at(0) = std::make_unique<Argent::Material::ArMaterial>("");
 	}
 
 	void ArMeshRenderer::Initialize()
@@ -125,7 +126,7 @@ namespace Argent::Component::Renderer
 
 		if(mesh)
 		mesh->Render(cmdList,
-			GetOwner()->GetTransform()->GetWorld(), material->color.color);
+			GetOwner()->GetTransform()->GetWorld(), materials.at(0)->color.color);
 	}
 
 #ifdef _DEBUG
