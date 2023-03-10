@@ -188,10 +188,7 @@ namespace Argent::Resource::FBX
 		//private:
 			Microsoft::WRL::ComPtr<ID3D12Resource> vertexBuffer;
 			Microsoft::WRL::ComPtr<ID3D12Resource> indexBuffer;
-			//Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
-			//Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> constantHeap;
 
-			//Constant* constantMap;
 			std::unique_ptr<Argent::Dx12::ArConstantBuffer<Constant>> constantBuffer;
 			D3D12_VERTEX_BUFFER_VIEW vertexView{};
 			D3D12_INDEX_BUFFER_VIEW indexView{};
@@ -227,8 +224,6 @@ namespace Argent::Resource::FBX
 			{
 				//todo ‚È‚ñ‚Æ‚©”’
 				constantBuffer->SetOnCommandList(cmdList, static_cast<UINT>(RootParameterIndex::cbMaterial));
-				//cmdList->SetDescriptorHeaps(1, cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
-				//cmdList->SetGraphicsRootDescriptorTable(static_cast<UINT>(RootParameterIndex::cbMaterial), cbvDescriptor->GetGPUHandle());
 				textures[static_cast<int>(TextureType::Albedo)]->Render(cmdList, static_cast<UINT>(RootParameterIndex::txAlbedo));
 				textures[static_cast<int>(TextureType::Normal)]->Render(cmdList, static_cast<UINT>(RootParameterIndex::txNormal));
 			}

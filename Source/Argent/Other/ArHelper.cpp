@@ -125,11 +125,27 @@ namespace Argent
 			}
 
 			//ägí£éqÇéÊìæ
-			std::string GetExtension(const std::string& path)
+			std::string GetExtension(const std::string& filePath)
 			{
-				size_t index = path.rfind(".");
-				std::string r = path.substr(index + 1, path.length() - index - 1);
-				return  r;
+				std::filesystem::path path{ filePath };
+				std::string ret{ WstringToString(path.extension()) };
+				return  ret;
+			}
+
+			std::string ExtractFileName(const std::string& filePath, bool isNeedExtension)
+			{
+				std::string ret{};
+				std::filesystem::path path{ filePath };
+				if(isNeedExtension)
+				{
+					ret = WstringToString(path.filename());
+				}
+				else
+				{
+					ret = WstringToString(path.stem());
+				}
+
+				return ret;
 			}
 
 			std::pair<std::string, std::string> SplitFileName(const std::string& path, const char splitter)
@@ -262,9 +278,9 @@ namespace Argent
 						auto srcAddress = rowImage->pixels;
 						UINT rowPitch = static_cast<UINT>(Argent::Helper::Math::CalcAlignmentSize(rowImage->rowPitch));
 						hr = uploadBuffer->Map(0, nullptr, reinterpret_cast<void**>(&mapForImage));
-						_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));;
+						_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 						//todo Ç‡Ç¡Ç∆Ç¢Ç¢ï˚ñ@ÇÃñÕçı
-						for (int y = 0; y < rowImage->height - 1; ++y)
+						for (int y = 0; y < rowImage->height; ++y)
 						{
 							std::copy_n(srcAddress, rowPitch, mapForImage);
 							srcAddress += rowImage->rowPitch;

@@ -148,7 +148,7 @@
     <ClCompile Include="Source\Argent\Resource\ArShader.cpp">
       <Filter>Argent\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArSpriteData.cpp">
+    <ClCompile Include="Source\Argent\Resource\ArSprite.cpp">
       <Filter>Argent\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\Resource\ArTexture.cpp">
@@ -294,7 +294,7 @@
     <ClInclude Include="Source\Argent\Resource\ArShader.h">
       <Filter>Argent\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArSpriteData.h">
+    <ClInclude Include="Source\Argent\Resource\ArSprite.h">
       <Filter>Argent\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Resource\ArTexture.h">

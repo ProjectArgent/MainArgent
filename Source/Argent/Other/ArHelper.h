@@ -47,7 +47,7 @@ namespace Argent
 
 			//ワイド文字列からマルチバイト文字列
 			//ロケール依存
-			inline std::string narrow(const std::wstring& src)
+			inline std::string WstringToString(const std::wstring& src)
 			{
 				std::string ret{};
 				size_t size{};
@@ -61,19 +61,11 @@ namespace Argent
 				return ret;
 			}
 
-			//マルチバイト文字列からワイド文字列
-			//ロケール依存
-			/*void widen(const std::string& src, std::wstring& dest) {
-				wchar_t* wcs = new wchar_t[src.length() + 1];
-				mbstowcs(wcs, src.c_str(), src.length() + 1);
-				dest = wcs;
-				delete[] wcs;
-			}*/
-
-
 			//拡張子を取得
 			std::string GetExtension(const std::string& path);
-			
+
+			std::string ExtractFileName(const std::string& filePath, bool isNeedExtension);
+
 			std::pair<std::string, std::string> SplitFileName(const std::string& path, const char splitter = '*');
 		}
 

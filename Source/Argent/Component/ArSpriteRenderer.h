@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "ArRenderer.h"
-#include "../Resource/ArSpriteData.h"
+#include "../Resource/ArSprite.h"
 
 namespace Argent::Component::Renderer
 {
@@ -31,6 +31,6 @@ namespace Argent::Component::Renderer
 		[[nodiscard]] Material::ArMaterial* GetMaterial() const { return materials.at(0).get();  }
 
 	private:
-		std::unique_ptr<Mesh::Sprite::ArSpriteData> data;
+		std::unique_ptr<Mesh::Sprite::ArSprite> data;
 	};
 }

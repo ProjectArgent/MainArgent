@@ -408,7 +408,7 @@ namespace Argent::Resource::FBX
 						std::filesystem::path path(fbxFilePath);
 						path.replace_filename(tmpFilePath);
 
-						const std::string replacedFilePath = Helper::String::narrow(path.c_str());
+						const std::string replacedFilePath = Helper::String::WstringToString(path.c_str());
 						material.CreateTexture( "", ArSkinnedMeshRenderer::Material::TextureType::Albedo);
 					}
 
@@ -448,7 +448,7 @@ namespace Argent::Resource::FBX
 						std::filesystem::path path(fbxFilePath);
 						path.replace_filename(tmpFilePath);
 
-						const std::string replacedFilePath = Helper::String::narrow(path.c_str());
+						const std::string replacedFilePath = Helper::String::WstringToString(path.c_str());
 						material.CreateTexture(replacedFilePath.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Normal);
 					}
 					materials.emplace(materialUniqueId, std::move(material));

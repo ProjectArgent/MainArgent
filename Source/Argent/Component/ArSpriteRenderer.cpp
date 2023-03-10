@@ -9,7 +9,7 @@ namespace Argent::Component::Renderer
 	ArSpriteRenderer::ArSpriteRenderer():
 		ArRenderer("Sprite Renderer")
 	{
-		data = std::make_unique<Mesh::Sprite::ArSpriteData>();
+		data = std::make_unique<Mesh::Sprite::ArSprite>();
 		materials.emplace_back(std::make_shared<Material::ArMaterial>("Resource/Sample256.png"));
 
 
@@ -117,7 +117,7 @@ namespace Argent::Component::Renderer
 		const Transform* transform = GetOwner()->GetTransform();
 
 		//todo Center‚Ì’l‚ð‚Ç‚Á‚©‚Å’è‹`‚·‚é‚±‚Æ
-		data->UpdateVertexMap(transform->GetPosition(), transform->GetScale(), DirectX::XMFLOAT2(), transform->GetRotation().z, materials.at(0)->texture->GetWidth(), materials.at(0)->texture->GetHeight(),
+		data->UpdateVertexMap(transform->GetPosition(), transform->GetScale(), DirectX::XMFLOAT2(), transform->GetRotation().z, materials.at(0)->textures.at(0)->GetWidth(), materials.at(0)->textures.at(0)->GetHeight(),
 			materials.at(0)->color.color);
 	}
 

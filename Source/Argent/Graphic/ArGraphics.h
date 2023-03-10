@@ -50,10 +50,6 @@ namespace Argent::Graphics
 		void Begin();
 		void End();
 		
-		void DrawDebug();
-		
-		HRESULT LoadTexture(std::string filename, ID3D12Resource** resource);
-		HRESULT LoadTexture(std::wstring filename, ID3D12Resource** resource);
 		HRESULT CreateWhiteTexture(ID3D12Resource** resource);
 		HRESULT CreateBlackTexture(ID3D12Resource** resource);
 		HRESULT CreateGrayGradationTexture(ID3D12Resource** resource);
@@ -107,7 +103,6 @@ namespace Argent::Graphics
 		[[nodiscard]] Dx12::ArCommandBundle* GetResourceCmdBundle() const { return resourceCmdBundle.get(); }
 		[[nodiscard]] Dx12::ArCommandQueue* GetResourceCmdQueue() const { return resourceQueue.get(); }
 
-	private:
 
 	private:
 		static ArGraphics* instance;

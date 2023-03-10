@@ -56,7 +56,7 @@
     <ClCompile Include="Source\Argent\Resource\ArStaticMesh.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArResourceManager.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArShader.cpp" />
-    <ClCompile Include="Source\Argent\Resource\ArSpriteData.cpp" />
+    <ClCompile Include="Source\Argent\Resource\ArSprite.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArTexture.cpp" />
     <ClCompile Include="Source\Argent\Scene\Scene.cpp" />
     <ClCompile Include="Source\Argent\Scene\SceneManager.cpp" />
@@ -108,7 +108,7 @@
     <ClInclude Include="Source\Argent\Resource\ArResource.h" />
     <ClInclude Include="Source\Argent\Resource\ArResourceManager.h" />
     <ClInclude Include="Source\Argent\Resource\ArShader.h" />
-    <ClInclude Include="Source\Argent\Resource\ArSpriteData.h" />
+    <ClInclude Include="Source\Argent\Resource\ArSprite.h" />
     <ClInclude Include="Source\Argent\Resource\ArTexture.h" />
     <ClInclude Include="Source\Argent\Scene\Scene.h" />
     <ClInclude Include="Source\Argent\Scene\SceneManager.h" />

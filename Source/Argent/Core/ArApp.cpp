@@ -34,7 +34,6 @@ namespace Argent::App
 			ImguiCtrl::Begin("Main Window");
 
 			arSceneManager.Execute();
-			arGfx->DrawDebug();
 
 			ImguiCtrl::End(arGfx->GetCommandList(), arGfx->GetGUIHeap());
 
