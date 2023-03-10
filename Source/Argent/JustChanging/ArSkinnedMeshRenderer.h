@@ -190,10 +190,11 @@ namespace Argent::Resource::FBX
 		//private:
 			Microsoft::WRL::ComPtr<ID3D12Resource> vertexBuffer;
 			Microsoft::WRL::ComPtr<ID3D12Resource> indexBuffer;
-			Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
-			Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> constantHeap;
+			//Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
+			//Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> constantHeap;
 
-			Constant* constantMap;
+			//Constant* constantMap;
+			std::unique_ptr<Argent::Dx12::ArConstantBuffer<Constant>> constantBuffer;
 			D3D12_VERTEX_BUFFER_VIEW vertexView{};
 			D3D12_INDEX_BUFFER_VIEW indexView{};
 

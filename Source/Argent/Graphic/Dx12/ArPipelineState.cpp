@@ -1,8 +1,6 @@
 #include "ArPipelineState.h"
 
 #include "../../Other/Misc.h"
-#include "d3dx12.h"
-
 
 namespace Argent::Dx12
 {

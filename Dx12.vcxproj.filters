@@ -52,6 +52,9 @@
     <Filter Include="Argent\Loader">
       <UniqueIdentifier>{df64dc41-6dd9-49fa-9366-60baf68d508b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Argent\Resource">
+      <UniqueIdentifier>{d1d4a995-8cc6-4b2a-b7a9-dcc18fdb83a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -178,9 +181,15 @@
     <ClCompile Include="Source\Argent\Core\ArRandom.cpp">
       <Filter>Argent\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\ArRenderingPipeline.cpp" />
-    <ClCompile Include="Source\Argent\Graphic\Dx12\ArPipelineState.cpp" />
-    <ClCompile Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.cpp" />
+    <ClCompile Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.cpp">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Graphic\Dx12\ArPipelineState.cpp">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Graphic\ArRenderingPipeline.cpp">
+      <Filter>Argent\Graphic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -315,12 +324,18 @@
     <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArResource.h">
       <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\ArRenderingPipeline.h" />
-    <ClInclude Include="Source\Argent\Graphic\Dx12\ArPipelineState.h" />
     <ClInclude Include="Source\DemoShaderMacro.h">
       <Filter>Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.h" />
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.h">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArPipelineState.h">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\ArRenderingPipeline.h">
+      <Filter>Argent\Graphic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shader\SpritePrimitivePixel.hlsl">

@@ -50,13 +50,3 @@ namespace Argent::Material
 		DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
 	};
 }
-
-namespace Argent::Resource
-{
-	class ArBaseMaterial:
-		public ArResource
-	{
-	public:
-			
-	};
-}

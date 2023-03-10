@@ -6,7 +6,6 @@
 #include "../Other/Misc.h"
 #include "../GameObject/GameObject.h"
 #include "../Other/ArHelper.h"
-#include "d3dx12.h"
 #include "../Other/ArResourceManager.h"
 
 namespace Argent::Resource::FBX
@@ -72,8 +71,9 @@ namespace Argent::Resource::FBX
 
 
 		//ルートパラメータとパイプラインステート
-		D3D12_ROOT_SIGNATURE_DESC rootSigDesc{};
-		D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineStateDesc{};
+		{
+			D3D12_ROOT_SIGNATURE_DESC rootSigDesc{};
+			D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineStateDesc{};
 			D3D12_DESCRIPTOR_RANGE range[6]{};
 
 			range[0] = Helper::Dx12::DescriptorRange::Generate(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV);
@@ -142,13 +142,14 @@ namespace Argent::Resource::FBX
 			pipelineStateDesc.DepthStencilState = depthStencilDesc;
 			pipelineStateDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
-		
-		renderingPipeline = std::make_shared<Argent::Graphics::RenderingPipeline::ArBaseRenderingPipeline>(
-			"./Resource/Shader/SkinnedMeshVertex.cso",
-			"./Resource/Shader/SkinnedMeshPixel.cso",
-			 &rootSigDesc,
-			 &pipelineStateDesc
-			);
+			
+			renderingPipeline = std::make_shared<Argent::Graphics::RenderingPipeline::ArBaseRenderingPipeline>(
+				"./Resource/Shader/SkinnedMeshVertex.cso",
+				"./Resource/Shader/SkinnedMeshPixel.cso",
+				 &rootSigDesc,
+				 &pipelineStateDesc
+				);
+		}
 	}
 
 	void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList, 
@@ -167,8 +168,6 @@ namespace Argent::Resource::FBX
 		constant.world = world;
 		constant.color = color;
 		demoConstBuffer->UpdateConstantBuffer(constant);
-		//constantMap->world = world;
-		//constantMap->color = color;
 		for(const Mesh& mesh : meshes)
 		{
 
@@ -190,8 +189,6 @@ namespace Argent::Resource::FBX
 
 
 			demoConstBuffer->SetOnCommandList(cmdList, static_cast<UINT>(RootParameterIndex::cbObject));
-			//cmdList->SetDescriptorHeaps(1, constantDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
-			//cmdList->SetGraphicsRootDescriptorTable(static_cast<UINT>(RootParameterIndex::cbObject), constantDescriptor->GetGPUHandle());
 
 			cmdList->IASetVertexBuffers(0, 1, &mesh.vertexView);
 			cmdList->IASetIndexBuffer(&mesh.indexView);
@@ -200,28 +197,30 @@ namespace Argent::Resource::FBX
 			{
 				if(animationClips.size() > 0)
 				{
+					Mesh::Constant meshConstant{};
 					const size_t boneCount{ mesh.bindPose.bones.size() };
 					for(int boneIndex = 0; boneIndex < boneCount; ++boneIndex)
 					{
 						const Skeleton::Bone& bone{ mesh.bindPose.bones.at(boneIndex) };
 						const Animation::Keyframe::Node& boneNode{ keyframe->nodes.at(bone.nodeIndex) };
-						DirectX::XMStoreFloat4x4(&mesh.constantMap->boneTransforms[boneIndex],
+						DirectX::XMStoreFloat4x4(&meshConstant.boneTransforms[boneIndex],
 							DirectX::XMLoadFloat4x4(&bone.offsetTransform) * 
 							DirectX::XMLoadFloat4x4(&boneNode.globalTransform) * 
 							DirectX::XMMatrixInverse(nullptr, DirectX::XMLoadFloat4x4(&mesh.defaultGlobalTransform))
 						);
 					}
 					const Animation::Keyframe::Node meshNode{ keyframe->nodes.at(mesh.nodeIndex) };
-					mesh.constantMap->globalTransform = meshNode.globalTransform;
-					mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
+					
+					meshConstant.globalTransform = meshNode.globalTransform;
+					meshConstant.defaultGlobalTransform = mesh.defaultGlobalTransform;
+					mesh.constantBuffer->UpdateConstantBuffer(meshConstant);
 				}
 				
 				const Material& material{ materials.at(subset.materialUniqueId) };
 				material.constantBuffer->UpdateConstantBuffer(material.constant);
 				material.SetOnCommand(cmdList);
 
-				cmdList->SetDescriptorHeaps(1, mesh.constantHeap.GetAddressOf());
-				cmdList->SetGraphicsRootDescriptorTable(static_cast<UINT>(RootParameterIndex::cbMesh), mesh.constantHeap->GetGPUDescriptorHandleForHeapStart());
+				mesh.constantBuffer->SetOnCommandList(cmdList, static_cast<UINT>(RootParameterIndex::cbMesh));
 
 				cmdList->DrawIndexedInstanced(subset.indexCount, 1, subset.startIndexLocation, 0, 0);
 			}
@@ -406,21 +405,11 @@ namespace Argent::Resource::FBX
 
 						std::string tmpFilePath = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
 
-						//if(tmpFilePath.size() > 0)
-						//{
 						std::filesystem::path path(fbxFilePath);
 						path.replace_filename(tmpFilePath);
 
 						const std::string replacedFilePath = Helper::String::narrow(path.c_str());
 						material.CreateTexture( "", ArSkinnedMeshRenderer::Material::TextureType::Albedo);
-						//material.CreateTexture( replacedFilePath.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Albedo);
-						//}
-						//else
-						//{
-						//	Argent::Graphics::ArGraphics::Instance()->CreateWhiteTexture(it->second.texture[0].ReleaseAndGetAddressOf());
-						//}
-
-						/*material.textureFilename[0] = */
 					}
 
 					fbxProp= fbxMaterial->FindProperty(FbxSurfaceMaterial::sSpecular);
@@ -434,19 +423,6 @@ namespace Argent::Resource::FBX
 
 						const FbxFileTexture* fbxTexture{ fbxProp.GetSrcObject<FbxFileTexture>() };
 						std::string tmpFilePath = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
-
-						//hack diffuseとnormal以外のテクスチャは無視するようになってる　
-
-						//if(tmpFilePath.size() > 0)
-						//{
-							/*std::filesystem::path path(fbxFilePath);
-							path.replace_filename(tmpFilePath);
-							material.CreateTexture(path.c_str());*/
-						//}
-						//else
-						//{
-						//	Argent::Graphics::ArGraphics::Instance()->CreateWhiteTexture(it->second.texture[0].ReleaseAndGetAddressOf());
-						//}
 					}
 
 					fbxProp= fbxMaterial->FindProperty(FbxSurfaceMaterial::sAmbient);
@@ -461,17 +437,6 @@ namespace Argent::Resource::FBX
 
 						const FbxFileTexture* fbxTexture{ fbxProp.GetSrcObject<FbxFileTexture>() };
 						std::string tmpFilePath = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
-
-						//if(tmpFilePath.size() > 0)
-						//{
-							/*std::filesystem::path path(fbxFilePath);
-							path.replace_filename(tmpFilePath);
-							material.CreateTexture(path.c_str());*/
-						//}
-						//else
-						//{
-						//	Argent::Graphics::ArGraphics::Instance()->CreateWhiteTexture(it->second.texture[0].ReleaseAndGetAddressOf());
-						//}
 					}
 
 					fbxProp = fbxMaterial->FindProperty(FbxSurfaceMaterial::sNormalMap);
@@ -480,35 +445,14 @@ namespace Argent::Resource::FBX
 						const FbxFileTexture* fbxTexture{ fbxProp.GetSrcObject<FbxFileTexture>() };
 						std::string tmpFilePath = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
 
-						//if(tmpFilePath.size() > 0)
-						//{
-							std::filesystem::path path(fbxFilePath);
-							path.replace_filename(tmpFilePath);
+						std::filesystem::path path(fbxFilePath);
+						path.replace_filename(tmpFilePath);
 
-							const std::string replacedFilePath = Helper::String::narrow(path.c_str());
-							material.CreateTexture(replacedFilePath.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Normal);
-						//}
-						//else
-						//{
-						//	Argent::Graphics::ArGraphics::Instance()->CreateWhiteTexture(it->second.texture[0].ReleaseAndGetAddressOf());
-						//}
+						const std::string replacedFilePath = Helper::String::narrow(path.c_str());
+						material.CreateTexture(replacedFilePath.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Normal);
 					}
 					materials.emplace(materialUniqueId, std::move(material));
 				}
-			}
-			else
-			{
-				//ArSkinnedMeshRenderer::Material material;
-				//material.name = "Dummy";
-				////material.uniqueId = 0;
-				//material.kd.x = 
-				//material.kd.y = 
-				//material.kd.z = 
-				//material.kd.w = 1.0f;
-				//material.textureFilename[0] = "";  
-
-				//materials.emplace(0, std::move(material));
-
 			}
 		}
 	}
@@ -712,28 +656,9 @@ namespace Argent::Resource::FBX
 			mesh.indexView.SizeInBytes = static_cast<UINT>(sizeof(uint32_t) * mesh.indices.size());
 			mesh.indexView.BufferLocation = mesh.indexBuffer->GetGPUVirtualAddress();
 
-			D3D12_DESCRIPTOR_HEAP_DESC heapDesc;
-			heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-			heapDesc.NodeMask = 0;
-			heapDesc.NumDescriptors = 1;
-			heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-			hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(mesh.constantHeap.ReleaseAndGetAddressOf()));
-			_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
-			resDesc = CD3DX12_RESOURCE_DESC::Buffer(Argent::Helper::Math::CalcAlignmentSize(sizeof(Mesh::Constant)));
-
-			hr = device->CreateCommittedResource(&heapProp, D3D12_HEAP_FLAG_NONE, &resDesc, D3D12_RESOURCE_STATE_GENERIC_READ, 
-				nullptr, IID_PPV_ARGS(mesh.constantBuffer.ReleaseAndGetAddressOf()));
-			_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
-
-			hr = mesh.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&mesh.constantMap));
-			_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
-			mesh.constantMap->defaultGlobalTransform = mesh.defaultGlobalTransform;
-
-			D3D12_CONSTANT_BUFFER_VIEW_DESC cbv{};
-			cbv.SizeInBytes = static_cast<UINT>(mesh.constantBuffer->GetDesc().Width);
-			cbv.BufferLocation = mesh.constantBuffer->GetGPUVirtualAddress();
-			device->CreateConstantBufferView(&cbv, mesh.constantHeap->GetCPUDescriptorHandleForHeapStart());
+			mesh.constantBuffer = std::make_unique<Argent::Dx12::ArConstantBuffer<Mesh::Constant>>(device,
+				Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor());
 		}
 
 
@@ -751,37 +676,7 @@ namespace Argent::Resource::FBX
 					device, 
 					Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor(),
 					&it->second.constant);
-
-
-			//D3D12_HEAP_PROPERTIES heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-			//D3D12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Buffer(Argent::Helper::Math::CalcAlignmentSize(sizeof(Material::Constant)));
-			//hr = device->CreateCommittedResource(&heapProp, D3D12_HEAP_FLAG_NONE, &resDesc, 
-			//	D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(it->second.constantBuffer.ReleaseAndGetAddressOf()));
-			//_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
-
-			////ArSkinnedMeshRenderer::Material::Constant* map{};
-			//hr = it->second.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&it->second.constantMap));
-			//_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
-
-			//it->second.constantMap->ka = it->second.ka;
-			//it->second.constantMap->ks = it->second.ks;
-			//it->second.constantMap->kd = it->second.kd;
-			////todo スペキュラの強度を変更できるように
-			//it->second.constantMap->shininess = 128;
-
-			//it->second.constantBuffer->Unmap(0, nullptr);
-
-			//it->second.cbvDescriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
-
-			//D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc{};
-			//cbvDesc.SizeInBytes = static_cast<UINT>(it->second.constantBuffer->GetDesc().Width);
-			//cbvDesc.BufferLocation = it->second.constantBuffer->GetGPUVirtualAddress();
-			//device->CreateConstantBufferView(&cbvDesc, it->second.cbvDescriptor->GetCPUHandle());
 		}
-
-
-		//コンスタント
-
 		demoConstBuffer = std::make_unique<Argent::Dx12::ArConstantBuffer<Constants>>(device, Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor());
 	}
 
