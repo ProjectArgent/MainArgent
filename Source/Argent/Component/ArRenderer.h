@@ -1,12 +1,17 @@
 #pragma once
 #include <memory>
 #include <d3d12.h>
-#include "../ArComponent.h"
-#include "Data/ArMaterial.h"
-#include "../../../Graphic/ArShader.h"
-#include "../../../Graphic/Dx12/ArPipelineState.h"
-#include "../../../Graphic/ArRenderingPipeline.h"
 
+#include "ArComponent.h"
+#include "../Graphic/ArRenderingPipeline.h"
+
+namespace Argent
+{
+	namespace Material
+	{
+		class ArMaterial;
+	}
+}
 
 //描画用のコンポーネント
 namespace Argent::Component
@@ -34,7 +39,6 @@ namespace Argent::Component
 #endif
 		protected:
 			std::unique_ptr<Material::ArMaterial> material;
-			//std::unique_ptr<Dx12::ArRenderingPipeline> renderingPipeline;
 			std::shared_ptr<Argent::Graphics::RenderingPipeline::ArBaseRenderingPipeline> renderingPipeline;
 		};
 	}

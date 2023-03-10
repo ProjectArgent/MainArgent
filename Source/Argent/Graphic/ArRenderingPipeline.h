@@ -1,7 +1,7 @@
 #pragma once
 #include <d3d12.h>
 #include "Dx12/ArPipelineState.h"
-#include "ArShader.h"
+#include "../Resource/ArShader.h"
 
 
 namespace Argent

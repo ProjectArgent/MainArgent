@@ -1,9 +1,9 @@
 #include "Title.h"
 #include <sstream>
 
-#include "Argent/GameObject/Component/Renderer/ArSpriteRenderer.h"
+#include "Argent/Component/ArSpriteRenderer.h"
 #include "Argent/Input/Keyboard.h"
-#include "Argent/JustChanging/ArSkinnedMeshRenderer.h"
+#include "Argent/Component/ArSkinnedMeshRenderer.h"
 #include "Argent/Graphic/ArGraphics.h"
 
 

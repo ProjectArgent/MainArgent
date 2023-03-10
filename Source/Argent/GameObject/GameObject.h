@@ -4,8 +4,8 @@
 #include <typeinfo>
 #include <memory>
 
-#include "Component/ArComponent.h"
-#include "Component/Core/Transform.h"
+#include "../Component/ArComponent.h"
+#include "../Component/Transform.h"
 
 
 class GameObject

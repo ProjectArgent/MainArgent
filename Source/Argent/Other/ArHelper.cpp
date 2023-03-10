@@ -4,7 +4,6 @@
 
 #include "Misc.h"
 #include "WICTextureLoader12.h"
-#include "ArResourceManager.h"
 #include "../Graphic/ArGraphics.h"
 
 namespace Argent

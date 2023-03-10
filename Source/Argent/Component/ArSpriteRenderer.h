@@ -1,8 +1,7 @@
 #pragma once
 #include <memory>
 #include "ArRenderer.h"
-#include "Data/ArSpriteData.h"
-
+#include "../Resource/ArSpriteData.h"
 
 namespace Argent::Component::Renderer
 {

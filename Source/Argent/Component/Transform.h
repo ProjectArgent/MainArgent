@@ -1,5 +1,5 @@
 #pragma once
-#include "../ArComponent.h"
+#include "ArComponent.h"
 #include <DirectXMath.h>
 
 class Transform final :

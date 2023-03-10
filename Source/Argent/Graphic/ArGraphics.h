@@ -17,8 +17,8 @@
 #include "ArFrameResource.h"
 #include "Dx12/ArCommand.h"
 #include "Dx12/ArDescriptorHeap.h"
-#include "../GameObject/Component/Core/Camera.h"
-#include "../GameObject/Component/Core/Light.h"
+#include "../Component/Camera.h"
+#include "../Component/Light.h"
 
 
 namespace Argent::Graphics

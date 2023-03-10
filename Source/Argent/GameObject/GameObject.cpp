@@ -1,9 +1,9 @@
 #include "GameObject.h"
 #include <sstream>
 #include "../Graphic/ArGraphics.h"
-#include "Component/Core/Camera.h"
-#include "Component/Renderer/ArMeshRenderer.h"
-#include "../Other/ArResourceManager.h"
+#include "../Component/Camera.h"
+#include "../Component/ArMeshRenderer.h"
+#include "../Resource/ArResourceManager.h"
 
 
 void GameObject::AddComponent(Argent::Component::ArComponent* com)

@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "../GameObject/GameObject.h"
-#include "../GameObject/Component/Core/Light.h"
+#include "../Component/Light.h"
 
 class Scene
 {

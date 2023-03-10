@@ -1,5 +1,5 @@
 #pragma once
-#include "../ArComponent.h"
+#include "ArComponent.h"
 
 class Light :
     public Argent::Component::ArComponent

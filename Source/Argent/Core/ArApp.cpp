@@ -1,6 +1,6 @@
 #include "ArApp.h"
 #include "../../../imgui/ImguiCtrl.h"
-#include "../Other/ArResourceManager.h"
+#include "../Resource/ArResourceManager.h"
 #include "../Scene/SceneManager.h"
 
 namespace Argent::App

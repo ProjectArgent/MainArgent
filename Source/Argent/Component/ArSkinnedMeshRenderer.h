@@ -9,11 +9,9 @@
 #include <memory>
 
 #include <unordered_map>
-#include "../GameObject/Component/Renderer/ArRenderer.h"
-#include "../Graphic/Dx12/ArDescriptor.h"
-
-
+#include "ArRenderer.h"
 #include "../Graphic/Dx12/ArConstantBuffer.h"
+#include "../Resource/ArTexture.h"
 
 
 

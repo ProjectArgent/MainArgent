@@ -1,8 +1,10 @@
 #include "ArMeshRenderer.h"
-#include "../../../Graphic/ArGraphics.h"
-#include "../../GameObject.h"
-#include "../Core/Transform.h"
-#include "Data/ArMesh.h"
+#include "../Graphic/ArGraphics.h"
+#include "../GameObject/GameObject.h"
+#include "Transform.h"
+#include "../Resource/ArMesh.h"
+#include "../Other/ArHelper.h"
+#include "../Resource/ArMaterial.h"
 
 namespace Argent::Component::Renderer
 {

@@ -1,6 +1,6 @@
 #include "Scene.h"
 #include "../Graphic/ArGraphics.h"
-#include "../GameObject/Component/Core/Camera.h"
+#include "../Component/Camera.h"
 
 void Scene::Initialize()
 {

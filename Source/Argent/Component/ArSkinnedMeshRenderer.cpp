@@ -6,7 +6,7 @@
 #include "../Other/Misc.h"
 #include "../GameObject/GameObject.h"
 #include "../Other/ArHelper.h"
-#include "../Other/ArResourceManager.h"
+#include "../Resource/ArResourceManager.h"
 
 namespace Argent::Resource::FBX
 {

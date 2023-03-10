@@ -1,6 +1,6 @@
 #include "Transform.h"
 
-#include "../../GameObject.h"
+#include "../GameObject/GameObject.h"
 #include "Camera.h"
 #include "Light.h"
 

@@ -1,5 +1,5 @@
 #include "ArRenderer.h"
-
+#include "../Resource/ArMaterial.h"
 //ê¨ê£Ç≥ÇÒÇÃíuï®
 
 //using ID = size_t;

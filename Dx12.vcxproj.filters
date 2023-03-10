@@ -22,26 +22,11 @@
     <Filter Include="Argent\Input">
       <UniqueIdentifier>{840927f4-b206-49e4-a0e5-c541bb0e1a1e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Argent\JustChanging">
-      <UniqueIdentifier>{2529cfba-18ba-48a1-8b94-614fe7aa4514}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Argent\Other">
       <UniqueIdentifier>{c3599e50-9bf5-4618-bd8e-495ed30ee0a2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Argent\Scene">
       <UniqueIdentifier>{ce289dc8-51d3-40af-8790-1d4ca9439eb9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Argent\GameObject\Component">
-      <UniqueIdentifier>{4a2fcda8-7d5b-4aae-b1f9-af2d603efaa3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Argent\GameObject\Component\Core">
-      <UniqueIdentifier>{7292288d-0a1f-4811-a9f1-885f7ff815a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Argent\GameObject\Component\Renderer">
-      <UniqueIdentifier>{78e989f7-cc4d-4c91-b543-3432208f7529}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Argent\GameObject\Component\Renderer\Data">
-      <UniqueIdentifier>{12fe827a-4a48-4485-8e46-716ed40efcd9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Argent\Graphic\Dx12">
       <UniqueIdentifier>{8ce1eee7-fd55-4687-88cd-383efc993bf2}</UniqueIdentifier>
@@ -54,6 +39,9 @@
     </Filter>
     <Filter Include="Argent\Resource">
       <UniqueIdentifier>{d1d4a995-8cc6-4b2a-b7a9-dcc18fdb83a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Argent\Component">
+      <UniqueIdentifier>{bec5a5f9-6155-4a63-8910-aa9452963f79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,86 +70,8 @@
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="Source\WinMain.cpp" />
-    <ClCompile Include="Source\Argent\Core\ArApp.cpp">
-      <Filter>Argent\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Core\ArConsole.cpp">
-      <Filter>Argent\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Core\ArTimer.cpp">
-      <Filter>Argent\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Core\ArWindow.cpp">
-      <Filter>Argent\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Core\Camera.cpp">
-      <Filter>Argent\GameObject\Component\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Core\Light.cpp">
-      <Filter>Argent\GameObject\Component\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Core\Transform.cpp">
-      <Filter>Argent\GameObject\Component\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArData.cpp">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArTexture.cpp">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.cpp">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArMesh.cpp">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.cpp">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Other\ArResourceManager.cpp">
-      <Filter>Argent\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Other\ArHelper.cpp">
-      <Filter>Argent\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\ArMeshRenderer.cpp">
-      <Filter>Argent\GameObject\Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\ArRenderer.cpp">
-      <Filter>Argent\GameObject\Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\Component\Renderer\ArSpriteRenderer.cpp">
-      <Filter>Argent\GameObject\Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\GameObject\GameObject.cpp">
-      <Filter>Argent\GameObject\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\ArGraphics.cpp">
-      <Filter>Argent\Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\ArShader.cpp">
-      <Filter>Argent\Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\FrameBuffer.cpp">
-      <Filter>Argent\Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\ArFrameResource.cpp">
-      <Filter>Argent\Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\Dx12\ArCommand.cpp">
-      <Filter>Argent\Graphic\Dx12</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\Dx12\ArDescriptor.cpp">
-      <Filter>Argent\Graphic\Dx12</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.cpp">
-      <Filter>Argent\Graphic\Dx12</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\Input\Keyboard.cpp">
       <Filter>Argent\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\JustChanging\ArSkinnedMeshRenderer.cpp">
-      <Filter>Argent\JustChanging</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\Scene\Scene.cpp">
       <Filter>Argent\Scene</Filter>
@@ -178,17 +88,92 @@
     <ClCompile Include="Source\Argent\Loader\FbxLoader.cpp">
       <Filter>Argent\Loader</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Argent\Core\ArApp.cpp">
+      <Filter>Argent\Core</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Argent\Core\ArRandom.cpp">
       <Filter>Argent\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.cpp">
+    <ClCompile Include="Source\Argent\Core\ArTimer.cpp">
+      <Filter>Argent\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Core\ArWindow.cpp">
+      <Filter>Argent\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\GameObject\GameObject.cpp">
+      <Filter>Argent\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Graphic\Dx12\ArCommand.cpp">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Graphic\Dx12\ArDescriptor.cpp">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.cpp">
       <Filter>Argent\Graphic\Dx12</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArPipelineState.cpp">
       <Filter>Argent\Graphic\Dx12</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Argent\Graphic\ArFrameResource.cpp">
+      <Filter>Argent\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Graphic\ArGraphics.cpp">
+      <Filter>Argent\Graphic</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Argent\Graphic\ArRenderingPipeline.cpp">
       <Filter>Argent\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Graphic\FrameBuffer.cpp">
+      <Filter>Argent\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Other\ArHelper.cpp">
+      <Filter>Argent\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArData.cpp">
+      <Filter>Argent\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArMaterial.cpp">
+      <Filter>Argent\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArMesh.cpp">
+      <Filter>Argent\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArResourceManager.cpp">
+      <Filter>Argent\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArShader.cpp">
+      <Filter>Argent\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArSpriteData.cpp">
+      <Filter>Argent\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArTexture.cpp">
+      <Filter>Argent\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArComponent.cpp">
+      <Filter>Argent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArMeshRenderer.cpp">
+      <Filter>Argent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArRenderer.cpp">
+      <Filter>Argent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArSkinnedMeshRenderer.cpp">
+      <Filter>Argent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArSpriteRenderer.cpp">
+      <Filter>Argent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\Camera.cpp">
+      <Filter>Argent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\Light.cpp">
+      <Filter>Argent\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\Transform.cpp">
+      <Filter>Argent\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,92 +204,8 @@
     <ClInclude Include="imgui\ImguiCtrl.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Core\ArApp.h">
-      <Filter>Argent\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Core\ArConsole.h">
-      <Filter>Argent\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Core\ArRandom.h">
-      <Filter>Argent\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Core\ArTimer.h">
-      <Filter>Argent\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Core\ArWindow.h">
-      <Filter>Argent\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Core\Camera.h">
-      <Filter>Argent\GameObject\Component\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Core\Light.h">
-      <Filter>Argent\GameObject\Component\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Core\Transform.h">
-      <Filter>Argent\GameObject\Component\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArData.h">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArTexture.h">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMaterial.h">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArMesh.h">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArSpriteData.h">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Other\ArResourceManager.h">
-      <Filter>Argent\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Other\ArHelper.h">
-      <Filter>Argent\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Other\Misc.h">
-      <Filter>Argent\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\ArMeshRenderer.h">
-      <Filter>Argent\GameObject\Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\ArRenderer.h">
-      <Filter>Argent\GameObject\Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\ArSpriteRenderer.h">
-      <Filter>Argent\GameObject\Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\GameObject.h">
-      <Filter>Argent\GameObject\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\ArGraphics.h">
-      <Filter>Argent\Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\ArShader.h">
-      <Filter>Argent\Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\FrameBuffer.h">
-      <Filter>Argent\Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\ArFrameResource.h">
-      <Filter>Argent\Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\Dx12\ArCommand.h">
-      <Filter>Argent\Graphic\Dx12</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\Dx12\ArDescriptor.h">
-      <Filter>Argent\Graphic\Dx12</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.h">
-      <Filter>Argent\Graphic\Dx12</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Argent\Input\Keyboard.h">
       <Filter>Argent\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\JustChanging\ArSkinnedMeshRenderer.h">
-      <Filter>Argent\JustChanging</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Scene\Scene.h">
       <Filter>Argent\Scene</Filter>
@@ -321,20 +222,104 @@
     <ClInclude Include="Source\Argent\Loader\FbxLoader.h">
       <Filter>Argent\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\GameObject\Component\Renderer\Data\ArResource.h">
-      <Filter>Argent\GameObject\Component\Renderer\Data</Filter>
-    </ClInclude>
     <ClInclude Include="Source\DemoShaderMacro.h">
       <Filter>Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Argent\Core\ArApp.h">
+      <Filter>Argent\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Core\ArRandom.h">
+      <Filter>Argent\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Core\ArTimer.h">
+      <Filter>Argent\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Core\ArWindow.h">
+      <Filter>Argent\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\GameObject\GameObject.h">
+      <Filter>Argent\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArCommand.h">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.h">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArDescriptor.h">
+      <Filter>Argent\Graphic\Dx12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.h">
       <Filter>Argent\Graphic\Dx12</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArPipelineState.h">
       <Filter>Argent\Graphic\Dx12</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\ArFrameResource.h">
+      <Filter>Argent\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\ArGraphics.h">
+      <Filter>Argent\Graphic</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Argent\Graphic\ArRenderingPipeline.h">
       <Filter>Argent\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\FrameBuffer.h">
+      <Filter>Argent\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Other\ArHelper.h">
+      <Filter>Argent\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Other\Misc.h">
+      <Filter>Argent\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArData.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArMaterial.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArMesh.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArResource.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArResourceManager.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArShader.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArSpriteData.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArTexture.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArComponent.h">
+      <Filter>Argent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArMeshRenderer.h">
+      <Filter>Argent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArRenderer.h">
+      <Filter>Argent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArSkinnedMeshRenderer.h">
+      <Filter>Argent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArSpriteRenderer.h">
+      <Filter>Argent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\Camera.h">
+      <Filter>Argent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\Light.h">
+      <Filter>Argent\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\Transform.h">
+      <Filter>Argent\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

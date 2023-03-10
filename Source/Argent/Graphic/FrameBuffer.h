@@ -3,7 +3,7 @@
 #include <memory>
 #include <wrl.h>
 #include <DirectXMath.h>
-#include "ArShader.h"
+#include "../Resource/ArShader.h"
 
 namespace Argent::Graphics
 {

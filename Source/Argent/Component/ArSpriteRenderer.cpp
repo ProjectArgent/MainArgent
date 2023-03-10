@@ -1,7 +1,8 @@
 #include "ArSpriteRenderer.h"
-#include "../../../Graphic/ArGraphics.h"
-#include "../Core/Transform.h"
-#include "../../GameObject.h"
+#include "../Graphic/ArGraphics.h"
+#include "Transform.h"
+#include "../GameObject/GameObject.h"
+#include "../Resource/ArMaterial.h"
 
 namespace Argent::Component::Renderer
 {

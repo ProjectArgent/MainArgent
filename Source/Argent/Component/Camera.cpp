@@ -1,8 +1,8 @@
 #include "Camera.h"
 #include "../imgui/imgui.h"
-#include "../../../Graphic/ArGraphics.h"
-#include "../../../Input/Keyboard.h"
-#include "../../GameObject.h"
+#include "../Graphic/ArGraphics.h"
+#include "../Input/Keyboard.h"
+#include "../GameObject/GameObject.h"
 
 Camera::Camera(bool isSceneCamera, float width, float height, float nearZ, float farZ, 
                float fov, const Transform* target):
