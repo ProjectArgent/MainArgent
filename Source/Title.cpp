@@ -3,8 +3,6 @@
 
 #include "Argent/GameObject/Component/Renderer/ArSpriteRenderer.h"
 #include "Argent/Input/Keyboard.h"
-
-
 #include "Argent/JustChanging/ArSkinnedMeshRenderer.h"
 #include "Argent/Graphic/ArGraphics.h"
 

@@ -180,6 +180,7 @@
     </ClCompile>
     <ClCompile Include="Source\Argent\Graphic\ArRenderingPipeline.cpp" />
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArPipelineState.cpp" />
+    <ClCompile Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -319,6 +320,7 @@
     <ClInclude Include="Source\DemoShaderMacro.h">
       <Filter>Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shader\SpritePrimitivePixel.hlsl">

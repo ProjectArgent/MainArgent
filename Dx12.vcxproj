@@ -48,6 +48,7 @@
     <ClCompile Include="Source\Argent\Graphic\ArRenderingPipeline.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArShader.cpp" />
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArCommand.cpp" />
+    <ClCompile Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.cpp" />
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArDescriptor.cpp" />
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.cpp" />
     <ClCompile Include="Source\Argent\Graphic\Dx12\ArPipelineState.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="Source\Argent\Graphic\ArRenderingPipeline.h" />
     <ClInclude Include="Source\Argent\Graphic\ArShader.h" />
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArCommand.h" />
+    <ClInclude Include="Source\Argent\Graphic\Dx12\ArConstantBuffer.h" />
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArDescriptor.h" />
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArDescriptorHeap.h" />
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArPipelineState.h" />
