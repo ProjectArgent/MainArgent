@@ -11,7 +11,7 @@ namespace Argent::Dx12
 	class ArConstantBuffer
 	{
 	public:
-		ArConstantBuffer(ID3D12Device* device, Descriptor::ArDescriptor* descriptor);
+		ArConstantBuffer(ID3D12Device* device, Descriptor::ArDescriptor* descriptor,const T* fillValue = nullptr);
 		~ArConstantBuffer() = default;
 
 		void UpdateConstantBuffer(const T& t) const
@@ -35,7 +35,7 @@ namespace Argent::Dx12
 	};
 
 	template <class T>
-	ArConstantBuffer<T>::ArConstantBuffer(ID3D12Device* device, Descriptor::ArDescriptor* descriptor):
+	ArConstantBuffer<T>::ArConstantBuffer(ID3D12Device* device, Descriptor::ArDescriptor* descriptor, const T* fillValue):
 		descriptor(descriptor)
 	{
 		HRESULT hr{ S_OK };
@@ -49,7 +49,13 @@ namespace Argent::Dx12
 		
 		hr = constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&map));
 		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr)); 
-		
+
+		if(fillValue)
+		{
+			*map = *fillValue;
+		}
+
+		constantBuffer->Unmap(0, nullptr);
 
 		D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc{};
 		cbvDesc.SizeInBytes = static_cast<UINT>(constantBuffer->GetDesc().Width);

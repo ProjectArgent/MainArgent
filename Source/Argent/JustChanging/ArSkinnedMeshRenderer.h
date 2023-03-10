@@ -210,32 +210,26 @@ namespace Argent::Resource::FBX
 			};
 			struct Constant
 			{
-				DirectX::XMFLOAT4 ka;
-				DirectX::XMFLOAT4 kd;
-				DirectX::XMFLOAT4 ks;
-				float shininess;
+				DirectX::XMFLOAT4 ka{ 0.2f, 0.2f, 0.2f, 1.0f };
+				DirectX::XMFLOAT4 kd{ 0.2f, 0.2f, 0.2f, 1.0f };
+				DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
+				float shininess = 128;
 			};
 			std::string name;
 
-			DirectX::XMFLOAT4 ka{ 0.2f, 0.2f, 0.2f, 1.0f };
-			DirectX::XMFLOAT4 kd{ 0.2f, 0.2f, 0.2f, 1.0f };
-			DirectX::XMFLOAT4 ks{ 0.2f, 0.2f, 0.2f, 1.0f };
-
 			static constexpr int NumTextures = 2;
 			std::shared_ptr<Argent::Texture::ArTexture> textures[NumTextures]; 
-			Argent::Descriptor::ArDescriptor* cbvDescriptor;
-
-			Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
-			Constant* constantMap{};
-
+			std::unique_ptr<Argent::Dx12::ArConstantBuffer<Constant>> constantBuffer;
+			Constant constant{};
 			void CreateTexture(const char* filePath, TextureType type);
 			
 
 			void SetOnCommand(ID3D12GraphicsCommandList* cmdList) const
 			{
 				//todo ‚È‚ñ‚Æ‚©”’
-				cmdList->SetDescriptorHeaps(1, cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
-				cmdList->SetGraphicsRootDescriptorTable(static_cast<UINT>(RootParameterIndex::cbMaterial), cbvDescriptor->GetGPUHandle());
+				constantBuffer->SetOnCommandList(cmdList, static_cast<UINT>(RootParameterIndex::cbMaterial));
+				//cmdList->SetDescriptorHeaps(1, cbvDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
+				//cmdList->SetGraphicsRootDescriptorTable(static_cast<UINT>(RootParameterIndex::cbMaterial), cbvDescriptor->GetGPUHandle());
 				textures[static_cast<int>(TextureType::Albedo)]->Render(cmdList, static_cast<UINT>(RootParameterIndex::txAlbedo));
 				textures[static_cast<int>(TextureType::Normal)]->Render(cmdList, static_cast<UINT>(RootParameterIndex::txNormal));
 			}
@@ -245,10 +239,10 @@ namespace Argent::Resource::FBX
 			{
 				if(ImGui::TreeNode(name.c_str()))
 				{
-					ImGui::DragFloat3("Ka", &constantMap->ka.x, 0.001f, 0, 1.0f);
-					ImGui::DragFloat3("Kd", &constantMap->kd.x, 0.001f, 0, 1.0f);
-					ImGui::DragFloat3("Ks", &constantMap->ks.x, 0.001f, 0, 1.0f);
-					ImGui::DragFloat("Shininess", &constantMap->shininess, 1.0f, 0, FLT_MAX);
+					ImGui::DragFloat3("Ka", &constant.ka.x, 0.001f, 0, 1.0f);
+					ImGui::DragFloat3("Kd", &constant.kd.x, 0.001f, 0, 1.0f);
+					ImGui::DragFloat3("Ks", &constant.ks.x, 0.001f, 0, 1.0f);
+					ImGui::DragFloat("Shininess", &constant.shininess, 1.0f, 0, FLT_MAX);
 					ImGui::TreePop();
 				}
 			}
@@ -277,10 +271,6 @@ namespace Argent::Resource::FBX
 		void CreateComObject(ID3D12Device* device, const char* filename);
 
 	private:
-		Argent::Descriptor::ArDescriptor* constantDescriptor;
-		Microsoft::WRL::ComPtr<ID3D12Resource> constantBuffer;
-		D3D12_CONSTANT_BUFFER_VIEW_DESC constantView;
-		Constants* constantMap{};
 		std::unique_ptr<Argent::Dx12::ArConstantBuffer<Constants>> demoConstBuffer;
 
 	protected:

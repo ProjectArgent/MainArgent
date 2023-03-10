@@ -162,8 +162,13 @@ namespace Argent::Resource::FBX
 
 
 		cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		constantMap->world = world;
-		constantMap->color = color;
+
+		Constants constant{};
+		constant.world = world;
+		constant.color = color;
+		demoConstBuffer->UpdateConstantBuffer(constant);
+		//constantMap->world = world;
+		//constantMap->color = color;
 		for(const Mesh& mesh : meshes)
 		{
 
@@ -184,8 +189,9 @@ namespace Argent::Resource::FBX
 	#endif
 
 
-			cmdList->SetDescriptorHeaps(1, constantDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
-			cmdList->SetGraphicsRootDescriptorTable(static_cast<UINT>(RootParameterIndex::cbObject), constantDescriptor->GetGPUHandle());
+			demoConstBuffer->SetOnCommandList(cmdList, static_cast<UINT>(RootParameterIndex::cbObject));
+			//cmdList->SetDescriptorHeaps(1, constantDescriptor->GetDescriptorHeap()->GetHeapDoublePointer());
+			//cmdList->SetGraphicsRootDescriptorTable(static_cast<UINT>(RootParameterIndex::cbObject), constantDescriptor->GetGPUHandle());
 
 			cmdList->IASetVertexBuffers(0, 1, &mesh.vertexView);
 			cmdList->IASetIndexBuffer(&mesh.indexView);
@@ -211,7 +217,7 @@ namespace Argent::Resource::FBX
 				}
 				
 				const Material& material{ materials.at(subset.materialUniqueId) };
-
+				material.constantBuffer->UpdateConstantBuffer(material.constant);
 				material.SetOnCommand(cmdList);
 
 				cmdList->SetDescriptorHeaps(1, mesh.constantHeap.GetAddressOf());
@@ -389,10 +395,12 @@ namespace Argent::Resource::FBX
 					if(fbxProp.IsValid())
 					{
 						const FbxDouble3 color{ fbxProp.Get<FbxDouble3>() };
-						material.kd.x = static_cast<float>(color[0]);
-						material.kd.y = static_cast<float>(color[1]);
-						material.kd.z = static_cast<float>(color[2]);
-						material.kd.w = 1.0f;
+
+						
+						material.constant.kd.x = static_cast<float>(color[0]);
+						material.constant.kd.y = static_cast<float>(color[1]);
+						material.constant.kd.z = static_cast<float>(color[2]);
+						material.constant.kd.w = 1.0f;
 
 						const FbxFileTexture* fbxTexture{ fbxProp.GetSrcObject<FbxFileTexture>() };
 
@@ -419,10 +427,10 @@ namespace Argent::Resource::FBX
 					if(fbxProp.IsValid())
 					{
 						const FbxDouble3 color{ fbxProp.Get<FbxDouble3>() };
-						material.ks.x = static_cast<float>(color[0]);
-						material.ks.y = static_cast<float>(color[1]);
-						material.ks.z = static_cast<float>(color[2]);
-						material.ks.w = 1.0f;
+						material.constant.ks.x = static_cast<float>(color[0]);
+						material.constant.ks.y = static_cast<float>(color[1]);
+						material.constant.ks.z = static_cast<float>(color[2]);
+						material.constant.ks.w = 1.0f;
 
 						const FbxFileTexture* fbxTexture{ fbxProp.GetSrcObject<FbxFileTexture>() };
 						std::string tmpFilePath = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
@@ -446,10 +454,10 @@ namespace Argent::Resource::FBX
 					if(fbxProp.IsValid())
 					{
 						const FbxDouble3 color{ fbxProp.Get<FbxDouble3>() };
-						material.ka.x = static_cast<float>(color[0]);
-						material.ka.y = static_cast<float>(color[1]);
-						material.ka.z = static_cast<float>(color[2]);
-						material.ka.w = 1.0f;
+						material.constant.ka.x = static_cast<float>(color[0]);
+						material.constant.ka.y = static_cast<float>(color[1]);
+						material.constant.ka.z = static_cast<float>(color[2]);
+						material.constant.ka.w = 1.0f;
 
 						const FbxFileTexture* fbxTexture{ fbxProp.GetSrcObject<FbxFileTexture>() };
 						std::string tmpFilePath = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
@@ -738,55 +746,43 @@ namespace Argent::Resource::FBX
 		for(std::unordered_map<uint64_t, Material>::iterator it = materials.begin(); 
 			it != materials.end(); ++it)
 		{
-			D3D12_HEAP_PROPERTIES heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-			D3D12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Buffer(Argent::Helper::Math::CalcAlignmentSize(sizeof(Material::Constant)));
-			hr = device->CreateCommittedResource(&heapProp, D3D12_HEAP_FLAG_NONE, &resDesc, 
-				D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(it->second.constantBuffer.ReleaseAndGetAddressOf()));
-			_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+			it->second.constantBuffer = 
+				std::make_unique<Argent::Dx12::ArConstantBuffer<Material::Constant>>(
+					device, 
+					Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor(),
+					&it->second.constant);
 
-			//ArSkinnedMeshRenderer::Material::Constant* map{};
-			hr = it->second.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&it->second.constantMap));
-			_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
-			it->second.constantMap->ka = it->second.ka;
-			it->second.constantMap->ks = it->second.ks;
-			it->second.constantMap->kd = it->second.kd;
-			//todo スペキュラの強度を変更できるように
-			it->second.constantMap->shininess = 128;
+			//D3D12_HEAP_PROPERTIES heapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+			//D3D12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Buffer(Argent::Helper::Math::CalcAlignmentSize(sizeof(Material::Constant)));
+			//hr = device->CreateCommittedResource(&heapProp, D3D12_HEAP_FLAG_NONE, &resDesc, 
+			//	D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(it->second.constantBuffer.ReleaseAndGetAddressOf()));
+			//_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
-			it->second.constantBuffer->Unmap(0, nullptr);
+			////ArSkinnedMeshRenderer::Material::Constant* map{};
+			//hr = it->second.constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&it->second.constantMap));
+			//_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
-			it->second.cbvDescriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
+			//it->second.constantMap->ka = it->second.ka;
+			//it->second.constantMap->ks = it->second.ks;
+			//it->second.constantMap->kd = it->second.kd;
+			////todo スペキュラの強度を変更できるように
+			//it->second.constantMap->shininess = 128;
 
-			D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc{};
-			cbvDesc.SizeInBytes = static_cast<UINT>(it->second.constantBuffer->GetDesc().Width);
-			cbvDesc.BufferLocation = it->second.constantBuffer->GetGPUVirtualAddress();
-			device->CreateConstantBufferView(&cbvDesc, it->second.cbvDescriptor->GetCPUHandle());
+			//it->second.constantBuffer->Unmap(0, nullptr);
+
+			//it->second.cbvDescriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
+
+			//D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc{};
+			//cbvDesc.SizeInBytes = static_cast<UINT>(it->second.constantBuffer->GetDesc().Width);
+			//cbvDesc.BufferLocation = it->second.constantBuffer->GetGPUVirtualAddress();
+			//device->CreateConstantBufferView(&cbvDesc, it->second.cbvDescriptor->GetCPUHandle());
 		}
 
 
 		//コンスタント
-		{
-			D3D12_HEAP_PROPERTIES constHeapProp = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-			CD3DX12_RESOURCE_DESC constResDesc = CD3DX12_RESOURCE_DESC::Buffer(Argent::Helper::Math::CalcAlignmentSize(sizeof(Constants)));
 
-			hr = device->CreateCommittedResource(&constHeapProp, D3D12_HEAP_FLAG_NONE, &constResDesc, D3D12_RESOURCE_STATE_GENERIC_READ,
-				nullptr, IID_PPV_ARGS(constantBuffer.ReleaseAndGetAddressOf()));
-			_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
-
-			
-			hr = constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&constantMap));
-			_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr)); 
-			DirectX::XMStoreFloat4x4(&constantMap->world, DirectX::XMMatrixIdentity());
-		}
-
-		constantDescriptor = Argent::Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor();
-
-		D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc{};
-		cbvDesc.SizeInBytes = static_cast<UINT>(constantBuffer->GetDesc().Width);
-		cbvDesc.BufferLocation = constantBuffer->GetGPUVirtualAddress();
-
-		device->CreateConstantBufferView(&cbvDesc, constantDescriptor->GetCPUHandle());
+		demoConstBuffer = std::make_unique<Argent::Dx12::ArConstantBuffer<Constants>>(device, Graphics::ArGraphics::Instance()->GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->PopDescriptor());
 	}
 
 	void SkinnedMesh::FetchBoneInfluences(const FbxMesh* fbxMesh, 
