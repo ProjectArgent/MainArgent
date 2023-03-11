@@ -87,8 +87,8 @@ FrameBuffer::FrameBuffer(ID3D12Device* device, D3D12_RESOURCE_DESC rDesc,
 			D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0},
 	};
 
-	vertexShader = std::make_unique<Argent::Shader::ArShader>("./Resource/Shader/PeraVertex.cso");
-	pixelShader = std::make_unique<Argent::Shader::ArShader>("./Resource/Shader/PeraPixel.cso");
+	vertexShader = std::make_unique<Argent::Shader::ArShader>("./Resources/Shader/PeraVertex.cso");
+	pixelShader = std::make_unique<Argent::Shader::ArShader>("./Resources/Shader/PeraPixel.cso");
 
 
 	D3D12_RENDER_TARGET_BLEND_DESC rtvBlendDesc{};

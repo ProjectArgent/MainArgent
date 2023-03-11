@@ -34,7 +34,7 @@ namespace Argent::Component::Renderer
 
 	protected:
 		
-		std::vector<Subset> subsets;
-		Argent::Mesh::StaticMesh::ArStaticMesh* mesh;
+		std::vector<Subset> subsets{};
+		Argent::Mesh::StaticMesh::ArStaticMesh* mesh{};
 	};
 }

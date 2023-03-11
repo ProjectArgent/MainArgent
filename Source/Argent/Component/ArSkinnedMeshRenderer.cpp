@@ -409,7 +409,7 @@ namespace Argent::Resource::FBX
 						path.replace_filename(tmpFilePath);
 
 						const std::string replacedFilePath = Helper::String::WstringToString(path.c_str());
-						material.CreateTexture( "", ArSkinnedMeshRenderer::Material::TextureType::Albedo);
+						material.CreateTexture(replacedFilePath.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Albedo);
 					}
 
 					fbxProp= fbxMaterial->FindProperty(FbxSurfaceMaterial::sSpecular);

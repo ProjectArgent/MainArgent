@@ -34,6 +34,7 @@ namespace Argent::Mesh
 				 * \param color êF
 				 */
 			void UpdateVertexMap(const DirectX::XMFLOAT3& position, const DirectX::XMFLOAT3& scale, const DirectX::XMFLOAT2& center, float angle, float textureWidth, float textureHeight, const DirectX::XMFLOAT4& color) const;
+
 		private:
 			Vertex* vertexMap{};
 		};

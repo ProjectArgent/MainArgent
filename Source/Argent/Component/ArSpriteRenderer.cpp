@@ -3,13 +3,14 @@
 #include "Transform.h"
 #include "../GameObject/GameObject.h"
 #include "../Resource/ArMaterial.h"
+#include "../Resource/ArMesh.h"
 
 namespace Argent::Component::Renderer
 {
 	ArSpriteRenderer::ArSpriteRenderer():
 		ArRenderer("Sprite Renderer")
 	{
-		data = std::make_unique<Mesh::Sprite::ArSprite>();
+		sprite = std::make_unique<Argent::Mesh::Sprite::ArSprite>();
 		materials.emplace_back(std::make_shared<Material::ArMaterial>("Resources/Sample256.png"));
 
 
@@ -117,7 +118,7 @@ namespace Argent::Component::Renderer
 		const Transform* transform = GetOwner()->GetTransform();
 
 		//todo Center‚Ì’l‚ð‚Ç‚Á‚©‚Å’è‹`‚·‚é‚±‚Æ
-		data->UpdateVertexMap(transform->GetPosition(), transform->GetScale(), DirectX::XMFLOAT2(), transform->GetRotation().z, materials.at(0)->textures.at(0)->GetWidth(), materials.at(0)->textures.at(0)->GetHeight(),
+		sprite->UpdateVertexMap(transform->GetPosition(), transform->GetScale(), DirectX::XMFLOAT2(), transform->GetRotation().z, materials.at(0)->textures.at(0)->GetWidth(), materials.at(0)->textures.at(0)->GetHeight(),
 			materials.at(0)->color.color);
 	}
 
@@ -126,7 +127,7 @@ namespace Argent::Component::Renderer
 		ArRenderer::Render(cmdList);
 		materials.at(0)->Render(cmdList, 0);
 		cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-		data->Render(cmdList);
+		sprite->Render(cmdList);
 	}
 
 #ifdef _DEBUG

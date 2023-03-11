@@ -31,6 +31,6 @@ namespace Argent::Component::Renderer
 		[[nodiscard]] Material::ArMaterial* GetMaterial() const { return materials.at(0).get();  }
 
 	private:
-		std::unique_ptr<Mesh::Sprite::ArSprite> data;
+		std::unique_ptr<Mesh::Sprite::ArSprite> sprite;
 	};
 }

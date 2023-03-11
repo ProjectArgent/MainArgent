@@ -1,17 +1,16 @@
 #pragma once
 #include <d3d12.h>
-#include <wrl.h>
 #include "../Graphic/Dx12/ArVertexBuffer.h"
 #include "../Graphic/Dx12/ArIndexBuffer.h"
+#include "ArMaterial.h"
 
 
 namespace Argent::Mesh
 {
 	/**
-	 * \brief	頂点バッファを持ってるクラス
-				継承して使う
-				継承先ではVertex型を定義し頂点配列を作る
-				メッシュデータ型とかスプライトデータ型とかそういった感じ
+	 * \brief 頂点バッファとインデックスバッファを持つ
+	 *
+	 * \tparam T Vertex構造体を指定
 	 */
 	template<class T>
 	class ArMesh
@@ -27,7 +26,6 @@ namespace Argent::Mesh
 			indexBuffer->SetOnCommandList(cmdList);
 			cmdList->DrawIndexedInstanced(indexCountPerInstance, 1, 0, 0, 0);
 		}
-
 
 	protected:
 
