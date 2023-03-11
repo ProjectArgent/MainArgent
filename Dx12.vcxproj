@@ -34,6 +34,7 @@
     <ClCompile Include="Source\Argent\Component\ArSpriteRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\Camera.cpp" />
     <ClCompile Include="Source\Argent\Component\Light.cpp" />
+    <ClCompile Include="Source\Argent\Component\NoneBoneMeshRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\Transform.cpp" />
     <ClCompile Include="Source\Argent\Core\ArApp.cpp" />
     <ClCompile Include="Source\Argent\Core\ArRandom.cpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="Source\Argent\Component\ArSpriteRenderer.h" />
     <ClInclude Include="Source\Argent\Component\Camera.h" />
     <ClInclude Include="Source\Argent\Component\Light.h" />
+    <ClInclude Include="Source\Argent\Component\NoneBoneMeshRenderer.h" />
     <ClInclude Include="Source\Argent\Component\Transform.h" />
     <ClInclude Include="Source\Argent\Core\ArApp.h" />
     <ClInclude Include="Source\Argent\Core\ArRandom.h" />
@@ -167,6 +169,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+    <FxCompile Include="Source\Shader\StaticMeshPixel.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Source\Shader\StaticMeshVertex.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Shader\GeometricPrimitive.hlsli" />
@@ -175,6 +189,7 @@
     <None Include="Source\Shader\SkinnedMesh.hlsli" />
     <None Include="Source\Shader\Sprite.hlsli" />
     <None Include="Source\Shader\SpritePrimitive.hlsli" />
+    <None Include="Source\Shader\StaticMesh.hlsli" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

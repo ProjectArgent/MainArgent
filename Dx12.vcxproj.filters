@@ -178,6 +178,9 @@
     <ClCompile Include="Source\Argent\Component\ArSpriteRenderer.cpp">
       <Filter>Argent\Component\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Argent\Component\NoneBoneMeshRenderer.cpp">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -330,6 +333,9 @@
     <ClInclude Include="Source\Argent\Graphic\Dx12\ArIndexBuffer.h">
       <Filter>Argent\Graphic\Dx12</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Argent\Component\NoneBoneMeshRenderer.h">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shader\SpritePrimitivePixel.hlsl">
@@ -371,6 +377,12 @@
     <FxCompile Include="Source\Shader\SkinnedMeshVertex.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Source\Shader\StaticMeshVertex.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shader\StaticMeshPixel.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Shader\SpritePrimitive.hlsli">
@@ -389,6 +401,9 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="Source\Shader\SkinnedMesh.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Source\Shader\StaticMesh.hlsli">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

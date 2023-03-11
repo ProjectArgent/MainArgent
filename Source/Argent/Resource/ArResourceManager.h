@@ -73,10 +73,9 @@ namespace Argent::Resource
 
 		std::shared_ptr<Argent::Resource::ArResource> LoadFbx(const char* filePath);
 
-
 	private:
 
-		std::shared_ptr<Argent::Resource::ArResource> FindResource(const char* filePath) const
+		std::shared_ptr<Argent::Resource::ArResource> FindResourceFromFilePath(const char* filePath) const
 		{
 			for(auto& res : resources)
 			{

@@ -301,11 +301,13 @@ namespace Argent::Resource
 
 	std::shared_ptr<Argent::Resource::ArResource> ArResourceManager::LoadTexture(const char* filePath)
 	{
-
-		std::shared_ptr<ArResource> ret = FindResource(filePath);
-		if(ret) return ret; 
+		std::shared_ptr<ArResource> ret = FindResourceFromFilePath(filePath);
+		if(ret) 
+			return ret;
 
 		ret = std::make_shared<Argent::Texture::ArTexture>(filePath);
+
+		resources[ret->GetUniqueId()] = ret;
 
 		return ret;
 	}

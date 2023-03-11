@@ -15,7 +15,7 @@ namespace Argent::Resource
 			rTexture,
 			rMesh,
 			rSkinnedMesh,
-			rMaterial,
+			rMaterial, 
 		};
 		ArResource(uint64_t uniqueId, const char* name, ResourceType type):
 			uniqueId(uniqueId)
@@ -25,7 +25,7 @@ namespace Argent::Resource
 
 		virtual bool CompareName(const char* n)
 		{
-			return name.compare(n);
+			return name == n;
 		}
 
 		uint64_t GetUniqueId() const { return uniqueId; }  // NOLINT(modernize-use-nodiscard)
@@ -44,13 +44,13 @@ namespace Argent::Resource
 		ArImportedResource(uint64_t uniqueId, const char* filePath, ResourceType type):
 			ArResource(uniqueId, Argent::Helper::String::ExtractFileName(filePath, false).c_str(), type)
 		,	filePath(filePath)
-			{}
+		{}
 
 		const char* GetFilePath() const { return filePath.c_str(); }
 
 		bool CompareName(const char* n) override
 		{
-			return ArResource::CompareName(n) || filePath.compare(n);
+			return ArResource::CompareName(n) || filePath == n;
 		}
 
 	protected:
