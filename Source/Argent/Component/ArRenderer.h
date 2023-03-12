@@ -25,7 +25,7 @@ namespace Argent::Component
 			 * \param cmdList 
 			 */
 			virtual void Render(ID3D12GraphicsCommandList* cmdList) const;
-			void Render() override;
+			void Render() const override;
 
 #ifdef _DEBUG
 			void DrawDebug() override{}

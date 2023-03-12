@@ -114,7 +114,7 @@ namespace Argent::Component::Renderer
 
 	}
 
-	void ArMeshRenderer::Render()
+	void ArMeshRenderer::Render() const
 	{
 		ArRenderer::Render();
 		Argent::Graphics::ArGraphics::Instance()->SetSceneConstant();

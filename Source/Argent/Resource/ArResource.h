@@ -15,7 +15,8 @@ namespace Argent::Resource
 			rTexture,
 			rMesh,
 			rSkinnedMesh,
-			rMaterial, 
+			rMaterial,
+			rEffect,
 		};
 		ArResource(uint64_t uniqueId, const char* name, ResourceType type):
 			uniqueId(uniqueId)
@@ -45,6 +46,7 @@ namespace Argent::Resource
 			ArResource(uniqueId, Argent::Helper::String::ExtractFileName(filePath, false).c_str(), type)
 		,	filePath(filePath)
 		{}
+		virtual ~ArImportedResource() = default;
 
 		const char* GetFilePath() const { return filePath.c_str(); }
 

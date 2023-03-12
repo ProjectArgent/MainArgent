@@ -147,9 +147,9 @@ namespace Argent::Component::Renderer
 		virtual ~NoneBoneMeshRenderer() = default;
 
 		void Render(ID3D12GraphicsCommandList* cmdList,
-			const DirectX::XMFLOAT4X4& world, const DirectX::XMFLOAT4& color);
+			const DirectX::XMFLOAT4X4& world, const DirectX::XMFLOAT4& color) const;
 
-		void Render() override;
+		void Render() const override;
 		void Update() override;
 
 #ifdef _DEBUG

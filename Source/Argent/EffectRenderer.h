@@ -2,10 +2,6 @@
 
 #include "Effekseer.h"
 #include "../EffekseerRendererDX12/EffekseerRendererDX12.h"
-#include "../3rdParty/LLGI/src/DX12/LLGI.BaseDX12.h"
-#include "../3rdParty/LLGI/src/DX12/LLGI.CommandListDX12.h"
-#include "../3rdParty/LLGI/src/DX12/LLGI.GraphicsDX12.h"
-#include "../3rdParty/LLGI/src/Utils/LLGI.CommandListPool.h"
 
 namespace Argent::Effect
 {
@@ -24,6 +20,8 @@ namespace Argent::Effect
 		Effekseer::RefPtr<EffekseerRenderer::CommandList> efkCmdList{};
 
 		Effekseer::EffectRef effect{};
+		Effekseer::EffectRef effect1{};
 		Effekseer::Handle handle{};
+		Effekseer::Handle handle1{};
 	};
 }

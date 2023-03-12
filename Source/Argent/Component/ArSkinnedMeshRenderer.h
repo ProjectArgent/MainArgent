@@ -252,9 +252,9 @@ namespace Argent::Resource::FBX
 
 		void Render(ID3D12GraphicsCommandList* cmdList,
 			const DirectX::XMFLOAT4X4& world, const DirectX::XMFLOAT4& color,
-			const Animation::Keyframe* keyframe);
+			const Animation::Keyframe* keyframe) const;
 
-		void Render() override;
+		void Render() const override;
 
 		void Update() override;
 

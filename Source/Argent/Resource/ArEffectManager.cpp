@@ -1,11 +1,11 @@
-#include "EffectRenderer.h"
-#include "Graphic/ArGraphics.h"
-#include "Other/Misc.h"
-#include "Core/ArTimer.h"
+#include "ArEffectManager.h"
+#include "../Graphic/ArGraphics.h"
 
-namespace Argent::Effect
+
+namespace Argent::Resource::Effect
 {
-	EffectRenderer::EffectRenderer()
+	ArEffectManager* ArEffectManager::instance = nullptr;
+	Argent::Resource::Effect::ArEffectManager::ArEffectManager()
 	{
 		//なんか戻り値がリファレンスポインタだったので魔導書通りにやるためにgetを使ってポインタにしている
 		DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -20,10 +20,10 @@ namespace Argent::Effect
 			10000
 		);
 
-		 if (!efkRenderer.Get()) _ASSERT_EXPR(FALSE, "Error");
+		if (!efkRenderer.Get()) _ASSERT_EXPR(FALSE, "Error");
 
 		efkManager = Effekseer::Manager::Create(10000);
-		if(!efkManager.Get()) _ASSERT_EXPR(FALSE, "Error");
+		if (!efkManager.Get()) _ASSERT_EXPR(FALSE, "Error");
 
 		//座標系のセット
 		efkManager->SetCoordinateSystem(Effekseer::CoordinateSystem::LH);
@@ -39,24 +39,18 @@ namespace Argent::Effect
 		efkManager->SetTextureLoader(efkRenderer->CreateTextureLoader());
 		efkManager->SetModelLoader(efkRenderer->CreateModelLoader());
 
-		
+
 		//dx12特有の処理
 
 		efkMemoryPool = EffekseerRenderer::CreateSingleFrameMemoryPool(efkRenderer->GetGraphicsDevice());
 		if (!efkMemoryPool.Get()) _ASSERT_EXPR(FALSE, "Error");
 		efkCmdList = EffekseerRenderer::CreateCommandList(efkRenderer->GetGraphicsDevice(), efkMemoryPool);
-		if(!efkCmdList.Get()) _ASSERT_EXPR(FALSE, "Error");
+		if (!efkCmdList.Get()) _ASSERT_EXPR(FALSE, "Error");
 
 		efkRenderer->SetCommandList(efkCmdList);
-
-
-		effect = Effekseer::Effect::Create(efkManager, (const EFK_CHAR*)L"./Resources/Effect/Effects/10/FCurve_Parameters1.efk",
-			1.0f, (const EFK_CHAR*)L"./Resources/Effect/Effects/10");
-		effect1 = Effekseer::Effect::Create(efkManager, (const EFK_CHAR*)L"./Resources/Effect/Effects/10/SimpleLaser.efk",
-			1.0f, (const EFK_CHAR*)L"./Resources/Effect/Effects/10");
 	}
 
-	void EffectRenderer::Update()
+	void Argent::Resource::Effect::ArEffectManager::Update()
 	{
 		Effekseer::Matrix44 fkViewMat;
 		Effekseer::Matrix44 fkProjMat;
@@ -64,9 +58,9 @@ namespace Argent::Effect
 		const auto view = Graphics::ArGraphics::Instance()->GetCurrentFrameResource()->GetSceneView();
 		const auto projection = Graphics::ArGraphics::Instance()->GetCurrentFrameResource()->GetSceneProjection();
 
-		for(int i = 0; i < 4; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
-			for(int j = 0; j < 4; ++j)
+			for (int j = 0; j < 4; ++j)
 			{
 				fkViewMat.Values[i][j] = view.m[i][j];
 				fkProjMat.Values[i][j] = projection.m[i][j];
@@ -74,23 +68,11 @@ namespace Argent::Effect
 		}
 		efkRenderer->SetCameraMatrix(fkViewMat);
 		efkRenderer->SetProjectionMatrix(fkProjMat);
-
-		static float elapsedTime{};
-		elapsedTime += Argent::Timer::ArTimer::Instance().DeltaTime();
-		if(elapsedTime > 3.0f)
-		{
-			elapsedTime = 0;
-			handle = efkManager->Play(effect, 0, 0, 0);
-			handle1 = efkManager->Play(effect1, 0, 0, 0);
-		}
-		/*if(elapsedTime > 0.01f)
-		{
-			if(efkManager->Exists(handle))
-				efkManager->StopEffect(handle);
-		}*/
-
 		efkManager->Update();
+	}
 
+	void Argent::Resource::Effect::ArEffectManager::Render() const
+	{
 		//描画場所を指定　マルチレンダーターゲット場合は一枚目でやること
 		efkMemoryPool->NewFrame();
 		EffekseerRendererDX12::BeginCommandList(efkCmdList, Graphics::ArGraphics::Instance()->GetCommandList());

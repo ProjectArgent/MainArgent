@@ -149,7 +149,7 @@ namespace Argent::Component::Renderer
 
 	void NoneBoneMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList,
 		const DirectX::XMFLOAT4X4& world,
-		const DirectX::XMFLOAT4& color)
+		const DirectX::XMFLOAT4& color) const
 	{
 		ArRenderer::Render(cmdList);
 
@@ -179,7 +179,7 @@ namespace Argent::Component::Renderer
 		}
 	}
 
-	void NoneBoneMeshRenderer::Render()
+	void NoneBoneMeshRenderer::Render() const 
 	{
 		Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
 			/*material->color.color*/DirectX::XMFLOAT4(1, 1, 1, 1));

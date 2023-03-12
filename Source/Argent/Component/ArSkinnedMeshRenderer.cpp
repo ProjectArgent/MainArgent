@@ -155,7 +155,7 @@ namespace Argent::Resource::FBX
 	void ArSkinnedMeshRenderer::Render(ID3D12GraphicsCommandList* cmdList, 
 		const DirectX::XMFLOAT4X4& world,
 		const DirectX::XMFLOAT4& color,
-		const Animation::Keyframe* keyframe)
+		const Animation::Keyframe* keyframe) const
 	{
 		ArRenderer::Render(cmdList);
 
@@ -227,7 +227,7 @@ namespace Argent::Resource::FBX
 		}
 	}
 
-	void ArSkinnedMeshRenderer::Render()
+	void ArSkinnedMeshRenderer::Render() const 
 	{
 		//static int clipIndex{};
 
@@ -236,19 +236,19 @@ namespace Argent::Resource::FBX
 			int frameIndex{};
 			static float animationTick{};
 
-			Animation& animation{ this->animationClips.at(clipIndex) };
-			frameIndex = static_cast<int>(animationTick* animation.samplingRate);
-			if(frameIndex > animation.sequence.size() - 1)
-			{
-				frameIndex = 0;
+			const Animation& animation{ this->animationClips.at(clipIndex) };
+			//frameIndex = static_cast<int>(animationTick* animation.samplingRate);
+			//if(frameIndex > animation.sequence.size() - 1)
+			//{
+			//	frameIndex = 0;
 
-				animationTick = 0;
-			}
-			else
-			{
-				animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
-			}
-			Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
+			//	animationTick = 0;
+			//}
+			//else
+			//{
+			//	animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
+			//}
+			const Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
 
 			//todo マテリアルの適用
 			Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),

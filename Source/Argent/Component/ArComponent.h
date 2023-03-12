@@ -29,7 +29,7 @@ namespace Argent::Component
 		virtual void Begin() {}					//毎フレーム最初に呼ばれる
 		virtual void End() {}					//毎フレーム最後に呼ばれる
 		virtual void Update() {}				//毎フレームBeginとEndの間で呼ばれる
-		virtual void Render() {}				//毎フレーム　描画用関数
+		virtual void Render() const {}				//毎フレーム　描画用関数
 		virtual void Reset() {}					//Initializeが呼ばれた直後の状態に戻す
 #ifdef _DEBUG
 		virtual void DrawDebug()

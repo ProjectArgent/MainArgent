@@ -11,6 +11,8 @@
 #include "Misc.h"
 #include <cstdlib>
 #include <string>
+#include "Effekseer.h"
+
 
 namespace Argent
 {
@@ -269,6 +271,18 @@ namespace Argent
 					param.DescriptorTable.pDescriptorRanges = pRange;
 					return param;
 				}
+			}
+		}
+
+		namespace Effect
+		{
+			inline Effekseer::Vector3D ToVector3D(const DirectX::XMFLOAT3& f)
+			{
+				Effekseer::Vector3D ret{};
+				ret.X = f.x;
+				ret.Y = f.y;
+				ret.Z = f.z;
+				return ret;
 			}
 		}
 	};

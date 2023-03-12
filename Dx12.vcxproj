@@ -28,6 +28,7 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="Source\Argent\Component\ArComponent.cpp" />
+    <ClCompile Include="Source\Argent\Component\ArEffectRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\ArMeshRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\ArRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\ArSkinnedMeshRenderer.cpp" />
@@ -53,6 +54,7 @@
     <ClCompile Include="Source\Argent\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Argent\Loader\FbxLoader.cpp" />
     <ClCompile Include="Source\Argent\Other\ArHelper.cpp" />
+    <ClCompile Include="Source\Argent\Resource\ArEffect.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArMesh.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArMaterial.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArStaticMesh.cpp" />
@@ -60,6 +62,7 @@
     <ClCompile Include="Source\Argent\Resource\ArShader.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArSprite.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArTexture.cpp" />
+    <ClCompile Include="Source\Argent\Resource\ArEffectManager.cpp" />
     <ClCompile Include="Source\Argent\Scene\Scene.cpp" />
     <ClCompile Include="Source\Argent\Scene\SceneManager.cpp" />
     <ClCompile Include="Source\Game.cpp" />
@@ -77,6 +80,7 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Source\Argent\Component\ArComponent.h" />
+    <ClInclude Include="Source\Argent\Component\ArEffectRenderer.h" />
     <ClInclude Include="Source\Argent\Component\ArMeshRenderer.h" />
     <ClInclude Include="Source\Argent\Component\ArRenderer.h" />
     <ClInclude Include="Source\Argent\Component\ArSkinnedMeshRenderer.h" />
@@ -106,6 +110,7 @@
     <ClInclude Include="Source\Argent\Loader\FbxLoader.h" />
     <ClInclude Include="Source\Argent\Other\ArHelper.h" />
     <ClInclude Include="Source\Argent\Other\Misc.h" />
+    <ClInclude Include="Source\Argent\Resource\ArEffect.h" />
     <ClInclude Include="Source\Argent\Resource\ArMesh.h" />
     <ClInclude Include="Source\Argent\Resource\ArMaterial.h" />
     <ClInclude Include="Source\Argent\Resource\ArStaticMesh.h" />
@@ -114,6 +119,7 @@
     <ClInclude Include="Source\Argent\Resource\ArShader.h" />
     <ClInclude Include="Source\Argent\Resource\ArSprite.h" />
     <ClInclude Include="Source\Argent\Resource\ArTexture.h" />
+    <ClInclude Include="Source\Argent\Resource\ArEffectManager.h" />
     <ClInclude Include="Source\Argent\Scene\Scene.h" />
     <ClInclude Include="Source\Argent\Scene\SceneManager.h" />
     <ClInclude Include="Source\DemoShaderMacro.h" />

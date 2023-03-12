@@ -25,7 +25,7 @@ namespace Argent::Component::Renderer
 		void Begin() override;
 		void End() override;
 		void Update() override;
-		void Render() override;
+		void Render() const override;
 
 #ifdef _DEBUG
 		void DrawDebug() override;
