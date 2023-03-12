@@ -8,7 +8,7 @@ namespace Argent::Component::Renderer
 		public ArComponent
 	{
 	public:
-		ArEffectRenderer();
+		ArEffectRenderer(const char* filePath, const char* materialPath);
 		~ArEffectRenderer() override = default;
 
 		void Update() override;

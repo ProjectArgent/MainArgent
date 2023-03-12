@@ -5,14 +5,17 @@
 namespace Argent::Resource::Effect
 {
 	ArEffectManager* ArEffectManager::instance = nullptr;
-	Argent::Resource::Effect::ArEffectManager::ArEffectManager()
+	ArEffectManager::ArEffectManager(ID3D12Device* device, ID3D12CommandQueue* cmdQueue, UINT numBackBuffers)
 	{
+		//todo spell miss ?
+		if (instance) _ASSERT_EXPR(FALSE, L"already instanciated");
+		instance = this;
 		//なんか戻り値がリファレンスポインタだったので魔導書通りにやるためにgetを使ってポインタにしている
 		DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		efkRenderer = EffekseerRendererDX12::Create(
-			Graphics::ArGraphics::Instance()->GetDevice(),
-			Graphics::ArGraphics::Instance()->GetCommandQueue(),
-			Graphics::ArGraphics::GetNumBackBuffers(),
+			device,
+			cmdQueue,
+			numBackBuffers,
 			&format,
 			1,
 			DXGI_FORMAT_D24_UNORM_S8_UINT,
@@ -49,6 +52,7 @@ namespace Argent::Resource::Effect
 
 		efkRenderer->SetCommandList(efkCmdList);
 	}
+
 
 	void Argent::Resource::Effect::ArEffectManager::Update()
 	{

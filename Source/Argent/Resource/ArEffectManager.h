@@ -7,9 +7,9 @@ namespace Argent::Resource::Effect
 {
 	class ArEffectManager
 	{
-	private:
+	public:
 
-		ArEffectManager();
+		ArEffectManager(ID3D12Device* device, ID3D12CommandQueue* cmdQueue, UINT numBackBuffers);
 
 
 	public:
@@ -18,8 +18,8 @@ namespace Argent::Resource::Effect
 		void Update();
 		void Render() const;
 
-		Effekseer::Manager* GetManager() const { return efkManager.Get();  }  // NOLINT(modernize-use-nodiscard)
-		EffekseerRenderer::Renderer* GetRenderer() const { return efkRenderer.Get();  }  // NOLINT(modernize-use-nodiscard)
+		Effekseer::ManagerRef GetManager() const { return efkManager;  }  // NOLINT(modernize-use-nodiscard)
+		EffekseerRenderer::RendererRef GetRenderer() const { return efkRenderer;  }  // NOLINT(modernize-use-nodiscard)
 
 		static ArEffectManager* Instance() { return instance;  }
 		

@@ -45,11 +45,9 @@ namespace Argent
 			// todo filesystemを使ったスマートな形へ変更する
 			std::wstring GetWideStringFromString(const std::string& str);
 
-
-
 			//ワイド文字列からマルチバイト文字列
 			//ロケール依存
-			inline std::string WstringToString(const std::wstring& src)
+			inline std::string GetStringFromWideString(const std::wstring& src)
 			{
 				std::string ret{};
 				size_t size{};

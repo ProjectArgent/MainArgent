@@ -8,7 +8,7 @@ namespace Argent::Resource::Effect
 		public Resource::ArImportedResource
 	{
 	public:
-		ArEffect(const char* filePath);
+		ArEffect(const char* filePath, const char* materialPath);
 		~ArEffect() override = default;
 
 		void Play(const DirectX::XMFLOAT3& position, int32_t startFrame = 0);

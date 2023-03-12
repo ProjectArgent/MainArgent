@@ -5,6 +5,7 @@
 #include "ArWindow.h"
 #include "ArTimer.h"
 #include "../EffectRenderer.h"
+#include "../Resource/ArEffectManager.h"
 namespace Argent
 {
 	namespace App
@@ -37,7 +38,8 @@ namespace Argent
 			bool isExistOtherInstance{ FALSE };	//ArgentAppのInstance数をカウント　> 1ならばアサート
 			std::unique_ptr<Argent::Graphics::ArGraphics> arGfx{};
 			std::unique_ptr<Argent::Window::ArWindow> arWindow{};
-			std::unique_ptr< Argent::Effect::EffectRenderer > effectRenderer{};
+			//std::unique_ptr< Argent::Effect::EffectRenderer > effectRenderer{};
+			std::unique_ptr<Argent::Resource::Effect::ArEffectManager> effectManager{};
 		};
 	}
 

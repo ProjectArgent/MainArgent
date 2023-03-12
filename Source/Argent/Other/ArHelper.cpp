@@ -128,7 +128,7 @@ namespace Argent
 			std::string GetExtension(const std::string& filePath)
 			{
 				std::filesystem::path path{ filePath };
-				std::string ret{ WstringToString(path.extension()) };
+				std::string ret{ GetStringFromWideString(path.extension()) };
 				return  ret;
 			}
 
@@ -138,11 +138,11 @@ namespace Argent
 				std::filesystem::path path{ filePath };
 				if(isNeedExtension)
 				{
-					ret = WstringToString(path.filename());
+					ret = GetStringFromWideString(path.filename());
 				}
 				else
 				{
-					ret = WstringToString(path.stem());
+					ret = GetStringFromWideString(path.stem());
 				}
 
 				return ret;

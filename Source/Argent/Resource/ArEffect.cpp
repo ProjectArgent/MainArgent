@@ -7,9 +7,14 @@
 
 namespace Argent::Resource::Effect
 {
-	ArEffect::ArEffect(const char* filePath):
+	ArEffect::ArEffect(const char* filePath, const char* materialPath):
 		ArImportedResource(Argent::Resource::ArResourceManager::GenerateResourceUniqueId(), filePath, ResourceType::rEffect)
 	{
+		std::wstring fPath = Helper::String::GetWideStringFromString(filePath);
+		std::wstring mPath = Helper::String::GetWideStringFromString(materialPath);
+		effect = Effekseer::Effect::Create(Argent::Resource::Effect::ArEffectManager::Instance()->GetManager(), (const EFK_CHAR*)(fPath.c_str()),
+			1.0f, (const EFK_CHAR*)(mPath.c_str()));
+		if (!effect.Get()) _ASSERT_EXPR(FALSE, L"failepath missing");
 
 	}
 

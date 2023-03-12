@@ -273,6 +273,7 @@ namespace Argent::Resource::FBX
 		std::unordered_map<uint64_t, Material> materials;
 
 		int clipIndex{};
+		float frameIndex{};
 	public:
 		std::vector<Animation> animationClips;
 	};

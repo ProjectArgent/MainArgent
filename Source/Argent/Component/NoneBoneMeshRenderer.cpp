@@ -340,7 +340,7 @@ namespace Argent::Component::Renderer
 						std::filesystem::path path(fbxFilePath);
 						path.replace_filename(tmpFilePath);
 
-						const std::string replacedFilePath = Helper::String::WstringToString(path.c_str());
+						const std::string replacedFilePath = Helper::String::GetStringFromWideString(path.c_str());
 						material.CreateTexture(replacedFilePath.c_str(), NoneBoneMeshRenderer::Material::TextureType::Albedo);
 					}
 
@@ -381,7 +381,7 @@ namespace Argent::Component::Renderer
 						tmpFilePath = "lambert1_Normal_OpenGL.png";
 						path.replace_filename(tmpFilePath);
 
-						const std::string replacedFilePath = Helper::String::WstringToString(path.c_str());
+						const std::string replacedFilePath = Helper::String::GetStringFromWideString(path.c_str());
 						//material.CreateTexture(replacedFilePath.c_str(), NoneBoneMeshRenderer::Material::TextureType::Normal);
 					}
 
@@ -395,7 +395,7 @@ namespace Argent::Component::Renderer
 						//tmpFilePath = "lambert1_Normal_OpenGL.png";
 						path.replace_filename(tmpFilePath);
 
-						const std::string replacedFilePath = Helper::String::WstringToString(path.c_str());
+						const std::string replacedFilePath = Helper::String::GetStringFromWideString(path.c_str());
 						material.CreateTexture(replacedFilePath.c_str(), NoneBoneMeshRenderer::Material::TextureType::Normal);
 					}
 					materials.emplace(materialUniqueId, std::move(material));

@@ -233,9 +233,6 @@ namespace Argent::Resource::FBX
 
 		if(animationClips.size() > 0)
 		{
-			int frameIndex{};
-			static float animationTick{};
-
 			const Animation& animation{ this->animationClips.at(clipIndex) };
 			//frameIndex = static_cast<int>(animationTick* animation.samplingRate);
 			//if(frameIndex > animation.sequence.size() - 1)
@@ -408,7 +405,7 @@ namespace Argent::Resource::FBX
 						std::filesystem::path path(fbxFilePath);
 						path.replace_filename(tmpFilePath);
 
-						const std::string replacedFilePath = Helper::String::WstringToString(path.c_str());
+						const std::string replacedFilePath = Helper::String::GetStringFromWideString(path.c_str());
 						material.CreateTexture(replacedFilePath.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Albedo);
 					}
 
@@ -448,7 +445,7 @@ namespace Argent::Resource::FBX
 						std::filesystem::path path(fbxFilePath);
 						path.replace_filename(tmpFilePath);
 
-						const std::string replacedFilePath = Helper::String::WstringToString(path.c_str());
+						const std::string replacedFilePath = Helper::String::GetStringFromWideString(path.c_str());
 						material.CreateTexture(replacedFilePath.c_str(), ArSkinnedMeshRenderer::Material::TextureType::Normal);
 					}
 					materials.emplace(materialUniqueId, std::move(material));
@@ -591,6 +588,20 @@ namespace Argent::Resource::FBX
 			 meshColor.color, &keyframe);
 
 	#endif
+		
+		static float animationTick{};
+		const Animation& animation{ this->animationClips.at(clipIndex) };
+		frameIndex = static_cast<int>(animationTick* animation.samplingRate);
+		if(frameIndex > animation.sequence.size() - 1)
+		{
+			frameIndex = 0;
+
+			animationTick = 0;
+		}
+		else
+		{
+			animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
+		}
 
 	}
 
