@@ -40,6 +40,7 @@
     <ClCompile Include="Source\Argent\Core\ArRandom.cpp" />
     <ClCompile Include="Source\Argent\Core\ArTimer.cpp" />
     <ClCompile Include="Source\Argent\Core\ArWindow.cpp" />
+    <ClCompile Include="Source\Argent\EffectRenderer.cpp" />
     <ClCompile Include="Source\Argent\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArFrameResource.cpp" />
     <ClCompile Include="Source\Argent\Graphic\ArGraphics.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Source\Argent\Core\ArRandom.h" />
     <ClInclude Include="Source\Argent\Core\ArTimer.h" />
     <ClInclude Include="Source\Argent\Core\ArWindow.h" />
+    <ClInclude Include="Source\Argent\EffectRenderer.h" />
     <ClInclude Include="Source\Argent\GameObject\GameObject.h" />
     <ClInclude Include="Source\Argent\Graphic\ArFrameResource.h" />
     <ClInclude Include="Source\Argent\Graphic\ArGraphics.h" />
@@ -186,6 +188,7 @@
     <None Include="Source\Shader\GeometricPrimitive.hlsli" />
     <None Include="Source\Shader\Pera.hlsli" />
     <None Include="Source\Shader\PMDModel.hlsli" />
+    <None Include="Source\Shader\SceneConstant.hlsli" />
     <None Include="Source\Shader\SkinnedMesh.hlsli" />
     <None Include="Source\Shader\Sprite.hlsli" />
     <None Include="Source\Shader\SpritePrimitive.hlsli" />
@@ -291,14 +294,15 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>.\DirectXTex;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\DirectXTex;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\include;.\External\Effekseer\Effekseer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\DirectXTex\Bin\Desktop_2019_Win10\x64\Debug;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\lib\vs2019\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>zlib-md.lib;libxml2-md.lib;libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\DirectXTex\Bin\Desktop_2019_Win10\x64\Debug;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\lib\vs2019\x64\debug;.\External\Effekseer\Effekseer\Debug;.\External\Effekseer\EffekseerRendererDX12\Debug;.\External\Effekseer\3rdParty\LLGI\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zlib-md.lib;libxml2-md.lib;libfbxsdk-md.lib;EffekseerRendererDX12.lib;Effekseer.lib;LLGI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderModel>5.1</ShaderModel>
@@ -317,16 +321,17 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>.\DirectXTex;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\DirectXTex;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\include;.\External\Effekseer\Effekseer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\DirectXTex\Bin\Desktop_2019_Win10\x64\Release;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\lib\vs2019\x64\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>zlib-md.lib;libxml2-md.lib;libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\DirectXTex\Bin\Desktop_2019_Win10\x64\Release;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\lib\vs2019\x64\release;.\External\Effekseer\Effekseer\Release;.\External\Effekseer\EffekseerRendererDX12\Release;.\External\Effekseer\3rdParty\LLGI\src\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zlib-md.lib;libxml2-md.lib;libfbxsdk-md.lib;EffekseerRendererDX12.lib;Effekseer.lib;LLGI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderModel>5.1</ShaderModel>

@@ -14,7 +14,8 @@ namespace Argent::Frame
 {
 	struct SceneConstant
 	{
-		DirectX::XMFLOAT4X4 viewProjection;
+		DirectX::XMFLOAT4X4 view;
+		DirectX::XMFLOAT4X4 projection;
 		DirectX::XMFLOAT4 lightColor;
 		DirectX::XMFLOAT3 lightPosition;
 		DirectX::XMFLOAT3 cameraPosition;
@@ -36,8 +37,11 @@ namespace Argent::Frame
 
 		[[nodiscard]] ID3D12GraphicsCommandList* GetCmdList() const { return cmdBundle.at(0)->cmdList.Get(); }
 
+		DirectX::XMFLOAT4X4 GetSceneView() const { return cbScene->view;  }
+		DirectX::XMFLOAT4X4 GetSceneProjection() const { return cbScene->projection;  }
+
 		void Begin() const;
-		void UpdateSceneConstant(const DirectX::XMMATRIX& viewProjection, const DirectX::XMFLOAT4& lightColor, 
+		void UpdateSceneConstant(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& lightColor,
 		                         const DirectX::XMFLOAT3& lightPosition, const DirectX::XMFLOAT3& cameraPosition) const;
 		void SetSceneConstant(UINT rootParameterIndex = 0);
 		void SetBarrier(D3D12_RESOURCE_STATES before, D3D12_RESOURCE_STATES after) const;

@@ -143,8 +143,8 @@ namespace Argent::Graphics
 		
 		if(camera && light)
 		{
-			curFrameResource->UpdateSceneConstant(camera->GetViewProjectionMatrix(),
-			                                      light->GetColor().GetColor(),
+			curFrameResource->UpdateSceneConstant(camera->GetViewMatrix(),
+				camera->GetProjectionMatrix(), light->GetColor().GetColor(),
 			                                      light->GetOwner()->GetTransform()->GetPosition(),
 			                                      camera->GetOwner()->GetTransform()->GetPosition()
 			);

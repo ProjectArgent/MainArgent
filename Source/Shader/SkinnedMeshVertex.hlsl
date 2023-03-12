@@ -15,7 +15,7 @@ VS_OUT main( VSIN vin )
 	vin.position = float4(blendedPosition.xyz, 1.0f);
 	vin.normal = float4(blendedNormal.xyz, 0.0f);
 
-
+	row_major float4x4 viewProjection = mul(view, projection);
 	VS_OUT vout;
 	float4x4 meshWorld = mul(globalTransform, world);
 	vout.position = mul(vin.position, mul(meshWorld, viewProjection));

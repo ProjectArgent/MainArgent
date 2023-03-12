@@ -1,0 +1,23 @@
+﻿  LLGI.Buffer.cpp
+  LLGI.CommandList.cpp
+  LLGI.Compiler.cpp
+  LLGI.Graphics.cpp
+  LLGI.PipelineState.cpp
+  LLGI.Platform.cpp
+  LLGI.Texture.cpp
+  LLGI.CreatePC.cpp
+  LLGI.WindowWin.cpp
+  LLGI.BaseDX12.cpp
+  LLGI.BufferDX12.cpp
+  LLGI.CommandListDX12.cpp
+  LLGI.CompilerDX12.cpp
+  LLGI.DescriptorHeapDX12.cpp
+  LLGI.GraphicsDX12.cpp
+  LLGI.PipelineStateDX12.cpp
+  LLGI.PlatformDX12.cpp
+  LLGI.RenderPassDX12.cpp
+  LLGI.RenderPassPipelineStateDX12.cpp
+  LLGI.ShaderDX12.cpp
+  LLGI.SingleFrameMemoryPoolDX12.cpp
+  LLGI.TextureDX12.cpp
+  LLGI.vcxproj -> C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\3rdParty\LLGI\src\Release\LLGI.lib

@@ -104,6 +104,12 @@ namespace Argent::Graphics
 		[[nodiscard]] Dx12::ArCommandQueue* GetResourceCmdQueue() const { return resourceQueue.get(); }
 
 
+		const Frame::FrameResource* GetCurrentFrameResource() const { return curFrameResource;  }
+
+		ID3D12CommandQueue* GetCommandQueue() const { return renderingQueue->cmdQueue.Get();  }
+
+		static int GetNumBackBuffers() { return NumBackBuffers;  }
+
 	private:
 		static ArGraphics* instance;
 		static constexpr int NumBackBuffers = 2;

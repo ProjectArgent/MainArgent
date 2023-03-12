@@ -1,3 +1,5 @@
+#include "SceneConstant.hlsli"
+
 struct VsOut
 {
 	float4 position : SV_POSITION;
@@ -8,13 +10,6 @@ struct VsOut
 };
 
 
-cbuffer SceneConstant : register(b0)
-{
-	row_major float4x4 viewProjection;
-	float4 lightColor;
-	float4 lightPosition;
-	float4 cameraPosition;
-}
 
 cbuffer cbuff0 : register(b1)
 {

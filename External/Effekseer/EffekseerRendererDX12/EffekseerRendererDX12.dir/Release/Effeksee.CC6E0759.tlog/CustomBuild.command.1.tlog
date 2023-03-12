@@ -1,0 +1,10 @@
+^C:\USERS\銀次朗\DESKTOP\EFFEKSEER\EFFEKSEER\DEV\CPP\EFFEKSEERRENDERERDX12\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/銀次朗/Desktop/Effekseer/Effekseer -BC:/Users/銀次朗/Desktop/Effekseer/Effekseer --check-stamp-file C:/Users/銀次朗/Desktop/Effekseer/Effekseer/Dev/Cpp/EffekseerRendererDX12/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

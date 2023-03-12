@@ -1,0 +1,34 @@
+﻿  EffekseerRenderer.CommonUtils.cpp
+  EffekseerRenderer.DDSTextureLoader.cpp
+  EffekseerRenderer.IndexBufferBase.cpp
+  EffekseerRenderer.ModelRendererBase.cpp
+  EffekseerRenderer.PngTextureLoader.cpp
+  EffekseerRenderer.RenderStateBase.cpp
+  EffekseerRenderer.Renderer.cpp
+  EffekseerRenderer.Renderer_Impl.cpp
+  EffekseerRenderer.RibbonRendererBase.cpp
+  EffekseerRenderer.RingRendererBase.cpp
+  EffekseerRenderer.SpriteRendererBase.cpp
+  EffekseerRenderer.TGATextureLoader.cpp
+  EffekseerRenderer.TrackRendererBase.cpp
+  EffekseerRenderer.VertexBufferBase.cpp
+  ModelLoader.cpp
+  TextureLoader.cpp
+  EffekseerRendererGL.DeviceObject.cpp
+  EffekseerRendererGL.GLExtension.cpp
+  EffekseerRendererGL.GPUTimer.cpp
+  EffekseerRendererGL.IndexBuffer.cpp
+  EffekseerRendererGL.MaterialLoader.cpp
+  EffekseerRendererGL.ModelRenderer.cpp
+  EffekseerRendererGL.RenderState.cpp
+  EffekseerRendererGL.Renderer.cpp
+  EffekseerRendererGL.Shader.cpp
+  EffekseerRendererGL.VertexArray.cpp
+  EffekseerRendererGL.VertexBuffer.cpp
+  GraphicsDevice.cpp
+  EffekseerMaterialCompilerGL.cpp
+  ShaderGenerator.cpp
+  ShaderGeneratorCommon.cpp
+C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\GraphicsDevice.cpp(1592,156): warning C4312: '型キャスト': 'int32_t' からより大きいサイズの 'void *' へ変換します。
+C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\GraphicsDevice.cpp(1596,140): warning C4312: '型キャスト': 'int32_t' からより大きいサイズの 'void *' へ変換します。
+  EffekseerRendererGL.vcxproj -> C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\Debug\EffekseerRendererGL.lib

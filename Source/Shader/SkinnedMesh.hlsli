@@ -1,3 +1,5 @@
+#include "SceneConstant.hlsli"
+
 struct VSIN
 {
 	float4 position : POSITION;
@@ -15,14 +17,6 @@ struct VS_OUT
 	float2 texcoord : TEXCOORD;
 	float4 color : COLOR;
 };
-
-cbuffer SceneConstant : register(b0)
-{
-	row_major float4x4 viewProjection;
-	float4 lightColor;
-	float4 lightPosition;
-	float4 cameraPosition;
-}
 
 static const int MaxBones = 256;
 cbuffer ObjectConstant : register(b1)

@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.CommonUtils.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.DDSTextureLoader.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.IndexBufferBase.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.ModelRendererBase.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.PngTextureLoader.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.RenderStateBase.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.Renderer.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.Renderer_Impl.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.RibbonRendererBase.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.RingRendererBase.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.SpriteRendererBase.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.TGATextureLoader.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.TrackRendererBase.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.VertexBufferBase.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\ModelLoader.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\TextureLoader.cpp">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.DeviceObject.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.GLExtension.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.GPUTimer.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.IndexBuffer.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.MaterialLoader.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.ModelRenderer.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.RenderState.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.Renderer.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.Shader.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.VertexArray.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.VertexBuffer.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\GraphicsDevice.cpp">
+      <Filter>EffekseerRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerMaterialCompiler\OpenGL\EffekseerMaterialCompilerGL.cpp">
+      <Filter>..\EffekseerMaterialCompiler\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerMaterialCompiler\GLSLGenerator\ShaderGenerator.cpp">
+      <Filter>..\EffekseerMaterialCompiler\GLSLGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerMaterialCompiler\Common\ShaderGeneratorCommon.cpp">
+      <Filter>..\EffekseerMaterialCompiler\Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.CommonUtils.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.DDSTextureLoader.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.IndexBufferBase.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.ModelRendererBase.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.PngTextureLoader.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.RenderStateBase.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.Renderer.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.Renderer_Impl.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.RibbonRendererBase.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.RingRendererBase.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.ShaderBase.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.SpriteRendererBase.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.StandardRenderer.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.TGATextureLoader.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.TrackRendererBase.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\EffekseerRenderer.VertexBufferBase.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\ModelLoader.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererCommon\TextureLoader.h">
+      <Filter>EffekseerRendererCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.Base.Pre.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.Base.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.DeviceObject.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.GLExtension.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.GPUTimer.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.IndexBuffer.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.MaterialLoader.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.ModelRenderer.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.RenderState.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.Renderer.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.RendererImplemented.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.Shader.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.VertexArray.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\EffekseerRendererGL.VertexBuffer.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\GraphicsDevice.h">
+      <Filter>EffekseerRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\ad_model_distortion_ps.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\ad_model_distortion_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\ad_model_lit_ps.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\ad_model_lit_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\ad_model_unlit_ps.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\ad_model_unlit_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\ad_sprite_distortion_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\ad_sprite_lit_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\ad_sprite_unlit_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\model_distortion_ps.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\model_distortion_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\model_lit_ps.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\model_lit_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\model_unlit_ps.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\model_unlit_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\sprite_distortion_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\sprite_lit_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRenderer\ShaderHeader\sprite_unlit_vs.h">
+      <Filter>EffekseerRenderer\ShaderHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\EffekseerRendererGL.h" />
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerMaterialCompiler\OpenGL\EffekseerMaterialCompilerGL.h">
+      <Filter>..\EffekseerMaterialCompiler\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerMaterialCompiler\GLSLGenerator\ShaderGenerator.h">
+      <Filter>..\EffekseerMaterialCompiler\GLSLGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerMaterialCompiler\Common\ShaderGeneratorCommon.h">
+      <Filter>..\EffekseerMaterialCompiler\Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\銀次朗\Desktop\Effekseer\Effekseer\Dev\Cpp\EffekseerRendererGL\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{7F52C4FD-B9C4-3275-B7B3-2092A926F268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\EffekseerMaterialCompiler">
+      <UniqueIdentifier>{5FAA56D9-64F2-3865-87B9-DE5BB2719DB9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\EffekseerMaterialCompiler\Common">
+      <UniqueIdentifier>{7758FAFE-452A-3372-B78F-BF39B9556C2F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\EffekseerMaterialCompiler\GLSLGenerator">
+      <UniqueIdentifier>{624005BA-454E-35DC-9319-F96D6153664F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\EffekseerMaterialCompiler\OpenGL">
+      <UniqueIdentifier>{9EB95619-57CE-3960-8D6B-C204FFFEA325}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EffekseerRenderer">
+      <UniqueIdentifier>{28BD28C4-10D6-306F-B911-3FA5FDD2C69A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EffekseerRendererCommon">
+      <UniqueIdentifier>{C60C078F-4907-3029-8431-6CC5C57ED279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EffekseerRenderer\ShaderHeader">
+      <UniqueIdentifier>{B62C5D05-90E8-3F99-9307-622F8E7AC8A5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
