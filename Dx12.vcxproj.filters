@@ -181,7 +181,6 @@
     <ClCompile Include="Source\Argent\Component\NoneBoneMeshRenderer.cpp">
       <Filter>Argent\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\EffectRenderer.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArEffect.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArEffectManager.cpp" />
     <ClCompile Include="Source\Argent\Component\ArEffectRenderer.cpp" />
@@ -340,7 +339,6 @@
     <ClInclude Include="Source\Argent\Component\NoneBoneMeshRenderer.h">
       <Filter>Argent\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\EffectRenderer.h" />
     <ClInclude Include="Source\Argent\Resource\ArEffect.h" />
     <ClInclude Include="Source\Argent\Resource\ArEffectManager.h" />
     <ClInclude Include="Source\Argent\Component\ArEffectRenderer.h" />

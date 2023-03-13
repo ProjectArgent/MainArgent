@@ -1,6 +1,7 @@
 #pragma once
 #include "Effekseer.h"
-#include "../EffekseerRendererDX12/EffekseerRendererDX12.h"
+#include "EffekseerRendererDX12.h"
+//#include "../EffekseerRendererDX12/EffekseerRendererDX12.h"
 #include "ArEffect.h"
 
 namespace Argent::Resource::Effect

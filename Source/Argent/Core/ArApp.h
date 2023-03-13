@@ -4,7 +4,6 @@
 #include "../Graphic/ArGraphics.h"
 #include "ArWindow.h"
 #include "ArTimer.h"
-#include "../EffectRenderer.h"
 #include "../Resource/ArEffectManager.h"
 namespace Argent
 {
