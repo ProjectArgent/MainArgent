@@ -378,7 +378,6 @@ namespace Argent::Component::Renderer
 						std::string tmpFilePath = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
 
 						std::filesystem::path path(fbxFilePath);
-						tmpFilePath = "lambert1_Normal_OpenGL.png";
 						path.replace_filename(tmpFilePath);
 
 						const std::string replacedFilePath = Helper::String::GetStringFromWideString(path.c_str());
@@ -392,7 +391,6 @@ namespace Argent::Component::Renderer
 						std::string tmpFilePath = fbxTexture ? fbxTexture->GetRelativeFileName() : "";
 
 						std::filesystem::path path(fbxFilePath);
-						//tmpFilePath = "lambert1_Normal_OpenGL.png";
 						path.replace_filename(tmpFilePath);
 
 						const std::string replacedFilePath = Helper::String::GetStringFromWideString(path.c_str());

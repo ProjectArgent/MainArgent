@@ -5,6 +5,7 @@
 #include "ArWindow.h"
 #include "ArTimer.h"
 #include "../Resource/ArEffectManager.h"
+#include "../ArAudio.h"
 namespace Argent
 {
 	namespace App
@@ -39,6 +40,8 @@ namespace Argent
 			std::unique_ptr<Argent::Window::ArWindow> arWindow{};
 			//std::unique_ptr< Argent::Effect::EffectRenderer > effectRenderer{};
 			std::unique_ptr<Argent::Resource::Effect::ArEffectManager> effectManager{};
+
+			std::unique_ptr<Argent::Audio::ArAudio> demoAudio;
 		};
 	}
 

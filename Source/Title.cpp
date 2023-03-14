@@ -25,7 +25,8 @@ void Title::Initialize()
 
 	AddObject(new GameObject("noneBone", new Argent::Component::Renderer::NoneBoneMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resources/DemoGun/DemoGun.fbx", true)));
 
-	AddObject(new GameObject("effect", new Argent::Component::Renderer::ArEffectRenderer("./Resources/Effect/Effects/10/FCurve_Parameters1.efk", "./Resources/Effect/Effects/10/")));
+	AddObject(new GameObject("effect", new Argent::Component::Renderer::ArEffectRenderer("./Resources/Effect/area.efkefc", "./Resources/Effect")));
+	//AddObject(new GameObject("effect", new Argent::Component::Renderer::ArEffectRenderer("./Resources/Effect/Effects/10/Parents1.efk ", "./Resources/Effect/Effects/10/")));
 
 	//GetGameObject("Main Camera")->GetComponent<Camera>()->SetTarget(GetGameObject("Player")->GetTransform());
 	//GetGameObject("Player")->AddComponent<Transform>();

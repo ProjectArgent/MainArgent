@@ -5,27 +5,10 @@
 #include <DirectXMath.h>
 #include "ArTexture.h"
 #include "ArResource.h"
-#include "../../../imgui/imgui.h"
+#include "../Component/ArColor.h"
 
 namespace Argent::Material
 {
-	struct Color
-	{
-		Color(const DirectX::XMFLOAT4& color = DirectX::XMFLOAT4(1, 1, 1, 1)):
-			color(color)
-		{}
-
-#ifdef _DEBUG
-		void DrawDebug()
-		{
-			ImGui::ColorEdit4("Color", &color.x,
-				ImGuiColorEditFlags_PickerHueWheel | 
-				ImGuiColorEditFlags_AlphaBar);
-		}
-#endif
-		DirectX::XMFLOAT4 color;
-	};
-
 	class ArBaseMaterial:
 		public Resource::ArResource
 	{

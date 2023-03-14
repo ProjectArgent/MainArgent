@@ -30,9 +30,9 @@ namespace Argent::Graphics
 		GetClientRect(hWnd, &rc);
 		windowWidth = static_cast<float>(rc.right - rc.left);
 		windowHeight = static_cast<float>(rc.bottom - rc.top);
-		clearColor[0] = 0.7f;
-		clearColor[1] = 0.4f;
-		clearColor[2] = 0.6f;
+		clearColor[0] = 0.0f;
+		clearColor[1] = 0.0f;
+		clearColor[2] = 0.0f;
 		clearColor[3] = 1.0f;
 		
 #ifdef _DEBUG

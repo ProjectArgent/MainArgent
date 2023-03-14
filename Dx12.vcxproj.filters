@@ -46,6 +46,9 @@
     <Filter Include="Argent\Component\Renderer">
       <UniqueIdentifier>{74e8ebb6-2552-4bbe-be80-33d0deb1255f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Argent\Audio">
+      <UniqueIdentifier>{c8112a6f-2b7b-410f-b03a-478fa05c53a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -181,9 +184,16 @@
     <ClCompile Include="Source\Argent\Component\NoneBoneMeshRenderer.cpp">
       <Filter>Argent\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArEffect.cpp" />
-    <ClCompile Include="Source\Argent\Resource\ArEffectManager.cpp" />
-    <ClCompile Include="Source\Argent\Component\ArEffectRenderer.cpp" />
+    <ClCompile Include="Source\Argent\Resource\ArEffect.cpp">
+      <Filter>Argent\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArEffectManager.cpp">
+      <Filter>Argent\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArEffectRenderer.cpp">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\ArAudio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -339,9 +349,19 @@
     <ClInclude Include="Source\Argent\Component\NoneBoneMeshRenderer.h">
       <Filter>Argent\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArEffect.h" />
-    <ClInclude Include="Source\Argent\Resource\ArEffectManager.h" />
-    <ClInclude Include="Source\Argent\Component\ArEffectRenderer.h" />
+    <ClInclude Include="Source\Argent\Resource\ArEffect.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArEffectManager.h">
+      <Filter>Argent\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArEffectRenderer.h">
+      <Filter>Argent\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\ArAudio.h" />
+    <ClInclude Include="Source\Argent\Component\ArColor.h">
+      <Filter>Argent\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shader\SpritePrimitivePixel.hlsl">

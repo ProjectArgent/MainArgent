@@ -18,9 +18,24 @@ namespace Argent::Resource::Effect
 
 	}
 
-	void ArEffect::Play(const DirectX::XMFLOAT3& position, int32_t startFrame)
+	void ArEffect::Play(const DirectX::XMFLOAT3& position, const DirectX::XMFLOAT3& scale,
+		const DirectX::XMFLOAT4& rotate, float startFrame)
 	{
 		handle = ArEffectManager::Instance()->GetManager()->Play(effect, Helper::Effect::ToVector3D(position), startFrame);
+	}
+
+	void ArEffect::Update(const DirectX::XMFLOAT3& position, const DirectX::XMFLOAT3& scale,
+		const DirectX::XMFLOAT4& rotate, const DirectX::XMFLOAT4& color)
+	{
+		ArEffectManager::Instance()->GetManager()->SetRotation(handle, rotate.x, rotate.y, rotate.z);
+		ArEffectManager::Instance()->GetManager()->SetScale(handle, scale.x, scale.y, scale.z);
+		ArEffectManager::Instance()->GetManager()->SetLocation(handle, position.x, position.y, position.z);
+
+		Effekseer::Color col{static_cast<unsigned char>(color.x * 255),
+			static_cast<unsigned char>(color.y * 255),
+		static_cast<unsigned char>(color.z * 255),
+		static_cast<unsigned char>(color.w * 255)};
+		ArEffectManager::Instance()->GetManager()->SetAllColor(handle, col);
 	}
 
 	void ArEffect::Stop() const

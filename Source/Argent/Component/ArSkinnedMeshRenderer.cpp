@@ -423,7 +423,8 @@ namespace Argent::Resource::FBX
 					}
 
 					fbxProp= fbxMaterial->FindProperty(FbxSurfaceMaterial::sAmbient);
-					
+
+					//todo bump or normal 
 					if(fbxProp.IsValid())
 					{
 						const FbxDouble3 color{ fbxProp.Get<FbxDouble3>() };
