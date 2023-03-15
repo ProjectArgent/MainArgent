@@ -25,6 +25,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 #ifdef _DEBUG 
 	EnableDebugLayer();
 #endif
-	Argent::App::ArgentApp app(hInstance, windowWidth, windowHeight, "Dx12", false);
+	Argent::App::ArApp app(hInstance, windowWidth, windowHeight, "Dx12", false);
 	return app.Execute();
 }

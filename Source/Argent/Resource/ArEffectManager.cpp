@@ -10,7 +10,6 @@ namespace Argent::Resource::Effect
 		//todo spell miss ?
 		if (instance) _ASSERT_EXPR(FALSE, L"already instanciated");
 		instance = this;
-		//なんか戻り値がリファレンスポインタだったので魔導書通りにやるためにgetを使ってポインタにしている
 		DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		efkRenderer = EffekseerRendererDX12::Create(
 			device,
@@ -44,7 +43,6 @@ namespace Argent::Resource::Effect
 
 
 		//dx12特有の処理
-
 		efkMemoryPool = EffekseerRenderer::CreateSingleFrameMemoryPool(efkRenderer->GetGraphicsDevice());
 		if (!efkMemoryPool.Get()) _ASSERT_EXPR(FALSE, "Error");
 		efkCmdList = EffekseerRenderer::CreateCommandList(efkRenderer->GetGraphicsDevice(), efkMemoryPool);

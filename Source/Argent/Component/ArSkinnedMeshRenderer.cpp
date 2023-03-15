@@ -8,7 +8,7 @@
 #include "../Other/ArHelper.h"
 #include "../Resource/ArResourceManager.h"
 
-namespace Argent::Resource::FBX
+namespace Argent::Component::Renderer
 {
 	void ArSkinnedMeshRenderer::Material::CreateTexture(const char* filePath, TextureType type)
 	{
@@ -245,7 +245,7 @@ namespace Argent::Resource::FBX
 			//{
 			//	animationTick += Argent::Timer::ArTimer::Instance().DeltaTime();
 			//}
-			const Animation::Keyframe& keyframe{ animation.sequence.at(frameIndex) };
+			const Animation::Keyframe& keyframe{ animation.sequence.at(static_cast<uint64_t>(frameIndex)) };
 
 			//todo マテリアルの適用
 			Render(Argent::Graphics::ArGraphics::Instance()->GetCommandList(), GetOwner()->GetTransform()->GetWorld(),
@@ -592,7 +592,7 @@ namespace Argent::Resource::FBX
 		
 		static float animationTick{};
 		const Animation& animation{ this->animationClips.at(clipIndex) };
-		frameIndex = static_cast<int>(animationTick* animation.samplingRate);
+		frameIndex = static_cast<float>(animationTick* animation.samplingRate);
 		if(frameIndex > animation.sequence.size() - 1)
 		{
 			frameIndex = 0;

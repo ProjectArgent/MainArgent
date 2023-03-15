@@ -21,7 +21,7 @@ namespace Argent::Resource::Effect
 	void ArEffect::Play(const DirectX::XMFLOAT3& position, const DirectX::XMFLOAT3& scale,
 		const DirectX::XMFLOAT4& rotate, float startFrame)
 	{
-		handle = ArEffectManager::Instance()->GetManager()->Play(effect, Helper::Effect::ToVector3D(position), startFrame);
+		handle = ArEffectManager::Instance()->GetManager()->Play(effect, Helper::Effect::ToVector3D(position), static_cast<int32_t>(startFrame));
 	}
 
 	void ArEffect::Update(const DirectX::XMFLOAT3& position, const DirectX::XMFLOAT3& scale,

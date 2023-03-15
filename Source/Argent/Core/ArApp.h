@@ -5,7 +5,7 @@
 #include "ArWindow.h"
 #include "ArTimer.h"
 #include "../Resource/ArEffectManager.h"
-#include "../ArAudio.h"
+
 namespace Argent
 {
 	namespace App
@@ -13,15 +13,15 @@ namespace Argent
 		/**
 		 * \brief アプリケーションクラス　こいつのExecuteを呼び出すだけで動く
 		 */
-		class ArgentApp final
+		class ArApp final
 		{
 		public:
-			ArgentApp(HINSTANCE hInstance, LONG width, LONG height, const char* appName, bool isFullScreen);
-			~ArgentApp() = default;
-			ArgentApp(const ArgentApp&) = delete;
-			ArgentApp(const ArgentApp&&) = delete;
-			ArgentApp operator=(const ArgentApp&) = delete;
-			ArgentApp operator=(const ArgentApp&&) = delete;
+			ArApp(HINSTANCE hInstance, LONG width, LONG height, const char* appName, bool isFullScreen);
+			~ArApp() = default;
+			ArApp(const ArApp&) = delete;
+			ArApp(const ArApp&&) = delete;
+			ArApp operator=(const ArApp&) = delete;
+			ArApp operator=(const ArApp&&) = delete;
 
 			/**
 			 * \brief　実行関数
@@ -38,7 +38,6 @@ namespace Argent
 			bool isExistOtherInstance{ FALSE };	//ArgentAppのInstance数をカウント　> 1ならばアサート
 			std::unique_ptr<Argent::Graphics::ArGraphics> arGfx{};
 			std::unique_ptr<Argent::Window::ArWindow> arWindow{};
-			//std::unique_ptr< Argent::Effect::EffectRenderer > effectRenderer{};
 			std::unique_ptr<Argent::Resource::Effect::ArEffectManager> effectManager{};
 		};
 	}

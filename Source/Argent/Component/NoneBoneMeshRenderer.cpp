@@ -38,12 +38,12 @@ namespace Argent::Component::Renderer
 		}
 
 
-		SkinnedScene sceneView{};
+		NoneBone::SkinnedScene sceneView{};
 
 		std::function<void(FbxNode* fbxNode)> traverse
 		{ [&](FbxNode* fbxNode)
 			{
-				SkinnedScene::Node& node{ sceneView.nodes.emplace_back() };
+				NoneBone::SkinnedScene::Node& node{ sceneView.nodes.emplace_back() };
 				node.attribute = fbxNode->GetNodeAttribute() ?
 					fbxNode->GetNodeAttribute()->GetAttributeType() :
 					FbxNodeAttribute::EType::eUnknown;
@@ -209,9 +209,9 @@ namespace Argent::Component::Renderer
 	}
 #endif
 
-	void FetchMesh(FbxScene* fbxScene, std::vector<NoneBoneMeshRenderer::Mesh>& meshes, const SkinnedScene& sceneView)
+	void FetchMesh(FbxScene* fbxScene, std::vector<NoneBoneMeshRenderer::Mesh>& meshes, const NoneBone::SkinnedScene& sceneView)
 	{
-		for (const SkinnedScene::Node& node : sceneView.nodes)
+		for (const NoneBone::SkinnedScene::Node& node : sceneView.nodes)
 		{
 			if (node.attribute != FbxNodeAttribute::EType::eMesh) continue;
 
@@ -301,12 +301,12 @@ namespace Argent::Component::Renderer
 		}
 	}
 
-	void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, NoneBoneMeshRenderer::Material>& materials, const SkinnedScene& sceneView, const char* fbxFilePath)
+	void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, NoneBoneMeshRenderer::Material>& materials, const NoneBone::SkinnedScene& sceneView, const char* fbxFilePath)
 	{
 		const size_t nodeCount{ sceneView.nodes.size() };
 		for (size_t nodeIndex = 0; nodeIndex < nodeCount; ++nodeIndex)
 		{
-			const SkinnedScene::Node& node{ sceneView.nodes.at(nodeIndex) };
+			const NoneBone::SkinnedScene::Node& node{ sceneView.nodes.at(nodeIndex) };
 			const FbxNode* fbxNode{ fbxScene->FindNodeByName(node.name.c_str()) };
 
 			const int materialCount{ fbxNode->GetMaterialCount() };

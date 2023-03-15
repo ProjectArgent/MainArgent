@@ -1,8 +1,10 @@
+// ReSharper disable CommentTypo
+// ReSharper disable CppClangTidyModernizeUseNodiscard
+// ReSharper restore CommentTypo
 #pragma once
 #include <xaudio2.h>
-#include <wrl.h>
 
-namespace Argent::Audio
+namespace Argent::Resource::Audio
 {
 	/**
 	 * \brief 音データを持ってるやつ　
@@ -17,7 +19,7 @@ namespace Argent::Audio
 		};
 
 	public:
-		ArAudio();
+		ArAudio(const char* filePath);
 
 		/**
 		 * \brief 再生開始　すでに再生中だった場合は処理をスキップ
@@ -32,9 +34,6 @@ namespace Argent::Audio
 		 * \brief 一時停止　すでに一時停止中だった場合はスキップ　
 		 */
 		void Pause();
-
-		Microsoft::WRL::ComPtr<IXAudio2> audioEngine;
-		IXAudio2MasteringVoice* masterVoice{};
 
 		//ソースボイスの状態を取得　再生中or停止中or一時停止中
 		State GetState() const { return state; }

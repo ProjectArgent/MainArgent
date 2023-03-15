@@ -27,14 +27,13 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="Source\Argent\ArAudio.cpp" />
     <ClCompile Include="Source\Argent\Component\ArComponent.cpp" />
     <ClCompile Include="Source\Argent\Component\ArEffectRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\ArMeshRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\ArRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\ArSkinnedMeshRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\ArSpriteRenderer.cpp" />
-    <ClCompile Include="Source\Argent\Component\AudioPlayer.cpp" />
+    <ClCompile Include="Source\Argent\Component\ArAudioPlayer.cpp" />
     <ClCompile Include="Source\Argent\Component\Camera.cpp" />
     <ClCompile Include="Source\Argent\Component\Light.cpp" />
     <ClCompile Include="Source\Argent\Component\NoneBoneMeshRenderer.cpp" />
@@ -55,6 +54,8 @@
     <ClCompile Include="Source\Argent\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Argent\Loader\FbxLoader.cpp" />
     <ClCompile Include="Source\Argent\Other\ArHelper.cpp" />
+    <ClCompile Include="Source\Argent\Resource\ArAudio.cpp" />
+    <ClCompile Include="Source\Argent\Resource\ArAudioManager.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArEffect.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArMesh.cpp" />
     <ClCompile Include="Source\Argent\Resource\ArMaterial.cpp" />
@@ -80,7 +81,6 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="Source\Argent\ArAudio.h" />
     <ClInclude Include="Source\Argent\Component\ArColor.h" />
     <ClInclude Include="Source\Argent\Component\ArComponent.h" />
     <ClInclude Include="Source\Argent\Component\ArEffectRenderer.h" />
@@ -88,7 +88,7 @@
     <ClInclude Include="Source\Argent\Component\ArRenderer.h" />
     <ClInclude Include="Source\Argent\Component\ArSkinnedMeshRenderer.h" />
     <ClInclude Include="Source\Argent\Component\ArSpriteRenderer.h" />
-    <ClInclude Include="Source\Argent\Component\AudioPlayer.h" />
+    <ClInclude Include="Source\Argent\Component\ArAudioPlayer.h" />
     <ClInclude Include="Source\Argent\Component\Camera.h" />
     <ClInclude Include="Source\Argent\Component\Light.h" />
     <ClInclude Include="Source\Argent\Component\NoneBoneMeshRenderer.h" />
@@ -113,6 +113,8 @@
     <ClInclude Include="Source\Argent\Loader\FbxLoader.h" />
     <ClInclude Include="Source\Argent\Other\ArHelper.h" />
     <ClInclude Include="Source\Argent\Other\Misc.h" />
+    <ClInclude Include="Source\Argent\Resource\ArAudio.h" />
+    <ClInclude Include="Source\Argent\Resource\ArAudioManager.h" />
     <ClInclude Include="Source\Argent\Resource\ArEffect.h" />
     <ClInclude Include="Source\Argent\Resource\ArMesh.h" />
     <ClInclude Include="Source\Argent\Resource\ArMaterial.h" />
@@ -153,18 +155,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="Source\Shader\PMDModelPixel.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Source\Shader\PMDModelVertex.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-    </FxCompile>
     <FxCompile Include="Source\Shader\SkinnedMeshPixel.hlsl" />
     <FxCompile Include="Source\Shader\SkinnedMeshVertex.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
@@ -196,7 +186,6 @@
   <ItemGroup>
     <None Include="Source\Shader\GeometricPrimitive.hlsli" />
     <None Include="Source\Shader\Pera.hlsli" />
-    <None Include="Source\Shader\PMDModel.hlsli" />
     <None Include="Source\Shader\SceneConstant.hlsli" />
     <None Include="Source\Shader\SkinnedMesh.hlsli" />
     <None Include="Source\Shader\Sprite.hlsli" />

@@ -7,29 +7,22 @@
 #include "Argent/Component/NoneBoneMeshRenderer.h"
 #include "Argent/Graphic/ArGraphics.h"
 #include "Argent/Component/ArEffectRenderer.h"
+#include "Argent/Component/ArAudioPlayer.h"
 
 void Title::Initialize()
 {
 	AddObject(new GameObject("Demo"));
-	//AddObject(new GameObject("Demo2"));
-	GetGameObject("Demo")->AddComponent(new Argent::Component::Renderer::ArSpriteRenderer);
-	//GetGameObject("Demo2")->AddComponent(new Argent::Component::Renderer::ArSpriteRenderer);
-	//AddObject(GameObject::Cube());
+	GetGameObject("Demo")->AddComponent(new Argent::Component::Renderer::ArSpriteRenderer("./Resources/Image/Sample256.png"));
 
 	//AddObject(GameObject::Sphere());
-	//AddObject(GameObject::Capsule());
-	//AddObject(GameObject::SceneCamera());
 	//AddObject( new GameObject("obj",new ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resource/DragonBinary.fbx")));
-	//AddObject( new GameObject("obj",new Argent::Resource::FBX::ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resources/fbxkakidashi.fbx")));
-	//AddObject( new GameObject("obj",new Argent::Resource::FBX::ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resources/RenderingEngine/nico.fbx")));
 
-	AddObject(new GameObject("noneBone", new Argent::Component::Renderer::NoneBoneMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resources/DemoGun/DemoGun.fbx", true)));
+	AddObject(new GameObject("noneBone", new Argent::Component::Renderer::NoneBoneMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resources/Model/HandGun.fbx", true)));
 
-	AddObject(new GameObject("effect", new Argent::Component::Renderer::ArEffectRenderer("./Resources/Effect/area.efkefc", "./Resources/Effect")));
-	//AddObject(new GameObject("effect", new Argent::Component::Renderer::ArEffectRenderer("./Resources/Effect/Effects/10/Parents1.efk ", "./Resources/Effect/Effects/10/")));
+	AddObject(new GameObject("effect", new Argent::Component::Renderer::ArEffectRenderer("./Resources/Effects/10/Parents1.efk ", "./Resources/Effects/10/")));
 
-	//GetGameObject("Main Camera")->GetComponent<Camera>()->SetTarget(GetGameObject("Player")->GetTransform());
-	//GetGameObject("Player")->AddComponent<Transform>();
+	AddObject(new GameObject({ new Argent::Component::Renderer::ArSkinnedMeshRenderer(Argent::Graphics::ArGraphics::Instance()->GetDevice(), "./Resources/Model/nico.fbx"),
+		new Argent::Component::Audio::AudioPlayer("./Resources/Audio/maou.wav") }, "music and nico"));
 	Scene::Initialize();
 }
 

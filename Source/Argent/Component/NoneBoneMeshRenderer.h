@@ -17,30 +17,32 @@
 
 namespace Argent::Component::Renderer
 {
-	struct SkinnedScene
+	namespace NoneBone
 	{
-		struct Node
+		struct SkinnedScene
 		{
-			uint64_t id{};
-			std::string name;
-			FbxNodeAttribute::EType attribute{ FbxNodeAttribute::EType::eUnknown };
-			int64_t parentIndex{ -1 };
-		};
-
-		std::vector<Node> nodes;
-
-		int64_t IndexOf(uint64_t id) const
-		{
-			int64_t index{};
-			for (const Node& node : nodes)
+			struct Node
 			{
-				if (node.id == id) return index;
-				++index;
-			}
-			return -1;
-		}
-	};
+				uint64_t id{};
+				std::string name;
+				FbxNodeAttribute::EType attribute{ FbxNodeAttribute::EType::eUnknown };
+				int64_t parentIndex{ -1 };
+			};
 
+			std::vector<Node> nodes;
+
+			int64_t IndexOf(uint64_t id) const
+			{
+				int64_t index{};
+				for (const Node& node : nodes)
+				{
+					if (node.id == id) return index;
+					++index;
+				}
+				return -1;
+			}
+		};
+	}
 	class NoneBoneMeshRenderer:
 		public Argent::Component::Renderer::ArRenderer
 	{
@@ -162,14 +164,14 @@ namespace Argent::Component::Renderer
 		std::unique_ptr<Argent::Dx12::ArConstantBuffer<Constants>> demoConstBuffer;
 
 	protected:
-		SkinnedScene sceneView;
+		NoneBone::SkinnedScene sceneView;
 		std::vector<Mesh> meshes;
 		std::unordered_map<uint64_t, Material> materials;
 	public:
 	};
 
-	void FetchMesh(FbxScene* fbxScene, std::vector<NoneBoneMeshRenderer::Mesh>& meshes, const SkinnedScene& sceneView);
-	void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, NoneBoneMeshRenderer::Material>& materials, const SkinnedScene& sceneView, const char* fbxFilePath);
+	void FetchMesh(FbxScene* fbxScene, std::vector<NoneBoneMeshRenderer::Mesh>& meshes, const NoneBone::SkinnedScene& sceneView);
+	void FetchMaterial(FbxScene* fbxScene, std::unordered_map<uint64_t, NoneBoneMeshRenderer::Material>& materials, const NoneBone::SkinnedScene& sceneView, const char* fbxFilePath);
 
 }
 

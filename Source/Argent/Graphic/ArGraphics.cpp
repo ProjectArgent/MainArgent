@@ -348,7 +348,7 @@ namespace Argent::Graphics
 			buf.B = static_cast<unsigned char>(Argent::Random::Generate(0, 255));
 			buf.A = 255;
 		}
-		hr = (*resource)->WriteToSubresource(0, nullptr, textureBuffer.data(), sizeof(TexRGBA) * 256, sizeof(TexRGBA) * textureBuffer.size());
+		hr = (*resource)->WriteToSubresource(0, nullptr, textureBuffer.data(), sizeof(TexRGBA) * 256, sizeof(TexRGBA) * static_cast<UINT>(textureBuffer.size()));
 		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 		return hr;
 	}

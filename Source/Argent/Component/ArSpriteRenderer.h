@@ -12,7 +12,7 @@ namespace Argent::Component::Renderer
 	{
 
 	public:
-		ArSpriteRenderer();
+		ArSpriteRenderer(const char* filePath);
 		~ArSpriteRenderer() override;
 
 

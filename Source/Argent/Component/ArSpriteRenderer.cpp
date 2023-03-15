@@ -7,11 +7,11 @@
 
 namespace Argent::Component::Renderer
 {
-	ArSpriteRenderer::ArSpriteRenderer():
+	ArSpriteRenderer::ArSpriteRenderer(const char* filePath):
 		ArRenderer("Sprite Renderer")
 	{
 		sprite = std::make_unique<Argent::Mesh::Sprite::ArSprite>();
-		materials.emplace_back(std::make_shared<Material::ArMaterial>("Resources/Sample256.png"));
+		materials.emplace_back(std::make_shared<Material::ArMaterial>(filePath));
 
 
 		D3D12_ROOT_SIGNATURE_DESC rootSigDesc{};
@@ -86,6 +86,7 @@ namespace Argent::Component::Renderer
 			&rootSigDesc,
 			&pipelineStateDesc);
 	}
+
 
 	ArSpriteRenderer::~ArSpriteRenderer()
 	{

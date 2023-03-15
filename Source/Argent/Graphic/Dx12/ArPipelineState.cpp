@@ -129,7 +129,7 @@ namespace Argent::Dx12
 			rootSigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 			rootSigDesc.NumParameters = static_cast<UINT>(rootParam.size());
 			rootSigDesc.pParameters = rootParam.data();
-			rootSigDesc.NumStaticSamplers = samplerDesc.size();
+			rootSigDesc.NumStaticSamplers = static_cast<UINT>(samplerDesc.size());
 			rootSigDesc.pStaticSamplers = samplerDesc.data();
 		}
 

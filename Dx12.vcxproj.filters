@@ -187,9 +187,6 @@
     <ClCompile Include="Source\Argent\Resource\ArEffect.cpp">
       <Filter>Argent\Resource\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArEffectManager.cpp">
-      <Filter>Argent\Resource\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\Resource\ArMesh.cpp">
       <Filter>Argent\Resource\Mesh</Filter>
     </ClCompile>
@@ -198,9 +195,6 @@
     </ClCompile>
     <ClCompile Include="Source\Argent\Resource\ArTexture.cpp">
       <Filter>Argent\Resource\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\ArAudio.cpp">
-      <Filter>Argent\Resource\Audio</Filter>
     </ClCompile>
     <ClCompile Include="Source\Argent\Resource\ArResourceManager.cpp">
       <Filter>Argent\Resource\Manager</Filter>
@@ -214,7 +208,18 @@
     <ClCompile Include="Source\Argent\Resource\ArMaterial.cpp">
       <Filter>Argent\Resource\Material</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Component\AudioPlayer.cpp" />
+    <ClCompile Include="Source\Argent\Resource\ArEffectManager.cpp">
+      <Filter>Argent\Resource\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArAudio.cpp">
+      <Filter>Argent\Resource\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArAudioManager.cpp">
+      <Filter>Argent\Resource\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\ArAudioPlayer.cpp">
+      <Filter>Argent\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -358,9 +363,6 @@
     <ClInclude Include="Source\Argent\Resource\ArEffect.h">
       <Filter>Argent\Resource\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArEffectManager.h">
-      <Filter>Argent\Resource\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Argent\Resource\ArMesh.h">
       <Filter>Argent\Resource\Mesh</Filter>
     </ClInclude>
@@ -369,9 +371,6 @@
     </ClInclude>
     <ClInclude Include="Source\Argent\Resource\ArTexture.h">
       <Filter>Argent\Resource\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\ArAudio.h">
-      <Filter>Argent\Resource\Audio</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Resource\ArResourceManager.h">
       <Filter>Argent\Resource\Manager</Filter>
@@ -385,7 +384,18 @@
     <ClInclude Include="Source\Argent\Resource\ArMaterial.h">
       <Filter>Argent\Resource\Material</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Component\AudioPlayer.h" />
+    <ClInclude Include="Source\Argent\Resource\ArEffectManager.h">
+      <Filter>Argent\Resource\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArAudio.h">
+      <Filter>Argent\Resource\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArAudioManager.h">
+      <Filter>Argent\Resource\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\ArAudioPlayer.h">
+      <Filter>Argent\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shader\SpritePrimitivePixel.hlsl">
@@ -398,12 +408,6 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Source\Shader\SpriteVertex.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Source\Shader\PMDModelPixel.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Source\Shader\PMDModelVertex.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Source\Shader\GeometricPrimitivePixel.hlsl">
@@ -439,9 +443,6 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="Source\Shader\Sprite.hlsli">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Source\Shader\PMDModel.hlsli">
       <Filter>Shader</Filter>
     </None>
     <None Include="Source\Shader\GeometricPrimitive.hlsli">

@@ -1,6 +1,10 @@
 #include "ArAudio.h"
-#include "Other/Misc.h"
-namespace Argent::Audio
+#include "../Other/Misc.h"
+#include <filesystem>
+#include "ArAudioManager.h"
+
+
+namespace Argent::Resource::Audio
 {
 #define fourccRIFF 'FFIR'
 #define fourccDATA 'atad'
@@ -82,24 +86,14 @@ namespace Argent::Audio
 	    return hr;
 	}
 
-	ArAudio::ArAudio():
+	ArAudio::ArAudio(const char* filePath):
 		state(State::Stopping)
 	{
 		HRESULT hr{ S_OK };
 
-		//オーディオエンジンの作成
-		hr = XAudio2Create(audioEngine.GetAddressOf(), 0, XAUDIO2_DEFAULT_PROCESSOR);
-		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
-
-		//マスターボイスの作成
-		hr = audioEngine->CreateMasteringVoice(&masterVoice);
-		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
-
-		const wchar_t* filePath = L"./Resources/Music/maou.wav";
-
-
+		std::filesystem::path path{ filePath };
 		//ファイルオープン
-		HANDLE hFile = CreateFileW(filePath, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, NULL);
+		HANDLE hFile = CreateFileW(path.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, NULL);
 		if (INVALID_HANDLE_VALUE == hFile)
 		{
 			hr = HRESULT_FROM_WIN32(GetLastError());
@@ -135,7 +129,8 @@ namespace Argent::Audio
 		buffer.Flags = XAUDIO2_END_OF_STREAM; //バッファの後ろにはもうデータがないことを明示
 
 		//ソースボイスを作る
-		hr = audioEngine->CreateSourceVoice(&sourceVoice, reinterpret_cast<WAVEFORMATEX*>(&wfx));
+		hr = ArAudioManager::Instance().GetAudioEngine()->CreateSourceVoice(&sourceVoice, reinterpret_cast<WAVEFORMATEX*>(&wfx));
+		//hr = ArAudioManager::Instance()->GetAudioEngine()->CreateSourceVoice(&sourceVoice, reinterpret_cast<WAVEFORMATEX*>(&wfx));
 		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
 

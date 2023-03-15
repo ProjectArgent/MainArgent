@@ -24,7 +24,7 @@
 //ボーンとメッシュ情報にするのは全然あり　アニメーションも置いといていいかも
 //unityみたいにしたいがアニメーションを分離して別の場所に置くと管理が大変そう
 
-namespace Argent::Resource::FBX
+namespace Argent::Component::Renderer
 {
 	struct SkinnedScene
 	{
