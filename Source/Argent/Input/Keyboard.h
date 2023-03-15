@@ -208,7 +208,7 @@ namespace Argent::Input
 			return instance;
 		}
 	private:
-
+		
 		Keyboard()
 		{
 			keyState[Keys::None					] = State::NONE;

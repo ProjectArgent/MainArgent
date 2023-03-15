@@ -46,8 +46,26 @@
     <Filter Include="Argent\Component\Renderer">
       <UniqueIdentifier>{74e8ebb6-2552-4bbe-be80-33d0deb1255f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Argent\Audio">
-      <UniqueIdentifier>{c8112a6f-2b7b-410f-b03a-478fa05c53a8}</UniqueIdentifier>
+    <Filter Include="Argent\Resource\Effect">
+      <UniqueIdentifier>{07947600-5a4f-4b22-a01f-9a47ed04da15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Argent\Resource\Mesh">
+      <UniqueIdentifier>{a7bdd0f0-c6d9-40a1-84bd-01da27e1c015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Argent\Resource\Texture">
+      <UniqueIdentifier>{087c43e5-175a-4b31-9d35-62e28321b90d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Argent\Resource\Audio">
+      <UniqueIdentifier>{1291d19a-4be0-42d8-b0c0-dcb44f90f982}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Argent\Resource\Manager">
+      <UniqueIdentifier>{b9568431-72de-4789-a5c0-a2329afd3582}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Argent\Resource\Shader">
+      <UniqueIdentifier>{d4e64ee0-5ce5-4f5d-9091-568f978cdb5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Argent\Resource\Material">
+      <UniqueIdentifier>{75f6fac2-46c1-4bff-9950-3ccfec954218}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,27 +154,6 @@
     <ClCompile Include="Source\Argent\Other\ArHelper.cpp">
       <Filter>Argent\Other</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArMesh.cpp">
-      <Filter>Argent\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArMaterial.cpp">
-      <Filter>Argent\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArStaticMesh.cpp">
-      <Filter>Argent\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArResourceManager.cpp">
-      <Filter>Argent\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArShader.cpp">
-      <Filter>Argent\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArSprite.cpp">
-      <Filter>Argent\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArTexture.cpp">
-      <Filter>Argent\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\Component\ArComponent.cpp">
       <Filter>Argent\Component</Filter>
     </ClCompile>
@@ -184,16 +181,40 @@
     <ClCompile Include="Source\Argent\Component\NoneBoneMeshRenderer.cpp">
       <Filter>Argent\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArEffect.cpp">
-      <Filter>Argent\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Argent\Resource\ArEffectManager.cpp">
-      <Filter>Argent\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Argent\Component\ArEffectRenderer.cpp">
       <Filter>Argent\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Argent\ArAudio.cpp" />
+    <ClCompile Include="Source\Argent\Resource\ArEffect.cpp">
+      <Filter>Argent\Resource\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArEffectManager.cpp">
+      <Filter>Argent\Resource\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArMesh.cpp">
+      <Filter>Argent\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArStaticMesh.cpp">
+      <Filter>Argent\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArTexture.cpp">
+      <Filter>Argent\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\ArAudio.cpp">
+      <Filter>Argent\Resource\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArResourceManager.cpp">
+      <Filter>Argent\Resource\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArShader.cpp">
+      <Filter>Argent\Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArSprite.cpp">
+      <Filter>Argent\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Resource\ArMaterial.cpp">
+      <Filter>Argent\Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Argent\Component\AudioPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -292,28 +313,7 @@
     <ClInclude Include="Source\Argent\Other\Misc.h">
       <Filter>Argent\Other</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArMesh.h">
-      <Filter>Argent\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArMaterial.h">
-      <Filter>Argent\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArStaticMesh.h">
-      <Filter>Argent\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Argent\Resource\ArResource.h">
-      <Filter>Argent\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArResourceManager.h">
-      <Filter>Argent\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArShader.h">
-      <Filter>Argent\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArSprite.h">
-      <Filter>Argent\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArTexture.h">
       <Filter>Argent\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Source\Argent\Component\ArComponent.h">
@@ -349,19 +349,43 @@
     <ClInclude Include="Source\Argent\Component\NoneBoneMeshRenderer.h">
       <Filter>Argent\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArEffect.h">
-      <Filter>Argent\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Argent\Resource\ArEffectManager.h">
-      <Filter>Argent\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Argent\Component\ArEffectRenderer.h">
       <Filter>Argent\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Argent\ArAudio.h" />
     <ClInclude Include="Source\Argent\Component\ArColor.h">
       <Filter>Argent\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArEffect.h">
+      <Filter>Argent\Resource\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArEffectManager.h">
+      <Filter>Argent\Resource\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArMesh.h">
+      <Filter>Argent\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArStaticMesh.h">
+      <Filter>Argent\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArTexture.h">
+      <Filter>Argent\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\ArAudio.h">
+      <Filter>Argent\Resource\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArResourceManager.h">
+      <Filter>Argent\Resource\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArShader.h">
+      <Filter>Argent\Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArSprite.h">
+      <Filter>Argent\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Resource\ArMaterial.h">
+      <Filter>Argent\Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Argent\Component\AudioPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Source\Shader\SpritePrimitivePixel.hlsl">

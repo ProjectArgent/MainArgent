@@ -34,6 +34,7 @@
     <ClCompile Include="Source\Argent\Component\ArRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\ArSkinnedMeshRenderer.cpp" />
     <ClCompile Include="Source\Argent\Component\ArSpriteRenderer.cpp" />
+    <ClCompile Include="Source\Argent\Component\AudioPlayer.cpp" />
     <ClCompile Include="Source\Argent\Component\Camera.cpp" />
     <ClCompile Include="Source\Argent\Component\Light.cpp" />
     <ClCompile Include="Source\Argent\Component\NoneBoneMeshRenderer.cpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Source\Argent\Component\ArRenderer.h" />
     <ClInclude Include="Source\Argent\Component\ArSkinnedMeshRenderer.h" />
     <ClInclude Include="Source\Argent\Component\ArSpriteRenderer.h" />
+    <ClInclude Include="Source\Argent\Component\AudioPlayer.h" />
     <ClInclude Include="Source\Argent\Component\Camera.h" />
     <ClInclude Include="Source\Argent\Component\Light.h" />
     <ClInclude Include="Source\Argent\Component\NoneBoneMeshRenderer.h" />
@@ -301,14 +303,14 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>.\External\DirectXTex\Include;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\include;.\External\Effekseer\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\External\DirectXTex\Include;.\External\FbxSdk\Include;.\External\Effekseer\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\External\DirectXTex\Lib\Debug;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\lib\vs2019\x64\debug;.\External\Effekseer\Lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\External\DirectXTex\Lib\Debug;.\External\FbxSdk\Lib\Debug;.\External\Effekseer\Lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>zlib-md.lib;libxml2-md.lib;libfbxsdk-md.lib;EffekseerRendererDX12.lib;Effekseer.lib;LLGI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
@@ -328,7 +330,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>.\External\DirectXTex\Include;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\include;.\External\Effekseer\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\External\DirectXTex\Include;.\External\FbxSdk\Include;.\External\Effekseer\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -337,7 +339,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\External\DirectXTex\Lib\Release;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\lib\vs2019\x64\release;.\External\Effekseer\Lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\External\DirectXTex\Lib\Release;.\External\FbxSdk\Lib\Release;.\External\Effekseer\Lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>zlib-md.lib;libxml2-md.lib;libfbxsdk-md.lib;EffekseerRendererDX12.lib;Effekseer.lib;LLGI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>

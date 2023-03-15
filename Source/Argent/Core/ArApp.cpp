@@ -2,6 +2,7 @@
 #include "../../../imgui/ImguiCtrl.h"
 #include "../Resource/ArResourceManager.h"
 #include "../Scene/SceneManager.h"
+#include "../Input/Keyboard.h"
 
 namespace Argent::App
 {
@@ -14,7 +15,6 @@ namespace Argent::App
 		arGfx = std::make_unique<Graphics::ArGraphics>(arWindow->GetHandle());
 		//effectRenderer = std::make_unique<Argent::Effect::EffectRenderer>();
 		effectManager = std::make_unique<Argent::Resource::Effect::ArEffectManager>(arGfx->GetDevice(), arGfx->GetCommandQueue(), arGfx->GetNumBackBuffers());
-		demoAudio = std::make_unique<Argent::Audio::ArAudio>();
 	}
 
 	void ArgentApp::Initialize() const
@@ -32,9 +32,9 @@ namespace Argent::App
 		arSceneManager.Initialize();
 		while (MainLoop(arWindow->GetHandle()))
 		{
+			Argent::Input::Keyboard::Instance().Update();
 			arGfx->Begin();
 
-			demoAudio->Play(10);
 			ImguiCtrl::Begin("Main Window");
 
 			effectManager->Update();

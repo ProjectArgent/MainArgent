@@ -71,7 +71,6 @@ namespace Argent::Audio
 	    return S_OK;
 	}
 
-
 	HRESULT ReadChunkData(HANDLE hFile, void * buffer, DWORD bufferSize, DWORD bufferOffset)
 	{
 	    HRESULT hr = S_OK;
@@ -83,8 +82,8 @@ namespace Argent::Audio
 	    return hr;
 	}
 
-
-	ArAudio::ArAudio()
+	ArAudio::ArAudio():
+		state(State::Stopping)
 	{
 		HRESULT hr{ S_OK };
 
@@ -96,7 +95,7 @@ namespace Argent::Audio
 		hr = audioEngine->CreateMasteringVoice(&masterVoice);
 		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 
-		const wchar_t* filePath = L"./Resources/Music/009.wav";
+		const wchar_t* filePath = L"./Resources/Music/maou.wav";
 
 
 		//ファイルオープン
@@ -147,17 +146,49 @@ namespace Argent::Audio
 		{
 			return;
 		}
-
-		buffer.LoopCount = 10;
-		hr = sourceVoice->SubmitSourceBuffer(&buffer);
-		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
 	}
 
-	void ArAudio::Play(UINT loopCounts)
+	void ArAudio::Play()
 	{
-		
+		if(IsPlaying()) return;
+
 		HRESULT hr{ S_OK };
+		/// <summary>
+		/// 停止した場合はもう一回submitしないと再生できない
+		/// </summary>
+		if(state == State::Stopping)
+		{
+			buffer.LoopCount = 10;
+			hr = sourceVoice->SubmitSourceBuffer(&buffer);
+			_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+		}
+
 		hr = sourceVoice->Start(0);
 		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+		state = State::Playing;
+	}
+
+	void ArAudio::Stop()
+	{
+		if(!IsLastAudioQueue()) return;
+
+		HRESULT hr{};
+		hr = sourceVoice->Stop();
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+
+		hr = sourceVoice->FlushSourceBuffers();
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+
+		state = State::Stopping;
+	}
+
+	void ArAudio::Pause()
+	{
+		if(!IsLastAudioQueue()) return;
+
+		HRESULT hr{};
+		hr = sourceVoice->Stop();
+		_ASSERT_EXPR(SUCCEEDED(hr), HrTrace(hr));
+		state = State::Pausing;
 	}
 }

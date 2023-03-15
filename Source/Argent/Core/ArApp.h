@@ -40,8 +40,6 @@ namespace Argent
 			std::unique_ptr<Argent::Window::ArWindow> arWindow{};
 			//std::unique_ptr< Argent::Effect::EffectRenderer > effectRenderer{};
 			std::unique_ptr<Argent::Resource::Effect::ArEffectManager> effectManager{};
-
-			std::unique_ptr<Argent::Audio::ArAudio> demoAudio;
 		};
 	}
 
@@ -54,7 +52,6 @@ namespace Argent
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-
 
 		Argent::Timer::ArTimer::Instance().Tick();
 		Argent::Timer::ArTimer::Instance().CalcFrameTime(hWnd);
